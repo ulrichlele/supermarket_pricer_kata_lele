@@ -12,7 +12,7 @@ public class Basket implements Serializable {
     private String refrence = UUID.randomUUID().toString();
     private List<BasketItem> items = new ArrayList<>(0);
 
-    BigDecimal totalPrice;
+    BigDecimal totalPrice = BigDecimal.ZERO;
 
     public Basket() {
     }

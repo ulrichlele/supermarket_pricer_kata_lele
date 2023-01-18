@@ -15,7 +15,12 @@ public class ProductPricerImpl implements ProductPricer {
     }
     @Override
     public void evaluateBasket(Basket basket) {
-
+        BigDecimal sum = new BigDecimal(0);
+        for (BasketItem item :
+                basket.getItems()) {
+            evaluatePrice(item);
+            basket.setTotalPrice(basket.getTotalPrice().add(item.getPrice()));
+        }
     }
 
 }
