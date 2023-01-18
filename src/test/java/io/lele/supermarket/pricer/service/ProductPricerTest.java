@@ -1,5 +1,6 @@
 package io.lele.supermarket.pricer.service;
 
+import io.lele.supermarket.pricer.model.BasketItem;
 import io.lele.supermarket.pricer.model.Product;
 import io.lele.supermarket.pricer.service.impl.ProductPricerImpl;
 import org.junit.jupiter.api.BeforeAll;
@@ -15,18 +16,23 @@ class ProductPricerTest {
     private static ProductPricer pricer;
 
     private static Product product;
+    private static BasketItem item;
 
     @BeforeAll
     @DisplayName("Initialize products and pricer")
     static void init(){
         pricer = new ProductPricerImpl();
         product = new Product("Table ", new BigDecimal(15));
+        item = new BasketItem(product);
+
     }
 
     @Test
     @DisplayName("Fixed Amount - Should return 45 for 3 products USD15")
     void evaluateProductWithFixPrice45USD(){
-        assertEquals(new BigDecimal(45), pricer.evaluatePrice(product, 3));
+        item.setQuantity(new BigDecimal(3));
+        pricer.evaluatePrice(item);
+        assertEquals(new BigDecimal(45), item.getPrice());
     }
 
 

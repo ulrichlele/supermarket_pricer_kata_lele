@@ -1,6 +1,7 @@
 package io.lele.supermarket.pricer.service.impl;
 
-import io.lele.supermarket.pricer.model.Product;
+import io.lele.supermarket.pricer.model.Basket;
+import io.lele.supermarket.pricer.model.BasketItem;
 import io.lele.supermarket.pricer.service.ProductPricer;
 
 import java.math.BigDecimal;
@@ -8,7 +9,10 @@ import java.math.BigDecimal;
 public class ProductPricerImpl implements ProductPricer {
 
     @Override
-    public BigDecimal evaluatePrice(Product product, int quantity) {
-        return product.getUnitPrice().multiply(new BigDecimal(quantity));
+    public void evaluatePrice(BasketItem item) {
+        BigDecimal price =  item.getProduct().getUnitPrice().multiply(item.getQuantity());
+        item.setPrice(price);
     }
+
+
 }
