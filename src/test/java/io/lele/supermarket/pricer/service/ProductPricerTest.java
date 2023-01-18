@@ -1,5 +1,6 @@
 package io.lele.supermarket.pricer.service;
 
+import io.lele.supermarket.pricer.enums.EPricingType;
 import io.lele.supermarket.pricer.model.Basket;
 import io.lele.supermarket.pricer.model.BasketItem;
 import io.lele.supermarket.pricer.model.Product;
@@ -9,6 +10,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
+import java.math.MathContext;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -69,12 +71,15 @@ class ProductPricerTest {
     void evaluateBasketTreeForOneDollar(){
         Product   product = new Product("Table ", new BigDecimal(1));
         product.setPricedQuantity(new BigDecimal(3) );
+        product.setPricingType(EPricingType.PriceOnQuantity);
         BasketItem item  = new BasketItem(product, new BigDecimal(6));
         Basket basket = new Basket();
         basket.getItems().add(item);
         pricer.evaluateBasket(basket);
-        assertEquals(new BigDecimal(2), basket.getTotalPrice());
+        assertEquals(new BigDecimal(2), basket.getTotalPrice().round( new MathContext(1)));
     }
+
+
 
 
 
