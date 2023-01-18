@@ -13,6 +13,9 @@ public class ProductPricerImpl implements ProductPricer {
         BigDecimal price =  item.getProduct().getUnitPrice().multiply(item.getQuantity());
         item.setPrice(price);
     }
+    @Override
+    public void evaluateBasket(Basket basket) {
 
+    }
 
 }

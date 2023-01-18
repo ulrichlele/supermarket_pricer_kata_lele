@@ -9,5 +9,6 @@ import java.math.BigDecimal;
 public interface ProductPricer {
     void evaluatePrice(BasketItem item);
 
+    void evaluateBasket(Basket basket);
 
 }
