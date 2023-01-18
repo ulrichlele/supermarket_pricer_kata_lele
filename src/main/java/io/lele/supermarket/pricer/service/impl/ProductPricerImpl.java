@@ -9,6 +9,6 @@ public class ProductPricerImpl implements ProductPricer {
 
     @Override
     public BigDecimal evaluatePrice(Product product, int quantity) {
-        return null;
+        return product.getUnitPrice().multiply(new BigDecimal(quantity));
     }
 }

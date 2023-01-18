@@ -2,6 +2,7 @@ package io.lele.supermarket.pricer.model;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.Currency;
 import java.util.Objects;
 import java.util.UUID;
 
