@@ -64,7 +64,17 @@ class ProductPricerTest {
         assertEquals(new BigDecimal(0), basket.getTotalPrice());
     }
 
-
+    @Test
+    @DisplayName("Eval Basket -three-for-one-dollar - exp 2, Qty = 6, UP=1")
+    void evaluateBasketTreeForOneDollar(){
+        Product   product = new Product("Table ", new BigDecimal(1));
+        product.setPricedQuantity(new BigDecimal(3) );
+        BasketItem item  = new BasketItem(product, new BigDecimal(6));
+        Basket basket = new Basket();
+        basket.getItems().add(item);
+        pricer.evaluateBasket(basket);
+        assertEquals(new BigDecimal(2), basket.getTotalPrice());
+    }
 
 
 

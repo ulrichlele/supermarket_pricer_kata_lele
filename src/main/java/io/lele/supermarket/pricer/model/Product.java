@@ -14,6 +14,8 @@ public class Product implements Serializable {
 
     private String currencyCode = "USD";
 
+    private BigDecimal pricedQuantity = BigDecimal.ONE;
+
     public Product(String name, BigDecimal unitPrice) {
         this.name = name;
         this.unitPrice = unitPrice;
@@ -52,6 +54,14 @@ public class Product implements Serializable {
 
     public void setCurrencyCode(String currencyCode) {
         this.currencyCode = currencyCode;
+    }
+
+    public BigDecimal getPricedQuantity() {
+        return pricedQuantity;
+    }
+
+    public void setPricedQuantity(BigDecimal pricedQuantity) {
+        this.pricedQuantity = pricedQuantity;
     }
 
     @Override
