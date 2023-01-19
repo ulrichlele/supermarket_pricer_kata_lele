@@ -1,5 +1,8 @@
 package io.lele.supermarket.pricer.model;
 
+import io.lele.supermarket.pricer.enums.PhysicalQuantity;
+import io.lele.supermarket.pricer.enums.UnitOfMeasurement;
+
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Objects;
@@ -10,6 +13,9 @@ public class BasketItem implements Serializable {
 
     BigDecimal price =  BigDecimal.ZERO;
 
+    UnitOfMeasurement unitOfMeasurement;
+
+    PhysicalQuantity physicalQuantity;
 
     public BasketItem() {
     }

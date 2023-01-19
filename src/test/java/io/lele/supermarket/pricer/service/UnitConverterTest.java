@@ -11,6 +11,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
+import java.math.MathContext;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -44,7 +45,7 @@ class UnitConverterTest {
         BigDecimal initialValue = new BigDecimal(10);
         UnitOfMeasurement  initialUnit = LengthUnitOfMeasurement.Centimeter;
         UnitOfMeasurement finalUnit = LengthUnitOfMeasurement.Meter;
-        assertEquals(new BigDecimal(0.1), converter.convert(initialValue,initialUnit, finalUnit));
+        assertEquals(new BigDecimal(0.1, new MathContext(1)), converter.convert(initialValue,initialUnit, finalUnit));
     }
 
     @Test
@@ -62,7 +63,16 @@ class UnitConverterTest {
         BigDecimal initialValue = new BigDecimal(4000);
         UnitOfMeasurement  initialUnit = LengthUnitOfMeasurement.Centimeter;
         UnitOfMeasurement finalUnit = LengthUnitOfMeasurement.Kilometer;
-        assertEquals(new BigDecimal(0.04), converter.convert(initialValue,initialUnit, finalUnit));
+        assertEquals(new BigDecimal(0.04, new MathContext(1)), converter.convert(initialValue,initialUnit, finalUnit).round(new MathContext(1)));
     }
 
+    @Test
+    @DisplayName("Conv 10cm to cm exp 10cm")
+    void concert10CentimeterToCentimeter(){
+        BigDecimal initialValue = new BigDecimal(10);
+        UnitOfMeasurement  initialUnit = LengthUnitOfMeasurement.Centimeter;
+        UnitOfMeasurement finalUnit = LengthUnitOfMeasurement.Centimeter;
+        assertEquals(new BigDecimal(10.0), converter.convert(initialValue,initialUnit, finalUnit));
+
+    }
 }

@@ -1,6 +1,7 @@
 package io.lele.supermarket.pricer.model;
 
 import io.lele.supermarket.pricer.enums.EPricingType;
+import io.lele.supermarket.pricer.enums.UnitOfMeasurement;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
@@ -20,10 +21,20 @@ public class Product implements Serializable {
 
     private EPricingType pricingType = EPricingType.PricePerItem;
 
+    private UnitOfMeasurement unitOfMeasurement;
+
 
     public Product(String name, BigDecimal unitPrice) {
         this.name = name;
         this.unitPrice = unitPrice;
+    }
+
+    public Product(String name, BigDecimal unitPrice, BigDecimal pricedQuantity, EPricingType pricingType, UnitOfMeasurement unitOfMeasurement) {
+        this.name = name;
+        this.unitPrice = unitPrice;
+        this.pricedQuantity = pricedQuantity;
+        this.pricingType = pricingType;
+        this.unitOfMeasurement = unitOfMeasurement;
     }
 
     public Product() {
@@ -75,6 +86,14 @@ public class Product implements Serializable {
 
     public void setPricingType(EPricingType pricingType) {
         this.pricingType = pricingType;
+    }
+
+    public UnitOfMeasurement getUnitOfMeasurement() {
+        return unitOfMeasurement;
+    }
+
+    public void setUnitOfMeasurement(UnitOfMeasurement unitOfMeasurement) {
+        this.unitOfMeasurement = unitOfMeasurement;
     }
 
     @Override

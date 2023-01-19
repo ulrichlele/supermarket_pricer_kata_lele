@@ -7,4 +7,6 @@ public interface UnitOfMeasurement {
     boolean isSIUnit();
 
     BigDecimal getConversion();
+
+    int order();
 }
