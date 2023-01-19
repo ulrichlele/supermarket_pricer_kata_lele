@@ -8,5 +8,4 @@ public interface UnitOfMeasurement {
 
     BigDecimal getConversion();
 
-    int order();
 }

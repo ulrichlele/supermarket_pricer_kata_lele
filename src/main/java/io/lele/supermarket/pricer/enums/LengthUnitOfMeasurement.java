@@ -1,10 +1,12 @@
-package io.lele.supermarket.pricer.enums;
+package io.lele.supermarket.pricer.model;
+
+import io.lele.supermarket.pricer.enums.UnitOfMeasurement;
 
 import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.Map;
 
-public enum LengthUnitOfMeasurement implements UnitOfMeasurement{
+public enum LengthUnitOfMeasurement implements UnitOfMeasurement {
     Millimeter, Centimeter, Meter, Kilometer;
 
     @Override
@@ -15,11 +17,6 @@ public enum LengthUnitOfMeasurement implements UnitOfMeasurement{
     @Override
     public BigDecimal getConversion() {
         return conversions.get(this);
-    }
-
-    @Override
-    public int order() {
-        return this.ordinal();
     }
 
     private static final Map<LengthUnitOfMeasurement, BigDecimal> conversions;
