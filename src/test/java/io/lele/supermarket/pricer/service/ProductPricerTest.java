@@ -1,5 +1,6 @@
 package io.lele.supermarket.pricer.service;
 
+import io.lele.supermarket.pricer.enums.MassUnitOfMeasurement;
 import io.lele.supermarket.pricer.enums.PricingType;
 import io.lele.supermarket.pricer.enums.LengthUnitOfMeasurement;
 import io.lele.supermarket.pricer.enums.PhysicalQuantity;
@@ -149,6 +150,55 @@ class ProductPricerTest {
     }
 
 
+    //Mass pricing
+
+
+
+    @Test
+    @DisplayName("Eval Basket - Length pricing - exp 18, Qty = 6g, UP=3")
+    void evaluateBasket6gOfTomatoPriced3USDPerGram(){
+        Product   product = new Product("Tissue ", new BigDecimal(3), null, PricingType.PricePerUnitOfMeasurement, MassUnitOfMeasurement.Gram);
+        BasketItem item  = new BasketItem(product, new BigDecimal(6), PhysicalQuantity.Mass, MassUnitOfMeasurement.Gram);
+        Basket basket = new Basket();
+        basket.getItems().add(item);
+        try {
+            pricer.evaluateBasket(basket);
+            assertEquals(new BigDecimal(18), basket.getTotalPrice());
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Test
+    @DisplayName("Eval Basket - Length pricing - exp 1.2, Qty = 40mg, UP=3")
+    void evaluateBasket40mgOfTissuePriced3USDPerGram(){
+        Product   product = new Product("Tissue ", new BigDecimal(3), null, PricingType.PricePerUnitOfMeasurement, MassUnitOfMeasurement.Gram);
+        BasketItem item  = new BasketItem(product, new BigDecimal(40), PhysicalQuantity.Mass, MassUnitOfMeasurement.Milligram);
+        Basket basket = new Basket();
+        basket.getItems().add(item);
+        try {
+            pricer.evaluateBasket(basket);
+            assertEquals(new BigDecimal(0.12, new MathContext(2)), basket.getTotalPrice());
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+
+    @Test
+    @DisplayName("Eval Basket - Length pricing - exp 1500, Qty = 0.5kg, UP=3")
+    void evaluateBasketHalfkgOfTissuePriced3USDPerGram(){
+        Product   product = new Product("Tissue ", new BigDecimal(3), null, PricingType.PricePerUnitOfMeasurement, MassUnitOfMeasurement.Gram);
+        BasketItem item  = new BasketItem(product, new BigDecimal(0.5, new MathContext(0)), PhysicalQuantity.Mass, MassUnitOfMeasurement.Kilogram);
+        Basket basket = new Basket();
+        basket.getItems().add(item);
+        try {
+            pricer.evaluateBasket(basket);
+            assertEquals(new BigDecimal(1500), basket.getTotalPrice());
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
 
 
 }
