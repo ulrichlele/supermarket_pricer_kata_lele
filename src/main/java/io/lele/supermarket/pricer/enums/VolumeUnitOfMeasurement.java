@@ -6,12 +6,12 @@ import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.Map;
 
-public enum MassUnitOfMeasurement implements UnitOfMeasurement {
-    Milligram, Gram, Kilogram;
+public enum VolumeUnitOfMeasurement implements UnitOfMeasurement {
+    Millilitre, Litre, Kilolitre;
 
     @Override
     public boolean isSIUnit() {
-        return this.equals(Gram) ? true : false;
+        return this.equals(Litre) ? true : false;
     }
 
     @Override
@@ -19,12 +19,12 @@ public enum MassUnitOfMeasurement implements UnitOfMeasurement {
         return conversions.get(this);
     }
 
-    private static final Map<MassUnitOfMeasurement, BigDecimal> conversions;
+    private static final Map<VolumeUnitOfMeasurement, BigDecimal> conversions;
 
     static {
         conversions = new HashMap<>();
-        conversions.put(Milligram, new BigDecimal(1000));
-        conversions.put(Gram, new BigDecimal(1));
-        conversions.put(Kilogram, new BigDecimal(0.001 ));
+        conversions.put(Millilitre, new BigDecimal(1000));
+        conversions.put(Litre, new BigDecimal(1));
+        conversions.put(Kilolitre, new BigDecimal(0.001 ));
     }
 }

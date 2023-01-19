@@ -1,9 +1,6 @@
 package io.lele.supermarket.pricer.service;
 
-import io.lele.supermarket.pricer.enums.MassUnitOfMeasurement;
-import io.lele.supermarket.pricer.enums.PricingType;
-import io.lele.supermarket.pricer.enums.LengthUnitOfMeasurement;
-import io.lele.supermarket.pricer.enums.PhysicalQuantity;
+import io.lele.supermarket.pricer.enums.*;
 import io.lele.supermarket.pricer.model.Basket;
 import io.lele.supermarket.pricer.model.BasketItem;
 import io.lele.supermarket.pricer.model.Product;
@@ -150,12 +147,9 @@ class ProductPricerTest {
     }
 
 
-    //Mass pricing
-
-
-
+    //-------------Mass pricing
     @Test
-    @DisplayName("Eval Basket - Length pricing - exp 18, Qty = 6g, UP=3")
+    @DisplayName("Eval Basket - Mass pricing - exp 18, Qty = 6g, UP=3")
     void evaluateBasket6gOfTomatoPriced3USDPerGram(){
         Product   product = new Product("Tissue ", new BigDecimal(3), null, PricingType.PricePerUnitOfMeasurement, MassUnitOfMeasurement.Gram);
         BasketItem item  = new BasketItem(product, new BigDecimal(6), PhysicalQuantity.Mass, MassUnitOfMeasurement.Gram);
@@ -170,7 +164,7 @@ class ProductPricerTest {
     }
 
     @Test
-    @DisplayName("Eval Basket - Length pricing - exp 1.2, Qty = 40mg, UP=3")
+    @DisplayName("Eval Basket - Mass pricing - exp 1.2, Qty = 40mg, UP=3")
     void evaluateBasket40mgOfTissuePriced3USDPerGram(){
         Product   product = new Product("Tissue ", new BigDecimal(3), null, PricingType.PricePerUnitOfMeasurement, MassUnitOfMeasurement.Gram);
         BasketItem item  = new BasketItem(product, new BigDecimal(40), PhysicalQuantity.Mass, MassUnitOfMeasurement.Milligram);
@@ -186,7 +180,7 @@ class ProductPricerTest {
 
 
     @Test
-    @DisplayName("Eval Basket - Length pricing - exp 1500, Qty = 0.5kg, UP=3")
+    @DisplayName("Eval Basket - Mass pricing - exp 1500, Qty = 0.5kg, UP=3")
     void evaluateBasketHalfkgOfTissuePriced3USDPerGram(){
         Product   product = new Product("Tissue ", new BigDecimal(3), null, PricingType.PricePerUnitOfMeasurement, MassUnitOfMeasurement.Gram);
         BasketItem item  = new BasketItem(product, new BigDecimal(0.5, new MathContext(0)), PhysicalQuantity.Mass, MassUnitOfMeasurement.Kilogram);
@@ -200,5 +194,100 @@ class ProductPricerTest {
         }
     }
 
+    //-------------Area pricing
 
+    @Test
+    @DisplayName("Eval Basket - Area pricing - exp 18, Qty = 6msq, UP=3")
+    void evaluateBasket6msqOfTissuePriced3USDPerMetterSq(){
+        Product   product = new Product("Tissue ", new BigDecimal(3), null, PricingType.PricePerUnitOfMeasurement, AreaUnitOfMeasurement.MeterSquare);
+        BasketItem item  = new BasketItem(product, new BigDecimal(6), PhysicalQuantity.Mass, AreaUnitOfMeasurement.MeterSquare);
+        Basket basket = new Basket();
+        basket.getItems().add(item);
+        try {
+            pricer.evaluateBasket(basket);
+            assertEquals(new BigDecimal(18), basket.getTotalPrice());
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Test
+    @DisplayName("Eval Basket - Area pricing - exp 1.2, Qty = 40cmsq, UP=3")
+    void evaluateBasket40cmsqOfTissuePriced3USDPerMetterSq(){
+        Product   product = new Product("Tissue ", new BigDecimal(3), null, PricingType.PricePerUnitOfMeasurement, AreaUnitOfMeasurement.MeterSquare);
+        BasketItem item  = new BasketItem(product, new BigDecimal(40), PhysicalQuantity.Mass, AreaUnitOfMeasurement.CentimeterSquare);
+        Basket basket = new Basket();
+        basket.getItems().add(item);
+        try {
+            pricer.evaluateBasket(basket);
+            assertEquals(new BigDecimal(1.2, new MathContext(2)), basket.getTotalPrice());
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+
+    @Test
+    @DisplayName("Eval Basket - Area pricing - exp 1500, Qty = 0.5kmsq, UP=3")
+    void evaluateBasketHalfkmsqOfTissuePriced3USDPerMettersq(){
+        Product   product = new Product("Tissue ", new BigDecimal(3), null, PricingType.PricePerUnitOfMeasurement, AreaUnitOfMeasurement.MeterSquare);
+        BasketItem item  = new BasketItem(product, new BigDecimal(0.5, new MathContext(0)), PhysicalQuantity.Mass, AreaUnitOfMeasurement.KilometerSquare);
+        Basket basket = new Basket();
+        basket.getItems().add(item);
+        try {
+            pricer.evaluateBasket(basket);
+            assertEquals(new BigDecimal(1500), basket.getTotalPrice());
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+
+
+    //-------------Volume pricing
+    @Test
+    @DisplayName("Eval Basket - Volume pricing - exp 18, Qty = 6l, UP=3")
+    void evaluateBasket6lOfTomatoPriced3USDPerLitre(){
+        Product   product = new Product("Tissue ", new BigDecimal(3), null, PricingType.PricePerUnitOfMeasurement, VolumeUnitOfMeasurement.Litre);
+        BasketItem item  = new BasketItem(product, new BigDecimal(6), PhysicalQuantity.Volume, VolumeUnitOfMeasurement.Litre);
+        Basket basket = new Basket();
+        basket.getItems().add(item);
+        try {
+            pricer.evaluateBasket(basket);
+            assertEquals(new BigDecimal(18), basket.getTotalPrice());
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Test
+    @DisplayName("Eval Basket - Volume pricing - exp 1.2, Qty = 40ml, UP=3")
+    void evaluateBasket40mlOfTissuePriced3USDPerLitre(){
+        Product   product = new Product("Tissue ", new BigDecimal(3), null, PricingType.PricePerUnitOfMeasurement, VolumeUnitOfMeasurement.Litre);
+        BasketItem item  = new BasketItem(product, new BigDecimal(40), PhysicalQuantity.Volume, VolumeUnitOfMeasurement.Millilitre);
+        Basket basket = new Basket();
+        basket.getItems().add(item);
+        try {
+            pricer.evaluateBasket(basket);
+            assertEquals(new BigDecimal(0.12, new MathContext(2)), basket.getTotalPrice());
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+
+    @Test
+    @DisplayName("Eval Basket - Volume pricing - exp 1500, Qty = 0.5kl, UP=3")
+    void evaluateBasketHalfklOfTissuePriced3USDPerLitre(){
+        Product   product = new Product("Tissue ", new BigDecimal(3), null, PricingType.PricePerUnitOfMeasurement, VolumeUnitOfMeasurement.Litre);
+        BasketItem item  = new BasketItem(product, new BigDecimal(0.5, new MathContext(0)), PhysicalQuantity.Volume, VolumeUnitOfMeasurement.Kilolitre);
+        Basket basket = new Basket();
+        basket.getItems().add(item);
+        try {
+            pricer.evaluateBasket(basket);
+            assertEquals(new BigDecimal(1500), basket.getTotalPrice());
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
 }

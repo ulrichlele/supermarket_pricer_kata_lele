@@ -6,12 +6,12 @@ import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.Map;
 
-public enum LengthUnitOfMeasurement implements UnitOfMeasurement {
-    Millimeter, Centimeter, Meter, Kilometer;
+public enum AreaUnitOfMeasurement implements UnitOfMeasurement {
+    MillimeterSquare, CentimeterSquare, MeterSquare, KilometerSquare;
 
     @Override
     public boolean isSIUnit() {
-        return this.equals(Meter) ? true : false;
+        return this.equals(MeterSquare) ? true : false;
     }
 
     @Override
@@ -19,13 +19,13 @@ public enum LengthUnitOfMeasurement implements UnitOfMeasurement {
         return conversions.get(this);
     }
 
-    private static final Map<LengthUnitOfMeasurement, BigDecimal> conversions;
+    private static final Map<AreaUnitOfMeasurement, BigDecimal> conversions;
 
     static {
         conversions = new HashMap<>();
-        conversions.put(Millimeter, new BigDecimal(1000));
-        conversions.put(Centimeter, new BigDecimal(100));
-        conversions.put(Meter, new BigDecimal(1));
-        conversions.put(Kilometer, new BigDecimal(0.001 ));
+        conversions.put(MillimeterSquare, new BigDecimal(1000));
+        conversions.put(CentimeterSquare, new BigDecimal(100));
+        conversions.put(MeterSquare, new BigDecimal(1));
+        conversions.put(KilometerSquare, new BigDecimal(0.001 ));
     }
 }
