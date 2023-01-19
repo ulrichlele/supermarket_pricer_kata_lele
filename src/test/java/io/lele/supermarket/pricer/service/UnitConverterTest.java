@@ -1,11 +1,8 @@
 package io.lele.supermarket.pricer.service;
 
 import io.lele.supermarket.pricer.enums.LengthUnitOfMeasurement;
-import io.lele.supermarket.pricer.enums.UnitOfMeasurement;
-import io.lele.supermarket.pricer.model.BasketItem;
-import io.lele.supermarket.pricer.model.Product;
+import io.lele.supermarket.pricer.model.UnitOfMeasurement;
 import io.lele.supermarket.pricer.service.impl.DefaultUnitConverterImpl;
-import io.lele.supermarket.pricer.service.impl.ProductPricerImpl;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

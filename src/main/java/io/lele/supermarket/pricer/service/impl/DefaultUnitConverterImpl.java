@@ -1,6 +1,6 @@
 package io.lele.supermarket.pricer.service.impl;
 
-import io.lele.supermarket.pricer.enums.UnitOfMeasurement;
+import io.lele.supermarket.pricer.model.UnitOfMeasurement;
 import io.lele.supermarket.pricer.service.UnitConverter;
 
 import java.math.BigDecimal;
@@ -13,17 +13,12 @@ public class DefaultUnitConverterImpl implements UnitConverter {
         if (initialUnit.equals(finalUnit)) {
             converted = initialValue;
         } else if (initialUnit.isSIUnit()) {
-            if(initialUnit.order() > finalUnit.order())
-                converted = initialValue.divide(finalUnit.getConversion());
-            converted = initialValue.multiply(finalUnit.getConversion());
+                converted = initialValue.multiply(finalUnit.getConversion(), MathContext.DECIMAL64);
         } else if (finalUnit.isSIUnit()) {
-            if(initialUnit.order() > finalUnit.order())
-                converted = initialValue.multiply(initialUnit.getConversion());
-            converted = initialValue.divide(initialUnit.getConversion());
+            converted = initialValue.divide(initialUnit.getConversion(), MathContext.DECIMAL64);
         } else {
-            if(initialUnit.order() > finalUnit.order())
-                converted = initialValue.multiply(initialUnit.getConversion()).divide(finalUnit.getConversion());
-            converted = initialValue.divide(initialUnit.getConversion()).multiply(finalUnit.getConversion());
+                BigDecimal convertedToSIUnit = initialValue.divide(initialUnit.getConversion(), MathContext.DECIMAL64);
+                converted = convertedToSIUnit.multiply(finalUnit.getConversion(), MathContext.DECIMAL64);
         }
         return converted;
     }

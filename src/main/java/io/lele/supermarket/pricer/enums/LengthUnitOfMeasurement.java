@@ -1,6 +1,6 @@
-package io.lele.supermarket.pricer.model;
+package io.lele.supermarket.pricer.enums;
 
-import io.lele.supermarket.pricer.enums.UnitOfMeasurement;
+import io.lele.supermarket.pricer.model.UnitOfMeasurement;
 
 import java.math.BigDecimal;
 import java.util.HashMap;

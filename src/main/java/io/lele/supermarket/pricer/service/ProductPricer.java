@@ -7,8 +7,8 @@ import io.lele.supermarket.pricer.model.Product;
 import java.math.BigDecimal;
 
 public interface ProductPricer {
-    void evaluatePrice(BasketItem item);
+    void evaluatePrice(BasketItem item) throws Exception;
 
-    void evaluateBasket(Basket basket);
+    void evaluateBasket(Basket basket) throws Exception;
 
 }

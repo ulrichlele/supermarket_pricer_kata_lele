@@ -1,4 +1,4 @@
-package io.lele.supermarket.pricer.enums;
+package io.lele.supermarket.pricer.model;
 
 import java.math.BigDecimal;
 

@@ -1,7 +1,6 @@
 package io.lele.supermarket.pricer.model;
 
 import io.lele.supermarket.pricer.enums.PhysicalQuantity;
-import io.lele.supermarket.pricer.enums.UnitOfMeasurement;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
