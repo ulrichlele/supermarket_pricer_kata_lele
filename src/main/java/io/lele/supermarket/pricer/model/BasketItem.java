@@ -10,12 +10,10 @@ import java.util.Objects;
 public class BasketItem implements Serializable {
     Product product;
     BigDecimal quantity =  BigDecimal.ZERO;
-
-    BigDecimal price =  BigDecimal.ZERO;
-
+    PhysicalQuantity physicalQuantity;
     UnitOfMeasurement unitOfMeasurement;
 
-    PhysicalQuantity physicalQuantity;
+    BigDecimal price =  BigDecimal.ZERO;
 
     public BasketItem() {
     }
@@ -27,6 +25,13 @@ public class BasketItem implements Serializable {
     public BasketItem(Product product, BigDecimal quantity) {
         this.product = product;
         this.quantity = quantity;
+    }
+
+    public BasketItem(Product product, BigDecimal quantity, PhysicalQuantity physicalQuantity, UnitOfMeasurement unitOfMeasurement) {
+        this.product = product;
+        this.quantity = quantity;
+        this.physicalQuantity = physicalQuantity;
+        this.unitOfMeasurement = unitOfMeasurement;
     }
 
     public Product getProduct() {
@@ -43,6 +48,22 @@ public class BasketItem implements Serializable {
 
     public void setQuantity(BigDecimal quantity) {
         this.quantity = quantity;
+    }
+
+    public PhysicalQuantity getPhysicalQuantity() {
+        return physicalQuantity;
+    }
+
+    public void setPhysicalQuantity(PhysicalQuantity physicalQuantity) {
+        this.physicalQuantity = physicalQuantity;
+    }
+
+    public UnitOfMeasurement getUnitOfMeasurement() {
+        return unitOfMeasurement;
+    }
+
+    public void setUnitOfMeasurement(UnitOfMeasurement unitOfMeasurement) {
+        this.unitOfMeasurement = unitOfMeasurement;
     }
 
     public BigDecimal getPrice() {

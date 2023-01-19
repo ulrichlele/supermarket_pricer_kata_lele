@@ -1,6 +1,8 @@
 package io.lele.supermarket.pricer.service;
 
 import io.lele.supermarket.pricer.enums.EPricingType;
+import io.lele.supermarket.pricer.enums.LengthUnitOfMeasurement;
+import io.lele.supermarket.pricer.enums.PhysicalQuantity;
 import io.lele.supermarket.pricer.model.Basket;
 import io.lele.supermarket.pricer.model.BasketItem;
 import io.lele.supermarket.pricer.model.Product;
@@ -79,6 +81,40 @@ class ProductPricerTest {
         assertEquals(new BigDecimal(2), basket.getTotalPrice().round( new MathContext(1)));
     }
 
+
+    @Test
+    @DisplayName("Eval Basket - Length pricing - exp 18, Qty = 6m, UP=3")
+    void evaluateBasket6mOfTissuePriced3USDPerMetter(){
+        Product   product = new Product("Tissue ", new BigDecimal(3), null, EPricingType.PricePerUnitOfMeasurement, LengthUnitOfMeasurement.Meter);
+        BasketItem item  = new BasketItem(product, new BigDecimal(6), PhysicalQuantity.Length, LengthUnitOfMeasurement.Meter);
+        Basket basket = new Basket();
+        basket.getItems().add(item);
+        pricer.evaluateBasket(basket);
+        assertEquals(new BigDecimal(18), basket.getTotalPrice().round( new MathContext(1)));
+    }
+
+    @Test
+    @DisplayName("Eval Basket - Length pricing - exp 1.2, Qty = 40cm, UP=3")
+    void evaluateBasket40cmOfTissuePriced3USDPerMetter(){
+        Product   product = new Product("Tissue ", new BigDecimal(3), null, EPricingType.PricePerUnitOfMeasurement, LengthUnitOfMeasurement.Meter);
+        BasketItem item  = new BasketItem(product, new BigDecimal(40), PhysicalQuantity.Length, LengthUnitOfMeasurement.Centimeter);
+        Basket basket = new Basket();
+        basket.getItems().add(item);
+        pricer.evaluateBasket(basket);
+        assertEquals(new BigDecimal(1.2), basket.getTotalPrice().round( new MathContext(1)));
+    }
+
+
+    @Test
+    @DisplayName("Eval Basket - Length pricing - exp 1500, Qty = 0.5km, UP=3")
+    void evaluateBasketHalfkmOfTissuePriced3USDPerMetter(){
+        Product   product = new Product("Tissue ", new BigDecimal(3), null, EPricingType.PricePerUnitOfMeasurement, LengthUnitOfMeasurement.Meter);
+        BasketItem item  = new BasketItem(product, new BigDecimal(0.5), PhysicalQuantity.Length, LengthUnitOfMeasurement.Kilometer);
+        Basket basket = new Basket();
+        basket.getItems().add(item);
+        pricer.evaluateBasket(basket);
+        assertEquals(new BigDecimal(1500), basket.getTotalPrice().round( new MathContext(1)));
+    }
 
 
 
