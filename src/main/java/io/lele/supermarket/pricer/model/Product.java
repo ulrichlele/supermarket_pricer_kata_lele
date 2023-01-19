@@ -1,10 +1,9 @@
 package io.lele.supermarket.pricer.model;
 
-import io.lele.supermarket.pricer.enums.EPricingType;
+import io.lele.supermarket.pricer.enums.PricingType;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.util.Currency;
 import java.util.Objects;
 import java.util.UUID;
 
@@ -18,12 +17,22 @@ public class Product implements Serializable {
 
     private BigDecimal pricedQuantity = BigDecimal.ONE;
 
-    private EPricingType pricingType = EPricingType.PricePerItem;
+    private PricingType pricingType = PricingType.PricePerItem;
+
+    private UnitOfMeasurement unitOfMeasurement;
 
 
     public Product(String name, BigDecimal unitPrice) {
         this.name = name;
         this.unitPrice = unitPrice;
+    }
+
+    public Product(String name, BigDecimal unitPrice, BigDecimal pricedQuantity, PricingType pricingType, UnitOfMeasurement unitOfMeasurement) {
+        this.name = name;
+        this.unitPrice = unitPrice;
+        this.pricedQuantity = pricedQuantity;
+        this.pricingType = pricingType;
+        this.unitOfMeasurement = unitOfMeasurement;
     }
 
     public Product() {
@@ -69,12 +78,20 @@ public class Product implements Serializable {
         this.pricedQuantity = pricedQuantity;
     }
 
-    public EPricingType getPricingType() {
+    public PricingType getPricingType() {
         return pricingType;
     }
 
-    public void setPricingType(EPricingType pricingType) {
+    public void setPricingType(PricingType pricingType) {
         this.pricingType = pricingType;
+    }
+
+    public UnitOfMeasurement getUnitOfMeasurement() {
+        return unitOfMeasurement;
+    }
+
+    public void setUnitOfMeasurement(UnitOfMeasurement unitOfMeasurement) {
+        this.unitOfMeasurement = unitOfMeasurement;
     }
 
     @Override

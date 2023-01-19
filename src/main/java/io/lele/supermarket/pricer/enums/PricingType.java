@@ -1,5 +1,5 @@
 package io.lele.supermarket.pricer.enums;
 
-public enum EPricingType {
+public enum PricingType {
     PricePerItem, PriceOnQuantity , PricePerUnitOfMeasurement ;
 }
