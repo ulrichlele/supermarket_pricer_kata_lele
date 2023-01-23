@@ -6,7 +6,7 @@ import io.lele.supermarket.pricer.service.UnitConverter;
 import java.math.BigDecimal;
 import java.math.MathContext;
 
-public class DefaultUnitConverterImpl implements UnitConverter {
+public class DefaultUnitConverterProvider implements UnitConverter {
 
     public static final MathContext DEFAULT_PRECISION   = MathContext.DECIMAL64;
 

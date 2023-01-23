@@ -9,9 +9,9 @@ import io.lele.supermarket.pricer.service.UnitConverter;
 import java.math.BigDecimal;
 import java.math.MathContext;
 
-public class ProductPricerImpl implements ProductPricer {
+public class ProductPricerProvider implements ProductPricer {
 
-    private UnitConverter converter = new DefaultUnitConverterImpl();
+    private UnitConverter converter = new DefaultUnitConverterProvider();
 
     private static final MathContext PRICE_ROUNDING  = new MathContext(2);
 
@@ -38,7 +38,6 @@ public class ProductPricerImpl implements ProductPricer {
                         throw new IncompatibleUnitsException("Incompatible Unit of measurement");
                     }
                     break;
-
             }
             price = price.round(PRICE_ROUNDING);
             item.setPrice(price);

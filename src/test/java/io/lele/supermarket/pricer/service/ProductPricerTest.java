@@ -4,7 +4,7 @@ import io.lele.supermarket.pricer.enums.*;
 import io.lele.supermarket.pricer.model.Basket;
 import io.lele.supermarket.pricer.model.BasketItem;
 import io.lele.supermarket.pricer.model.Product;
-import io.lele.supermarket.pricer.service.impl.ProductPricerImpl;
+import io.lele.supermarket.pricer.service.impl.ProductPricerProvider;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -22,7 +22,7 @@ class ProductPricerTest {
     @BeforeAll
     @DisplayName("Initialize products and pricer")
     static void init(){
-        pricer = new ProductPricerImpl();
+        pricer = new ProductPricerProvider();
     }
 
     @Test
