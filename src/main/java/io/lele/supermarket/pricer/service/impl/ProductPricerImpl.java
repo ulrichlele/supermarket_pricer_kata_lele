@@ -1,5 +1,6 @@
 package io.lele.supermarket.pricer.service.impl;
 
+import io.lele.supermarket.pricer.exceptions.IncompatibleUnitsException;
 import io.lele.supermarket.pricer.model.Basket;
 import io.lele.supermarket.pricer.model.BasketItem;
 import io.lele.supermarket.pricer.service.ProductPricer;
@@ -7,7 +8,6 @@ import io.lele.supermarket.pricer.service.UnitConverter;
 
 import java.math.BigDecimal;
 import java.math.MathContext;
-import java.math.RoundingMode;
 
 public class ProductPricerImpl implements ProductPricer {
 
@@ -35,7 +35,7 @@ public class ProductPricerImpl implements ProductPricer {
                             price =  convertedQty.multiply(item.getProduct().getUnitPrice());
                         }
                     }else{
-                        throw new Exception("Incompatible Unit Of Measurement");
+                        throw new IncompatibleUnitsException("Incompatible Unit of measurement");
                     }
                     break;
 
