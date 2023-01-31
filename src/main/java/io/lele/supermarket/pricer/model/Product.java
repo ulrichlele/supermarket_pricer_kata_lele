@@ -21,6 +21,8 @@ public class Product implements Serializable {
 
     private UnitOfMeasurement unitOfMeasurement;
 
+    private Promotion promotion;
+
 
     public Product(String name, BigDecimal unitPrice) {
         this.name = name;
@@ -92,6 +94,14 @@ public class Product implements Serializable {
 
     public void setUnitOfMeasurement(UnitOfMeasurement unitOfMeasurement) {
         this.unitOfMeasurement = unitOfMeasurement;
+    }
+
+    public Promotion getPromotion() {
+        return promotion;
+    }
+
+    public void setPromotion(Promotion promotion) {
+        this.promotion = promotion;
     }
 
     @Override

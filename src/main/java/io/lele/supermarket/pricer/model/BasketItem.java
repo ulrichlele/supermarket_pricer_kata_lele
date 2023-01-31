@@ -7,6 +7,9 @@ import java.math.BigDecimal;
 import java.util.Objects;
 
 public class BasketItem implements Serializable {
+
+    Basket basket;
+
     Product product;
     BigDecimal quantity =  BigDecimal.ZERO;
     PhysicalQuantity physicalQuantity;
@@ -17,16 +20,19 @@ public class BasketItem implements Serializable {
     public BasketItem() {
     }
 
-    public BasketItem(Product product) {
+    public BasketItem(Basket basket, Product product) {
+        this.basket = basket;
         this.product = product;
     }
 
-    public BasketItem(Product product, BigDecimal quantity) {
+    public BasketItem(Basket basket, Product product, BigDecimal quantity) {
+        this.basket = basket;
         this.product = product;
         this.quantity = quantity;
     }
 
-    public BasketItem(Product product, BigDecimal quantity, PhysicalQuantity physicalQuantity, UnitOfMeasurement unitOfMeasurement) {
+    public BasketItem(Basket basket, Product product, BigDecimal quantity, PhysicalQuantity physicalQuantity, UnitOfMeasurement unitOfMeasurement) {
+        this.basket = basket;
         this.product = product;
         this.quantity = quantity;
         this.physicalQuantity = physicalQuantity;
@@ -78,11 +84,11 @@ public class BasketItem implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         BasketItem that = (BasketItem) o;
-        return getProduct().equals(that.getProduct());
+        return Objects.equals(basket, that.basket) && Objects.equals(getProduct(), that.getProduct());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getProduct());
+        return Objects.hash(basket, getProduct());
     }
 }
