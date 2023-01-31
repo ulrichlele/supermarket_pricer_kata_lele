@@ -1,5 +1,6 @@
 package io.lele.supermarket.pricer.service;
 
+import io.lele.supermarket.pricer.exceptions.IncompatibleUnitsException;
 import io.lele.supermarket.pricer.model.Basket;
 import io.lele.supermarket.pricer.model.BasketItem;
 
@@ -14,7 +15,7 @@ public class BasketService {
 
 
    // @Override
-    public void evaluatePrice(Basket basket) throws Exception {
+    public void evaluatePrice(Basket basket) throws IncompatibleUnitsException {
         BigDecimal sum = new BigDecimal(0);
         for (BasketItem item :
                 basket.getItems()) {

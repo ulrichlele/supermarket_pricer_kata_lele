@@ -14,7 +14,7 @@ public class ProductService  {
     private static final MathContext PRICE_ROUNDING  = new MathContext(2);
 
 
-    public void evaluatePrice(BasketItem item) throws Exception{
+    public void evaluatePrice(BasketItem item) throws IncompatibleUnitsException{
         if (item.getProduct() != null && item.getProduct().getPricingType() != null) {
             BigDecimal price = BigDecimal.ZERO;
             switch (item.getProduct().getPricingType()) {
@@ -32,8 +32,10 @@ public class ProductService  {
                             BigDecimal convertedQty = converter.convert(item.getQuantity(), item.getUnitOfMeasurement(), item.getProduct().getUnitOfMeasurement());
                             price =  convertedQty.multiply(item.getProduct().getUnitPrice());
                         }
-                    }else{
-                        throw new IncompatibleUnitsException("Incompatible Unit of measurement");
+                    }else{                        String basketItemUnit = item.getProduct().getUnitOfMeasurement().getClass().getName();
+                        String productUnit = item.getUnitOfMeasurement().getClass().getName();
+                        String message = String.format("BasketItem unit : %s; Product unit: %s",basketItemUnit,  productUnit);
+                        throw new IncompatibleUnitsException(message);
                     }
                     break;
             }
