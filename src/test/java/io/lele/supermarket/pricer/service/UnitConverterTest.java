@@ -33,7 +33,7 @@ class UnitConverterTest {
     @DisplayName("Should return a conversion of 1 as Meter is Si unit of length")
     void OneIsConversionOfMeterAsSIUnitOfLength(){
         UnitOfMeasurement unit = LengthUnitOfMeasurement.Meter;
-        assertEquals(BigDecimal.ONE, unit.getConversion());
+        assertEquals(BigDecimal.ONE, unit.getValue());
     }
 
     @Test
