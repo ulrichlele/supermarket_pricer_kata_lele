@@ -1,21 +1,19 @@
-package io.lele.supermarket.pricer.service.impl;
+package io.lele.supermarket.pricer.service;
 
 import io.lele.supermarket.pricer.exceptions.IncompatibleUnitsException;
-import io.lele.supermarket.pricer.model.Basket;
 import io.lele.supermarket.pricer.model.BasketItem;
-import io.lele.supermarket.pricer.service.ProductPricer;
-import io.lele.supermarket.pricer.service.UnitConverter;
+import io.lele.supermarket.pricer.service.impl.DefaultUnitConverterService;
 
 import java.math.BigDecimal;
 import java.math.MathContext;
 
-public class ProductPricerProvider implements ProductPricer {
+public class ProductService  {
 
-    private UnitConverter converter = new DefaultUnitConverterProvider();
+    private UnitConverter converter = new DefaultUnitConverterService();
 
     private static final MathContext PRICE_ROUNDING  = new MathContext(2);
 
-    @Override
+
     public void evaluatePrice(BasketItem item) throws Exception{
         if (item.getProduct() != null && item.getProduct().getPricingType() != null) {
             BigDecimal price = BigDecimal.ZERO;
@@ -41,16 +39,6 @@ public class ProductPricerProvider implements ProductPricer {
             }
             price = price.round(PRICE_ROUNDING);
             item.setPrice(price);
-        }
-    }
-
-    @Override
-    public void evaluateBasket(Basket basket) throws Exception {
-        BigDecimal sum = new BigDecimal(0);
-        for (BasketItem item :
-                basket.getItems()) {
-            evaluatePrice(item);
-            basket.setTotalPrice(basket.getTotalPrice().add(item.getPrice()));
         }
     }
 

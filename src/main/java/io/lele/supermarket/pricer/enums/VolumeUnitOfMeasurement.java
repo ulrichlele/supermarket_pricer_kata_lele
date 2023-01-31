@@ -7,7 +7,13 @@ import java.util.HashMap;
 import java.util.Map;
 
 public enum VolumeUnitOfMeasurement implements UnitOfMeasurement {
-    Millilitre, Litre, Kilolitre;
+    Millilitre(new BigDecimal(1000)), Litre(new BigDecimal(1)), Kilolitre( new BigDecimal(0.001 ));
+
+    public final  BigDecimal value;
+
+    VolumeUnitOfMeasurement(BigDecimal value){
+        this.value = value;
+    }
 
     @Override
     public boolean isSIUnit() {
@@ -15,16 +21,7 @@ public enum VolumeUnitOfMeasurement implements UnitOfMeasurement {
     }
 
     @Override
-    public BigDecimal getConversion() {
-        return conversions.get(this);
-    }
-
-    private static final Map<VolumeUnitOfMeasurement, BigDecimal> conversions;
-
-    static {
-        conversions = new HashMap<>();
-        conversions.put(Millilitre, new BigDecimal(1000));
-        conversions.put(Litre, new BigDecimal(1));
-        conversions.put(Kilolitre, new BigDecimal(0.001 ));
+    public BigDecimal getValue() {
+        return value;
     }
 }

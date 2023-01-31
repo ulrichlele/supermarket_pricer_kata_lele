@@ -6,9 +6,9 @@ import io.lele.supermarket.pricer.service.UnitConverter;
 import java.math.BigDecimal;
 import java.math.MathContext;
 
-public class DefaultUnitConverterProvider implements UnitConverter {
+public class DefaultUnitConverterService implements UnitConverter {
 
-    public static final MathContext DEFAULT_PRECISION   = MathContext.DECIMAL64;
+    public static final MathContext DEFAULT_PRECISION = MathContext.DECIMAL64;
 
     @Override
     public <T extends UnitOfMeasurement> BigDecimal convert(BigDecimal initialValue, T initialUnit, T finalUnit) {
@@ -16,12 +16,12 @@ public class DefaultUnitConverterProvider implements UnitConverter {
         if (initialUnit.equals(finalUnit)) {
             converted = initialValue;
         } else if (initialUnit.isSIUnit()) {
-                converted = initialValue.multiply(finalUnit.getConversion(), DEFAULT_PRECISION);
+                converted = initialValue.multiply(finalUnit.getValue(), DEFAULT_PRECISION);
         } else if (finalUnit.isSIUnit()) {
-            converted = initialValue.divide(initialUnit.getConversion(), DEFAULT_PRECISION);
+            converted = initialValue.divide(initialUnit.getValue(), DEFAULT_PRECISION);
         } else {
-                BigDecimal convertedToSIUnit = initialValue.divide(initialUnit.getConversion(), DEFAULT_PRECISION);
-                converted = convertedToSIUnit.multiply(finalUnit.getConversion(), DEFAULT_PRECISION);
+                BigDecimal convertedToSIUnit = initialValue.divide(initialUnit.getValue(), DEFAULT_PRECISION);
+                converted = convertedToSIUnit.multiply(finalUnit.getValue(), DEFAULT_PRECISION);
         }
         return converted;
     }

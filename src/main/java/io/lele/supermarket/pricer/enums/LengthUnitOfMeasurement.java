@@ -7,25 +7,19 @@ import java.util.HashMap;
 import java.util.Map;
 
 public enum LengthUnitOfMeasurement implements UnitOfMeasurement {
-    Millimeter, Centimeter, Meter, Kilometer;
+    Millimeter(new BigDecimal(1000)), Centimeter(new BigDecimal(100)), Meter(new BigDecimal(1)), Kilometer(new BigDecimal(0.001 ));
 
+    public final BigDecimal value;
+
+    LengthUnitOfMeasurement(BigDecimal value){
+        this.value = value;
+    }
     @Override
     public boolean isSIUnit() {
         return this.equals(Meter) ? true : false;
     }
-
     @Override
-    public BigDecimal getConversion() {
-        return conversions.get(this);
-    }
-
-    private static final Map<LengthUnitOfMeasurement, BigDecimal> conversions;
-
-    static {
-        conversions = new HashMap<>();
-        conversions.put(Millimeter, new BigDecimal(1000));
-        conversions.put(Centimeter, new BigDecimal(100));
-        conversions.put(Meter, new BigDecimal(1));
-        conversions.put(Kilometer, new BigDecimal(0.001 ));
+    public BigDecimal getValue() {
+        return value;
     }
 }

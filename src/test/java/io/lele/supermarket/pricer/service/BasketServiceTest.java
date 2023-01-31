@@ -4,7 +4,6 @@ import io.lele.supermarket.pricer.enums.*;
 import io.lele.supermarket.pricer.model.Basket;
 import io.lele.supermarket.pricer.model.BasketItem;
 import io.lele.supermarket.pricer.model.Product;
-import io.lele.supermarket.pricer.service.impl.ProductPricerProvider;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -12,32 +11,19 @@ import org.junit.jupiter.api.Test;
 import java.math.BigDecimal;
 import java.math.MathContext;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-class ProductPricerTest {
+class BasketServiceTest {
 
-    private static ProductPricer pricer;
+    private static BasketService basketService;
 
 
     @BeforeAll
     @DisplayName("Initialize products and pricer")
     static void init(){
-        pricer = new ProductPricerProvider();
+        basketService = new BasketService();
     }
 
-    @Test
-    @DisplayName("Eval BasketItem - Flat Amt- exp 45, Qty = 3, UP=15")
-    void evaluateProductWithFixPrice45USD(){
-        Product   product = new Product("Table ", new BigDecimal(15));
-        Basket basket = new Basket();
-        BasketItem item  = new BasketItem(basket, product, new BigDecimal(3));
-        try {
-            pricer.evaluatePrice(item);
-            assertEquals(new BigDecimal(45), item.getPrice());
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-    }
 
     @Test
     @DisplayName("Eval Basket - Flat Amt - exp 45, Qty = 3, UP=15")
@@ -47,7 +33,7 @@ class ProductPricerTest {
         BasketItem item  = new BasketItem(basket, product, new BigDecimal(3));
         basket.getItems().add(item);
         try {
-            pricer.evaluateBasket(basket);
+            basketService.evaluatePrice(basket);
             assertEquals(new BigDecimal(45), basket.getTotalPrice());
         } catch (Exception e) {
             throw new RuntimeException(e);
@@ -62,7 +48,7 @@ class ProductPricerTest {
         BasketItem item  = new BasketItem(basket, product, new BigDecimal(0));
         basket.getItems().add(item);
         try {
-            pricer.evaluateBasket(basket);
+            basketService.evaluatePrice(basket);
             assertEquals(new BigDecimal(0), basket.getTotalPrice());
         } catch (Exception e) {
             throw new RuntimeException(e);
@@ -76,7 +62,7 @@ class ProductPricerTest {
         BasketItem item  = new BasketItem(basket, product, new BigDecimal(3));
         basket.getItems().add(item);
         try {
-            pricer.evaluateBasket(basket);
+            basketService.evaluatePrice(basket);
             assertEquals(new BigDecimal(0), basket.getTotalPrice());
         } catch (Exception e) {
             throw new RuntimeException(e);
@@ -93,7 +79,7 @@ class ProductPricerTest {
         BasketItem item  = new BasketItem(basket, product, new BigDecimal(6));
         basket.getItems().add(item);
         try {
-            pricer.evaluateBasket(basket);
+            basketService.evaluatePrice(basket);
             assertEquals(new BigDecimal(2), basket.getTotalPrice().round(new MathContext(1)));
         } catch (Exception e) {
             throw new RuntimeException(e);
@@ -110,7 +96,7 @@ class ProductPricerTest {
 
         basket.getItems().add(item);
         try {
-            pricer.evaluateBasket(basket);
+            basketService.evaluatePrice(basket);
             assertEquals(new BigDecimal(18), basket.getTotalPrice());
         } catch (Exception e) {
             throw new RuntimeException(e);
@@ -126,7 +112,7 @@ class ProductPricerTest {
 
         basket.getItems().add(item);
         try {
-            pricer.evaluateBasket(basket);
+            basketService.evaluatePrice(basket);
             assertEquals(new BigDecimal(1.2, new MathContext(2)), basket.getTotalPrice());
         } catch (Exception e) {
             throw new RuntimeException(e);
@@ -143,7 +129,7 @@ class ProductPricerTest {
 
         basket.getItems().add(item);
         try {
-            pricer.evaluateBasket(basket);
+            basketService.evaluatePrice(basket);
             assertEquals(new BigDecimal(1500), basket.getTotalPrice());
         } catch (Exception e) {
             throw new RuntimeException(e);
@@ -161,7 +147,7 @@ class ProductPricerTest {
 
         basket.getItems().add(item);
         try {
-            pricer.evaluateBasket(basket);
+            basketService.evaluatePrice(basket);
             assertEquals(new BigDecimal(18), basket.getTotalPrice());
         } catch (Exception e) {
             throw new RuntimeException(e);
@@ -177,7 +163,7 @@ class ProductPricerTest {
 
         basket.getItems().add(item);
         try {
-            pricer.evaluateBasket(basket);
+            basketService.evaluatePrice(basket);
             assertEquals(new BigDecimal(0.12, new MathContext(2)), basket.getTotalPrice());
         } catch (Exception e) {
             throw new RuntimeException(e);
@@ -194,7 +180,7 @@ class ProductPricerTest {
 
         basket.getItems().add(item);
         try {
-            pricer.evaluateBasket(basket);
+            basketService.evaluatePrice(basket);
             assertEquals(new BigDecimal(1500), basket.getTotalPrice());
         } catch (Exception e) {
             throw new RuntimeException(e);
@@ -212,7 +198,7 @@ class ProductPricerTest {
 
         basket.getItems().add(item);
         try {
-            pricer.evaluateBasket(basket);
+            basketService.evaluatePrice(basket);
             assertEquals(new BigDecimal(18), basket.getTotalPrice());
         } catch (Exception e) {
             throw new RuntimeException(e);
@@ -228,7 +214,7 @@ class ProductPricerTest {
 
         basket.getItems().add(item);
         try {
-            pricer.evaluateBasket(basket);
+            basketService.evaluatePrice(basket);
             assertEquals(new BigDecimal(1.2, new MathContext(2)), basket.getTotalPrice());
         } catch (Exception e) {
             throw new RuntimeException(e);
@@ -245,7 +231,7 @@ class ProductPricerTest {
 
         basket.getItems().add(item);
         try {
-            pricer.evaluateBasket(basket);
+            basketService.evaluatePrice(basket);
             assertEquals(new BigDecimal(1500), basket.getTotalPrice());
         } catch (Exception e) {
             throw new RuntimeException(e);
@@ -264,7 +250,7 @@ class ProductPricerTest {
 
         basket.getItems().add(item);
         try {
-            pricer.evaluateBasket(basket);
+            basketService.evaluatePrice(basket);
             assertEquals(new BigDecimal(18), basket.getTotalPrice());
         } catch (Exception e) {
             throw new RuntimeException(e);
@@ -280,7 +266,7 @@ class ProductPricerTest {
 
         basket.getItems().add(item);
         try {
-            pricer.evaluateBasket(basket);
+            basketService.evaluatePrice(basket);
             assertEquals(new BigDecimal(0.12, new MathContext(2)), basket.getTotalPrice());
         } catch (Exception e) {
             throw new RuntimeException(e);
@@ -297,7 +283,7 @@ class ProductPricerTest {
 
         basket.getItems().add(item);
         try {
-            pricer.evaluateBasket(basket);
+            basketService.evaluatePrice(basket);
             assertEquals(new BigDecimal(1500), basket.getTotalPrice());
         } catch (Exception e) {
             throw new RuntimeException(e);
@@ -313,7 +299,7 @@ class ProductPricerTest {
         BasketItem item  = new BasketItem(basket, product, new BigDecimal(4));
         basket.getItems().add(item);
         try {
-            pricer.evaluateBasket(basket);
+            basketService.evaluatePrice(basket);
             assertEquals(new BigDecimal(0), basket.getTotalPrice());
         } catch (Exception e) {
             throw new RuntimeException(e);

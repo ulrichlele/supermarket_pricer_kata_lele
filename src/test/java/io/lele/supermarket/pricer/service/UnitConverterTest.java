@@ -2,7 +2,7 @@ package io.lele.supermarket.pricer.service;
 
 import io.lele.supermarket.pricer.enums.LengthUnitOfMeasurement;
 import io.lele.supermarket.pricer.model.UnitOfMeasurement;
-import io.lele.supermarket.pricer.service.impl.DefaultUnitConverterProvider;
+import io.lele.supermarket.pricer.service.impl.DefaultUnitConverterService;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -19,7 +19,7 @@ class UnitConverterTest {
     @BeforeAll
     @DisplayName("Initialize unit converter")
     static void init(){
-        converter = new DefaultUnitConverterProvider();
+        converter = new DefaultUnitConverterService();
     }
 
     @Test

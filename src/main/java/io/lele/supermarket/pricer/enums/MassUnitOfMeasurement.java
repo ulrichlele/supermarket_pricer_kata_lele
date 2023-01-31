@@ -7,24 +7,20 @@ import java.util.HashMap;
 import java.util.Map;
 
 public enum MassUnitOfMeasurement implements UnitOfMeasurement {
-    Milligram, Gram, Kilogram;
+    Milligram(new BigDecimal(1000)), Gram(new BigDecimal(1)), Kilogram( new BigDecimal(0.001 ));
+
+    public final BigDecimal value;
+
+    MassUnitOfMeasurement(BigDecimal value){
+        this.value = value;
+    }
 
     @Override
     public boolean isSIUnit() {
         return this.equals(Gram) ? true : false;
     }
-
     @Override
-    public BigDecimal getConversion() {
-        return conversions.get(this);
-    }
-
-    private static final Map<MassUnitOfMeasurement, BigDecimal> conversions;
-
-    static {
-        conversions = new HashMap<>();
-        conversions.put(Milligram, new BigDecimal(1000));
-        conversions.put(Gram, new BigDecimal(1));
-        conversions.put(Kilogram, new BigDecimal(0.001 ));
+    public BigDecimal getValue() {
+        return value;
     }
 }

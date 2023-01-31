@@ -6,6 +6,7 @@ public interface UnitOfMeasurement {
 
     boolean isSIUnit();
 
-    BigDecimal getConversion();
+    BigDecimal getValue();
+
 
 }

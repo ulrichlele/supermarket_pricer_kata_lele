@@ -7,7 +7,12 @@ import java.util.HashMap;
 import java.util.Map;
 
 public enum AreaUnitOfMeasurement implements UnitOfMeasurement {
-    MillimeterSquare, CentimeterSquare, MeterSquare, KilometerSquare;
+    MillimeterSquare(new BigDecimal(1000)), CentimeterSquare(new BigDecimal(100)), MeterSquare(new BigDecimal(1)), KilometerSquare(new BigDecimal(0.001));
+
+    public final BigDecimal value;
+     AreaUnitOfMeasurement(BigDecimal value){
+        this.value = value;
+    }
 
     @Override
     public boolean isSIUnit() {
@@ -15,17 +20,9 @@ public enum AreaUnitOfMeasurement implements UnitOfMeasurement {
     }
 
     @Override
-    public BigDecimal getConversion() {
-        return conversions.get(this);
+    public BigDecimal getValue() {
+        return value;
     }
 
-    private static final Map<AreaUnitOfMeasurement, BigDecimal> conversions;
 
-    static {
-        conversions = new HashMap<>();
-        conversions.put(MillimeterSquare, new BigDecimal(1000));
-        conversions.put(CentimeterSquare, new BigDecimal(100));
-        conversions.put(MeterSquare, new BigDecimal(1));
-        conversions.put(KilometerSquare, new BigDecimal(0.001 ));
-    }
 }
