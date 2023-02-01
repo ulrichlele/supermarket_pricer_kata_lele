@@ -1,6 +1,6 @@
 package io.lele.supermarket.pricer.service;
 
-import io.lele.supermarket.pricer.enums.LengthUnitOfMeasurement;
+import io.lele.supermarket.pricer.model.enums.LengthUnitOfMeasurement;
 import io.lele.supermarket.pricer.model.UnitOfMeasurement;
 import io.lele.supermarket.pricer.service.impl.DefaultUnitConverterService;
 import org.junit.jupiter.api.BeforeAll;

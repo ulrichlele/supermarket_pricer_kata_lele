@@ -1,6 +1,6 @@
 package io.lele.supermarket.pricer.model;
 
-import io.lele.supermarket.pricer.enums.PricingType;
+import io.lele.supermarket.pricer.model.enums.PricingType;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
@@ -20,8 +20,6 @@ public class Product implements Serializable {
     private PricingType pricingType = PricingType.PricePerItem;
 
     private UnitOfMeasurement unitOfMeasurement;
-
-    private Promotion promotion;
 
 
     public Product(String name, BigDecimal unitPrice) {
@@ -96,13 +94,6 @@ public class Product implements Serializable {
         this.unitOfMeasurement = unitOfMeasurement;
     }
 
-    public Promotion getPromotion() {
-        return promotion;
-    }
-
-    public void setPromotion(Promotion promotion) {
-        this.promotion = promotion;
-    }
 
     @Override
     public boolean equals(Object o) {

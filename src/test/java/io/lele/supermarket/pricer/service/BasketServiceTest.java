@@ -5,6 +5,7 @@ import io.lele.supermarket.pricer.exceptions.IncompatibleUnitsException;
 import io.lele.supermarket.pricer.model.Basket;
 import io.lele.supermarket.pricer.model.BasketItem;
 import io.lele.supermarket.pricer.model.Product;
+import io.lele.supermarket.pricer.model.enums.*;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -17,7 +18,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 class BasketServiceTest {
 
     private static BasketService basketService;
-    
+
     @BeforeAll
     @DisplayName("Initialize products and pricer")
     static void init(){
