@@ -59,6 +59,22 @@ public class PromotionServiceTest {
     }
 
     @Test
+    @DisplayName("Eval BasketItem - Promotion - Flat Amt- exp 45, Qty = 3, UP=15")
+    void evaluateNullPromotionTypeProductWithFixPrice45USD() throws IncompatibleUnitsException {
+        Product product = new Product("Table ", new BigDecimal(15));
+        Promotion promotion = new Promotion(null, null, new BigDecimal(3), PromotionBase.Quantity, new BigDecimal(1));
+        product.setPromotion(promotion);
+        Basket basket = new Basket();
+        BasketItem item  = new BasketItem(basket, product, new BigDecimal(3));
+        productService.evaluatePrice(item);
+        assertAll( () -> assertEquals(new BigDecimal(0), item.getOfferedQuantity(), "Offered quantity unchanged"),
+                () -> assertEquals(new BigDecimal(3), item.getTotalQuantity(), "Total quantity unchanged"),
+                () -> assertEquals(new BigDecimal(45), item.getPrice(), "Price is 45 (without promotion)"),
+                () -> assertEquals(new BigDecimal(45), item.getTotalPrice(), "Total price unchanged"));
+
+    }
+
+    @Test
     @DisplayName("Eval BasketItem - Flat Amt- exp 45, Qty = 3, UP=15")
     void evaluatePromotionIncompatibleConversion() throws IncompatibleUnitsException {
         Product product = new Product("Table ", new BigDecimal(15));
