@@ -27,7 +27,7 @@ public class PromotionServiceTest {
     }
 
     @Test
-    @DisplayName("Eval BasketItem - Promotion - Flat Amt- exp 45, Qty = 3, UP=15")
+    @DisplayName("Eval Item - Promotion - Flat Amt- exp 45, Qty = 3, UP=15")
     void evaluatePromotionProductWithFixPrice45USD() throws IncompatibleUnitsException, InvalidProductPromotion {
         Product product = new Product("Table ", new BigDecimal(15));
         Promotion promotion = new Promotion(PromotionEvaluationType.Quantity, null, new BigDecimal(3), PromotionBase.Quantity, new BigDecimal(1));
@@ -44,7 +44,7 @@ public class PromotionServiceTest {
     }
 
     @Test
-    @DisplayName("Eval BasketItem - Promotion - Flat Amt- exp 45, Qty = 3, UP=15")
+    @DisplayName("Eval BasketItem - Null Promotion - Flat Amt- exp 45, Qty = 3, UP=15")
     void evaluateNullPromotionProductWithFixPrice45USD() throws IncompatibleUnitsException {
         Product product = new Product("Table ", new BigDecimal(15));
         Promotion promotion = new Promotion(PromotionEvaluationType.Quantity, null, new BigDecimal(3), PromotionBase.Quantity, new BigDecimal(1));
@@ -60,7 +60,7 @@ public class PromotionServiceTest {
     }
 
     @Test
-    @DisplayName("Eval BasketItem - Promotion - Flat Amt- exp 45, Qty = 3, UP=15")
+    @DisplayName("Eval BasketItem - Null Promotion type - exp InvalidProductPromotion")
     void evaluateNullPromotionTypeProductWithFixPrice45USD() throws IncompatibleUnitsException, InvalidProductPromotion {
         Product product = new Product("Table ", new BigDecimal(15));
         Promotion promotion = new Promotion(null, null, new BigDecimal(3), PromotionBase.Quantity, new BigDecimal(1));
@@ -73,7 +73,7 @@ public class PromotionServiceTest {
     }
 
     @Test
-    @DisplayName("Eval BasketItem - Promotion - Flat Amt- exp 45, Qty = 3, UP=15")
+    @DisplayName("Eval Item - Null Promotion Qty - exp InvalidProductPromotion")
     void evaluateNullPromotionQtyProductWithFixPrice45USD() throws IncompatibleUnitsException, InvalidProductPromotion {
         Product product = new Product("Table ", new BigDecimal(15));
         Promotion promotion = new Promotion(PromotionEvaluationType.Quantity, null, null, PromotionBase.Quantity, new BigDecimal(1));
@@ -86,7 +86,7 @@ public class PromotionServiceTest {
     }
 
     @Test
-    @DisplayName("Eval BasketItem - Promotion - Flat Amt- exp 45, Qty = 3, UP=15")
+    @DisplayName("Eval Item - Null Promo Qty- Flat Amt- exp InvalidProductPromotion")
     void evaluateNullPromotionOfferedQtyProductWithFixPrice45USD() throws IncompatibleUnitsException, InvalidProductPromotion {
         Product product = new Product("Table ", new BigDecimal(15));
         Promotion promotion = new Promotion(PromotionEvaluationType.Quantity, null, new BigDecimal(3), PromotionBase.Quantity, null);
@@ -99,7 +99,7 @@ public class PromotionServiceTest {
     }
 
     @Test
-    @DisplayName("Eval BasketItem - Flat Amt- exp 45, Qty = 3, UP=15")
+    @DisplayName("Eval Item - Flat Amt- exp IncompatibleUnitsException")
     void evaluatePromotionIncompatibleConversion() throws IncompatibleUnitsException, InvalidProductPromotion {
         Product product = new Product("Table ", new BigDecimal(15));
         Promotion promotion = new Promotion(PromotionEvaluationType.Quantity, LengthUnitOfMeasurement.Meter, new BigDecimal(3), PromotionBase.UnitOfMeasurement, new BigDecimal(1));
