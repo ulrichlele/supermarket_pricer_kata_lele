@@ -40,6 +40,8 @@ public class ProductService  {
             }
             price = price.round(PRICE_ROUNDING);
             item.setPrice(price);
+            item.setTotalQuantity(item.getQuantity());
+            item.setTotalPrice(price);
         }
     }
 

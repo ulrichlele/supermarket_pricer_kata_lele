@@ -17,10 +17,10 @@ public class BasketItem implements Serializable {
 
     private BigDecimal price =  BigDecimal.ZERO;
 
-    private BigDecimal offeredQuantity;
-    private BigDecimal totalQuantity;
-    private BigDecimal promotion;
-    private BigDecimal totalPrice;
+    private BigDecimal offeredQuantity =  BigDecimal.ZERO;
+    private BigDecimal totalQuantity =  BigDecimal.ZERO;
+    private BigDecimal promotion =  BigDecimal.ZERO;
+    private BigDecimal totalPrice =  BigDecimal.ZERO;
 
     public BasketItem() {
     }
