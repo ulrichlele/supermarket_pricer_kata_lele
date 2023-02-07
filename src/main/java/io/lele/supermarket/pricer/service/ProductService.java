@@ -2,6 +2,7 @@ package io.lele.supermarket.pricer.service;
 
 import io.lele.supermarket.pricer.exceptions.IncompatibleUnitsException;
 import io.lele.supermarket.pricer.model.BasketItem;
+import io.lele.supermarket.pricer.model.Product;
 import io.lele.supermarket.pricer.service.impl.DefaultUnitConverterService;
 import io.lele.supermarket.pricer.utils.AmountUtil;
 
@@ -13,9 +14,11 @@ public class ProductService  {
     private UnitConverter converter = new DefaultUnitConverterService();
 
 
-    public void evaluatePrice(BasketItem item) throws IncompatibleUnitsException{
+    public void evaluatePrice(BasketItem item) throws IncompatibleUnitsException {
         if (item.getProduct() != null && item.getProduct().getPricingType() != null) {
             BigDecimal price = BigDecimal.ZERO;
+            if(item.getProduct().getUnitPrice().compareTo(BigDecimal.ZERO) <0)
+                throw new RuntimeException("Negative product unit price");
             switch (item.getProduct().getPricingType()) {
                 case PricePerItem:
                     price = item.getProduct().getUnitPrice().multiply(item.getQuantity());
@@ -33,6 +36,8 @@ public class ProductService  {
             item.setTotalPrice(item.getPrice());
         }
     }
+
+
 
 
 

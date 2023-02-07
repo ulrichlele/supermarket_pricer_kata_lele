@@ -6,7 +6,6 @@ import io.lele.supermarket.pricer.model.BasketItem;
 import io.lele.supermarket.pricer.model.Product;
 import io.lele.supermarket.pricer.model.enums.AreaUnitOfMeasurement;
 import io.lele.supermarket.pricer.model.enums.LengthUnitOfMeasurement;
-import io.lele.supermarket.pricer.model.enums.PhysicalQuantity;
 import io.lele.supermarket.pricer.model.enums.PricingType;
 import io.lele.supermarket.pricer.utils.AmountUtil;
 import org.junit.jupiter.api.BeforeAll;
@@ -14,7 +13,6 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
-import java.math.MathContext;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -50,6 +48,14 @@ class ProductServiceTest {
         assertThrows(IncompatibleUnitsException.class, () -> productService.evaluatePrice(item));
     }
 
+    @Test
+    @DisplayName("Eval BasketItem - Negative Amt- exp 45, Qty = 3, UP=15")
+    void evaluateProductWithNegative15USDFixPrice() throws IncompatibleUnitsException {
+        Product   product = new Product("Table ", new BigDecimal(-15));
+        Basket basket = new Basket();
+        BasketItem item  = new BasketItem(basket, product, new BigDecimal(3));
+        assertThrows(RuntimeException.class,() -> productService.evaluatePrice(item) );
+    }
 
 
 
