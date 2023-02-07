@@ -39,7 +39,8 @@ public class ProductService  {
                     }
                     break;
             }
-            price = price.round(PRICE_ROUNDING);
+            if(price.scale() >2)
+                price = price.round(PRICE_ROUNDING);
             item.setPrice(price);
             item.setTotalQuantity(item.getQuantity());
             item.setTotalPrice(price);

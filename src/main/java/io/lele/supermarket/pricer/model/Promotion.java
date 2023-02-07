@@ -1,5 +1,6 @@
 package io.lele.supermarket.pricer.model;
 
+import io.lele.supermarket.pricer.model.enums.PriceReductionType;
 import io.lele.supermarket.pricer.model.enums.PromotionOfferType;
 import io.lele.supermarket.pricer.model.enums.PromotionEvaluationType;
 
@@ -18,6 +19,8 @@ public class Promotion implements Serializable {
     private PromotionOfferType promotionOfferType;
     private BigDecimal offer;
 
+    private PriceReductionType priceReductionType;
+
 
     public Promotion() {
     }
@@ -27,6 +30,14 @@ public class Promotion implements Serializable {
         this.minimumPurchase = minimumPurchase;
         this.promotionOfferType = promotionOfferType;
         this.offer = offer;
+    }
+
+    public Promotion(PromotionEvaluationType evaluationType, BigDecimal minimumPurchase, PromotionOfferType promotionOfferType, BigDecimal offer, PriceReductionType priceReductionType) {
+        this.evaluationType = evaluationType;
+        this.minimumPurchase = minimumPurchase;
+        this.promotionOfferType = promotionOfferType;
+        this.offer = offer;
+        this.priceReductionType = priceReductionType;
     }
 
     public String getReference() {
@@ -59,6 +70,14 @@ public class Promotion implements Serializable {
 
     public void setPromotionOfferType(PromotionOfferType promotionOfferType) {
         this.promotionOfferType = promotionOfferType;
+    }
+
+    public PriceReductionType getPriceReductionType() {
+        return priceReductionType;
+    }
+
+    public void setPriceReductionType(PriceReductionType priceReductionType) {
+        this.priceReductionType = priceReductionType;
     }
 
     public BigDecimal getOffer() {

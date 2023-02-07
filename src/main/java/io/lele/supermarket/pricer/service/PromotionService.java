@@ -22,9 +22,11 @@ public class PromotionService {
         if(itemIsEligible){
              switch (promo.getPromotionOfferType()){
                  case Quantity:
-                     item.setOfferedQuantity(promo.getOffer());
-                     item.setTotalQuantity(item.getQuantity().add(promo.getOffer()));
+                     BigDecimal offeredQty = converter.convert(promo.getOffer(), item.getProduct().getUnitOfMeasurement(), item.getUnitOfMeasurement());
+                     item.setOfferedQuantity(offeredQty);
+                     item.setTotalQuantity(item.getQuantity().add(offeredQty));
                      break;
+                 case PriceReduction:
              }
         }
 

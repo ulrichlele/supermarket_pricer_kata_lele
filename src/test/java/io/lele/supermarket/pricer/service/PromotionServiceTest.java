@@ -110,9 +110,43 @@ public class PromotionServiceTest {
         productService.evaluatePrice(item);
         promotionService.evaluateProductPromotion(item);
         assertAll( () -> assertEquals(new BigDecimal(2), item.getOfferedQuantity(), "Two meters offered"),
-                () -> assertEquals(new BigDecimal(16), item.getTotalQuantity(), "Total quantity increased by one"),
+                () -> assertEquals(new BigDecimal(16), item.getTotalQuantity(), "Total quantity increased by 2 meters"),
                 () -> assertEquals(new BigDecimal(140), item.getPrice(), "Price is 140 (without promotion)"),
                 () -> assertEquals(new BigDecimal(140), item.getTotalPrice(), "Total price unchanged after promotion"));
+    }
+
+    @Test
+    @DisplayName("1400 centimeters bought two meters offered")
+    void evaluate1400CentimetersBoughtTwoMetersOffered() throws IncompatibleUnitsException, InvalidProductPromotion {
+        Product product = new Product("Tissue", new BigDecimal(10), null, PricingType.PricePerUnitOfMeasurement, LengthUnitOfMeasurement.Meter);
+        Promotion promotion = new Promotion(PromotionEvaluationType.PurchasedQuantity,  new BigDecimal(10), PromotionOfferType.Quantity, new BigDecimal(2));
+        product.setPromotion(promotion);
+        Basket basket = new Basket();
+        BasketItem item  = new BasketItem(basket, product, new BigDecimal(1400), PhysicalQuantity.Length, LengthUnitOfMeasurement.Centimeter);
+        productService.evaluatePrice(item);
+        promotionService.evaluateProductPromotion(item);
+        assertAll( () -> assertEquals(new BigDecimal(200), item.getOfferedQuantity(), "Two meters offered"),
+                () -> assertEquals(new BigDecimal(1600), item.getTotalQuantity(), "Total quantity increased by 200 centimeters"),
+                () -> assertEquals(new BigDecimal(140), item.getPrice(), "Price is 140 (without promotion)"),
+                () -> assertEquals(new BigDecimal(140), item.getTotalPrice(), "Total price unchanged after promotion"));
+    }
+
+
+
+    @Test
+    @DisplayName("1400 centimeters bought 10% discount")
+    void evaluate1400CentimetersBought10MetersOffered() throws IncompatibleUnitsException, InvalidProductPromotion {
+        Product product = new Product("Cable", new BigDecimal(10), null, PricingType.PricePerUnitOfMeasurement, LengthUnitOfMeasurement.Meter);
+        Promotion promotion = new Promotion(PromotionEvaluationType.PurchasedQuantity,  new BigDecimal(10), PromotionOfferType.PriceReduction, new BigDecimal(10), PriceReductionType.Percentage);
+        product.setPromotion(promotion);
+        Basket basket = new Basket();
+        BasketItem item  = new BasketItem(basket, product, new BigDecimal(1400), PhysicalQuantity.Length, LengthUnitOfMeasurement.Centimeter);
+        productService.evaluatePrice(item);
+        promotionService.evaluateProductPromotion(item);
+        assertAll( () -> assertEquals(new BigDecimal(0), item.getOfferedQuantity(), "0 centimeters offered"),
+                () -> assertEquals(new BigDecimal(1400), item.getTotalQuantity(), "Total quantity unchanged"),
+                () -> assertEquals(new BigDecimal(140), item.getPrice(), "Price is 140 (without promotion)"),
+                () -> assertEquals(new BigDecimal(126), item.getTotalPrice(), "Total price = 10% discount on 140"));
     }
 
 }
