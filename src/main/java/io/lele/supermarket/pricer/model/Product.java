@@ -1,6 +1,6 @@
 package io.lele.supermarket.pricer.model;
 
-import io.lele.supermarket.pricer.enums.PricingType;
+import io.lele.supermarket.pricer.model.enums.PricingType;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
@@ -10,7 +10,7 @@ import java.util.UUID;
 public class Product implements Serializable {
 
     private String name;
-    private String refrence = UUID.randomUUID().toString();
+    private String reference = UUID.randomUUID().toString();
     private BigDecimal unitPrice = BigDecimal.ZERO;
 
     private String currencyCode = "USD";
@@ -21,6 +21,7 @@ public class Product implements Serializable {
 
     private UnitOfMeasurement unitOfMeasurement;
 
+    private Promotion promotion;
 
     public Product(String name, BigDecimal unitPrice) {
         this.name = name;
@@ -46,12 +47,12 @@ public class Product implements Serializable {
         this.name = name;
     }
 
-    public String getRefrence() {
-        return refrence;
+    public String getReference() {
+        return reference;
     }
 
-    public void setRefrence(String refrence) {
-        this.refrence = refrence;
+    public void setReference(String reference) {
+        this.reference = reference;
     }
 
     public BigDecimal getUnitPrice() {
@@ -94,24 +95,32 @@ public class Product implements Serializable {
         this.unitOfMeasurement = unitOfMeasurement;
     }
 
+    public Promotion getPromotion() {
+        return promotion;
+    }
+
+    public void setPromotion(Promotion promotion) {
+        this.promotion = promotion;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Product product = (Product) o;
-        return refrence.equals(product.refrence);
+        return reference.equals(product.reference);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(refrence);
+        return Objects.hash(reference);
     }
 
     @Override
     public String toString() {
         return "Product{" +
                 "name='" + name + '\'' +
-                ", refrence='" + refrence + '\'' +
+                ", refrence='" + reference + '\'' +
                 ", unitPrice=" + unitPrice +
                 ", currencyCode='" + currencyCode + '\'' +
                 '}';

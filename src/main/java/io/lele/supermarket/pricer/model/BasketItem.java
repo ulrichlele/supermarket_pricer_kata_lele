@@ -1,35 +1,44 @@
 package io.lele.supermarket.pricer.model;
 
-import io.lele.supermarket.pricer.enums.PhysicalQuantity;
+import io.lele.supermarket.pricer.model.enums.PhysicalQuantity;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Objects;
 
 public class BasketItem implements Serializable {
-    Product product;
-    BigDecimal quantity =  BigDecimal.ZERO;
-    PhysicalQuantity physicalQuantity;
-    UnitOfMeasurement unitOfMeasurement;
 
-    BigDecimal price =  BigDecimal.ZERO;
+    private Basket basket;
+
+    private Product product;
+    private BigDecimal quantity =  BigDecimal.ZERO;
+    private UnitOfMeasurement unitOfMeasurement;
+
+    private BigDecimal price =  BigDecimal.ZERO;
+
+    private BigDecimal offeredQuantity =  BigDecimal.ZERO;
+    private BigDecimal totalQuantity =  BigDecimal.ZERO;
+    private BigDecimal promotion =  BigDecimal.ZERO;
+    private BigDecimal totalPrice =  BigDecimal.ZERO;
 
     public BasketItem() {
     }
 
-    public BasketItem(Product product) {
+    public BasketItem(Basket basket, Product product) {
+        this.basket = basket;
         this.product = product;
     }
 
-    public BasketItem(Product product, BigDecimal quantity) {
+    public BasketItem(Basket basket, Product product, BigDecimal quantity) {
+        this.basket = basket;
         this.product = product;
         this.quantity = quantity;
     }
 
-    public BasketItem(Product product, BigDecimal quantity, PhysicalQuantity physicalQuantity, UnitOfMeasurement unitOfMeasurement) {
+    public BasketItem(Basket basket, Product product, BigDecimal quantity,  UnitOfMeasurement unitOfMeasurement) {
+        this.basket = basket;
         this.product = product;
         this.quantity = quantity;
-        this.physicalQuantity = physicalQuantity;
         this.unitOfMeasurement = unitOfMeasurement;
     }
 
@@ -49,14 +58,6 @@ public class BasketItem implements Serializable {
         this.quantity = quantity;
     }
 
-    public PhysicalQuantity getPhysicalQuantity() {
-        return physicalQuantity;
-    }
-
-    public void setPhysicalQuantity(PhysicalQuantity physicalQuantity) {
-        this.physicalQuantity = physicalQuantity;
-    }
-
     public UnitOfMeasurement getUnitOfMeasurement() {
         return unitOfMeasurement;
     }
@@ -73,16 +74,56 @@ public class BasketItem implements Serializable {
         this.price = price;
     }
 
+    public Basket getBasket() {
+        return basket;
+    }
+
+    public void setBasket(Basket basket) {
+        this.basket = basket;
+    }
+
+    public BigDecimal getOfferedQuantity() {
+        return offeredQuantity;
+    }
+
+    public void setOfferedQuantity(BigDecimal offeredQuantity) {
+        this.offeredQuantity = offeredQuantity;
+    }
+
+    public BigDecimal getTotalQuantity() {
+        return totalQuantity;
+    }
+
+    public void setTotalQuantity(BigDecimal totalQuantity) {
+        this.totalQuantity = totalQuantity;
+    }
+
+    public BigDecimal getPromotion() {
+        return promotion;
+    }
+
+    public void setPromotion(BigDecimal promotion) {
+        this.promotion = promotion;
+    }
+
+    public BigDecimal getTotalPrice() {
+        return totalPrice;
+    }
+
+    public void setTotalPrice(BigDecimal totalPrice) {
+        this.totalPrice = totalPrice;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         BasketItem that = (BasketItem) o;
-        return getProduct().equals(that.getProduct());
+        return Objects.equals(basket, that.basket) && Objects.equals(getProduct(), that.getProduct());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getProduct());
+        return Objects.hash(basket, getProduct());
     }
 }
