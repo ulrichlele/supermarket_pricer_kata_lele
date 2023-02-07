@@ -1,6 +1,6 @@
 package io.lele.supermarket.pricer.model;
 
-import io.lele.supermarket.pricer.model.enums.PromotionBase;
+import io.lele.supermarket.pricer.model.enums.PromotionOfferType;
 import io.lele.supermarket.pricer.model.enums.PromotionEvaluationType;
 
 import java.io.Serializable;
@@ -11,21 +11,21 @@ import java.util.UUID;
 public class Promotion implements Serializable {
 
     private String reference = UUID.randomUUID().toString();
-    private PromotionEvaluationType type;
-    private UnitOfMeasurement unitOfMeasurement;
+    private PromotionEvaluationType evaluationType;
+    //To simplify usage, units of measurement is equal to product units
+    //private UnitOfMeasurement unitOfMeasurement;
     private BigDecimal minimumPurchase;
-    private PromotionBase promotionBase;
+    private PromotionOfferType promotionOfferType;
     private BigDecimal offer;
 
 
     public Promotion() {
     }
 
-    public Promotion(PromotionEvaluationType type, UnitOfMeasurement unitOfMeasurement, BigDecimal minimumPurchase, PromotionBase promotionBase, BigDecimal offer) {
-        this.type = type;
-        this.unitOfMeasurement = unitOfMeasurement;
+    public Promotion(PromotionEvaluationType evaluationType, BigDecimal minimumPurchase, PromotionOfferType promotionOfferType, BigDecimal offer) {
+        this.evaluationType = evaluationType;
         this.minimumPurchase = minimumPurchase;
-        this.promotionBase = promotionBase;
+        this.promotionOfferType = promotionOfferType;
         this.offer = offer;
     }
 
@@ -37,20 +37,12 @@ public class Promotion implements Serializable {
         this.reference = reference;
     }
 
-    public PromotionEvaluationType getType() {
-        return type;
+    public PromotionEvaluationType getEvaluationType() {
+        return evaluationType;
     }
 
-    public void setType(PromotionEvaluationType type) {
-        this.type = type;
-    }
-
-    public UnitOfMeasurement getUnitOfMeasurement() {
-        return unitOfMeasurement;
-    }
-
-    public void setUnitOfMeasurement(UnitOfMeasurement unitOfMeasurement) {
-        this.unitOfMeasurement = unitOfMeasurement;
+    public void setEvaluationType(PromotionEvaluationType evaluationType) {
+        this.evaluationType = evaluationType;
     }
 
     public BigDecimal getMinimumPurchase() {
@@ -61,12 +53,12 @@ public class Promotion implements Serializable {
         this.minimumPurchase = minimumPurchase;
     }
 
-    public PromotionBase getPromotionBase() {
-        return promotionBase;
+    public PromotionOfferType getPromotionOfferType() {
+        return promotionOfferType;
     }
 
-    public void setPromotionBase(PromotionBase promotionBase) {
-        this.promotionBase = promotionBase;
+    public void setPromotionOfferType(PromotionOfferType promotionOfferType) {
+        this.promotionOfferType = promotionOfferType;
     }
 
     public BigDecimal getOffer() {

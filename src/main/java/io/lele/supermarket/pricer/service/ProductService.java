@@ -31,7 +31,8 @@ public class ProductService  {
                             BigDecimal convertedQty = converter.convert(item.getQuantity(), item.getUnitOfMeasurement(), item.getProduct().getUnitOfMeasurement());
                             price =  convertedQty.multiply(item.getProduct().getUnitPrice());
                         }
-                    }else{                        String basketItemUnit = item.getProduct().getUnitOfMeasurement().getClass().getName();
+                    }else{
+                        String basketItemUnit = item.getProduct().getUnitOfMeasurement().getClass().getName();
                         String productUnit = item.getUnitOfMeasurement().getClass().getName();
                         String message = String.format("BasketItem unit : %s; Product unit: %s",basketItemUnit,  productUnit);
                         throw new IncompatibleUnitsException(message);

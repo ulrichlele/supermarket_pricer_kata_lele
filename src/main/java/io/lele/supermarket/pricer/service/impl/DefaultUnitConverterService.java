@@ -1,5 +1,6 @@
 package io.lele.supermarket.pricer.service.impl;
 
+import io.lele.supermarket.pricer.exceptions.IncompatibleUnitsException;
 import io.lele.supermarket.pricer.model.UnitOfMeasurement;
 import io.lele.supermarket.pricer.service.UnitConverter;
 
@@ -11,7 +12,12 @@ public class DefaultUnitConverterService implements UnitConverter {
     public static final MathContext DEFAULT_PRECISION = MathContext.DECIMAL64;
 
     @Override
-    public <T extends UnitOfMeasurement> BigDecimal convert(BigDecimal initialValue, T initialUnit, T finalUnit) {
+    public <T extends UnitOfMeasurement> BigDecimal convert(BigDecimal initialValue, T initialUnit, T finalUnit) throws IncompatibleUnitsException{
+
+        if(!initialUnit.getClass().getCanonicalName().equals(finalUnit.getClass().getCanonicalName())){
+            String message = String.format("BasketItem unit : %s; Product unit: %s",initialUnit.getClass().getName(),  finalUnit.getClass().getName());
+            throw new IncompatibleUnitsException(message);
+        }
         BigDecimal converted;
         if (initialUnit.equals(finalUnit)) {
             converted = initialValue;

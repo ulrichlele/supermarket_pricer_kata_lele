@@ -4,7 +4,7 @@ import io.lele.supermarket.pricer.exceptions.IncompatibleUnitsException;
 import io.lele.supermarket.pricer.exceptions.InvalidProductPromotion;
 import io.lele.supermarket.pricer.model.*;
 import io.lele.supermarket.pricer.model.enums.LengthUnitOfMeasurement;
-import io.lele.supermarket.pricer.model.enums.PromotionBase;
+import io.lele.supermarket.pricer.model.enums.PromotionOfferType;
 import io.lele.supermarket.pricer.model.enums.PromotionEvaluationType;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
@@ -30,7 +30,7 @@ public class PromotionServiceTest {
     @DisplayName("Eval Item - Promotion - Flat Amt- exp 45, Qty = 3, UP=15")
     void evaluatePromotionProductWithFixPrice45USD() throws IncompatibleUnitsException, InvalidProductPromotion {
         Product product = new Product("Table ", new BigDecimal(15));
-        Promotion promotion = new Promotion(PromotionEvaluationType.Quantity, null, new BigDecimal(3), PromotionBase.Quantity, new BigDecimal(1));
+        Promotion promotion = new Promotion(PromotionEvaluationType.PurchasedQuantity,  new BigDecimal(3), PromotionOfferType.Quantity, new BigDecimal(1));
         product.setPromotion(promotion);
         Basket basket = new Basket();
         BasketItem item  = new BasketItem(basket, product, new BigDecimal(3));
@@ -47,8 +47,8 @@ public class PromotionServiceTest {
     @DisplayName("Eval BasketItem - Null Promotion - Flat Amt- exp 45, Qty = 3, UP=15")
     void evaluateNullPromotionProductWithFixPrice45USD() throws IncompatibleUnitsException, InvalidProductPromotion {
         Product product = new Product("Table ", new BigDecimal(15));
-        Promotion promotion = new Promotion(PromotionEvaluationType.Quantity, null, new BigDecimal(3), PromotionBase.Quantity, new BigDecimal(1));
-        product.setPromotion(promotion);
+        Promotion promotion = new Promotion(PromotionEvaluationType.PurchasedQuantity,  new BigDecimal(3), PromotionOfferType.Quantity, new BigDecimal(1));
+        product.setPromotion(null);
         Basket basket = new Basket();
         BasketItem item  = new BasketItem(basket, product, new BigDecimal(3));
         productService.evaluatePrice(item);
@@ -63,7 +63,7 @@ public class PromotionServiceTest {
     @DisplayName("Eval Item - Null Promo type throws InvalidProductPromotion")
     void evaluateNullPromotionTypeProductWithFixPrice45USD() throws IncompatibleUnitsException, InvalidProductPromotion {
         Product product = new Product("Table ", new BigDecimal(15));
-        Promotion promotion = new Promotion(null, null, new BigDecimal(3), PromotionBase.Quantity, new BigDecimal(1));
+        Promotion promotion = new Promotion(null,  new BigDecimal(3), PromotionOfferType.Quantity, new BigDecimal(1));
         product.setPromotion(promotion);
         Basket basket = new Basket();
         BasketItem item  = new BasketItem(basket, product, new BigDecimal(3));
@@ -75,12 +75,11 @@ public class PromotionServiceTest {
     @DisplayName("Eval Item - Null Promo Min Qty - exp 1 offered")
     void evaluateNullPromotionQtyProductWithFixPrice45USD() throws IncompatibleUnitsException, InvalidProductPromotion {
         Product product = new Product("Table ", new BigDecimal(15));
-        Promotion promotion = new Promotion(PromotionEvaluationType.Quantity, null, null, PromotionBase.Quantity, new BigDecimal(1));
+        Promotion promotion = new Promotion(PromotionEvaluationType.PurchasedQuantity, null,  PromotionOfferType.Quantity, new BigDecimal(1));
         product.setPromotion(promotion);
         Basket basket = new Basket();
         BasketItem item  = new BasketItem(basket, product, new BigDecimal(3));
         productService.evaluatePrice(item);
-
         promotionService.evaluateProductPromotion(item);
         assertAll( () -> assertEquals(new BigDecimal(1), item.getOfferedQuantity(), "One product offered"),
                 () -> assertEquals(new BigDecimal(4), item.getTotalQuantity(), "Total quantity increased by one"),
@@ -92,26 +91,13 @@ public class PromotionServiceTest {
     @DisplayName("Eval Item - Null Promo Offered Qty- Flat Amt- throws InvalidProductPromotion")
     void evaluateNullPromotionOfferedQtyProductWithFixPrice45USD() throws IncompatibleUnitsException, InvalidProductPromotion {
         Product product = new Product("Table ", new BigDecimal(15));
-        Promotion promotion = new Promotion(PromotionEvaluationType.Quantity, null, new BigDecimal(3), PromotionBase.Quantity, null);
+        Promotion promotion = new Promotion(PromotionEvaluationType.PurchasedQuantity,  new BigDecimal(3), PromotionOfferType.Quantity, null);
         product.setPromotion(promotion);
         Basket basket = new Basket();
         BasketItem item  = new BasketItem(basket, product, new BigDecimal(3));
         productService.evaluatePrice(item);
         assertThrows(InvalidProductPromotion.class, () -> promotionService.evaluateProductPromotion(item));
     }
-
-    @Test
-    @DisplayName("Eval Item - Flat Amt- throws IncompatibleUnitsException")
-    void evaluatePromotionIncompatibleConversion() throws IncompatibleUnitsException, InvalidProductPromotion {
-        Product product = new Product("Table ", new BigDecimal(15));
-        Promotion promotion = new Promotion(PromotionEvaluationType.Quantity, LengthUnitOfMeasurement.Meter, new BigDecimal(3), PromotionBase.UnitOfMeasurement, new BigDecimal(1));
-        product.setPromotion(promotion);
-        Basket basket = new Basket();
-        BasketItem item  = new BasketItem(basket, product, new BigDecimal(3));
-        productService.evaluatePrice(item);
-        promotionService.evaluateProductPromotion(item);
-        assertThrows(IncompatibleUnitsException.class, () -> promotionService.evaluateProductPromotion(item));
-
-    }
+ 
 
 }
