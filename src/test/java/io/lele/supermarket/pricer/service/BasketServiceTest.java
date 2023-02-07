@@ -76,7 +76,7 @@ class BasketServiceTest {
     void evaluateBasket6mOfTissuePriced3USDPerMetter() throws IncompatibleUnitsException {
         Product   product = new Product("Tissue ", new BigDecimal(3), null, PricingType.PricePerUnitOfMeasurement, LengthUnitOfMeasurement.Meter);
         Basket basket = new Basket();
-        BasketItem item  = new BasketItem(basket, product, new BigDecimal(6), PhysicalQuantity.Length, LengthUnitOfMeasurement.Meter);
+        BasketItem item  = new BasketItem(basket, product, new BigDecimal(6),  LengthUnitOfMeasurement.Meter);
 
         basket.getItems().add(item);
         basketService.evaluatePrice(basket);
@@ -88,7 +88,7 @@ class BasketServiceTest {
     void evaluateBasket40cmOfTissuePriced3USDPerMetter() throws IncompatibleUnitsException {
         Product   product = new Product("Tissue ", new BigDecimal(3), null, PricingType.PricePerUnitOfMeasurement, LengthUnitOfMeasurement.Meter);
         Basket basket = new Basket();
-        BasketItem item  = new BasketItem(basket, product, new BigDecimal(40), PhysicalQuantity.Length, LengthUnitOfMeasurement.Centimeter);
+        BasketItem item  = new BasketItem(basket, product, new BigDecimal(40),  LengthUnitOfMeasurement.Centimeter);
 
         basket.getItems().add(item);
         basketService.evaluatePrice(basket);
@@ -101,7 +101,7 @@ class BasketServiceTest {
     void evaluateBasketHalfkmOfTissuePriced3USDPerMetter() throws IncompatibleUnitsException {
         Product   product = new Product("Tissue ", new BigDecimal(3), null, PricingType.PricePerUnitOfMeasurement, LengthUnitOfMeasurement.Meter);
         Basket basket = new Basket();
-        BasketItem item  = new BasketItem(basket, product, new BigDecimal(0.5, new MathContext(0)), PhysicalQuantity.Length, LengthUnitOfMeasurement.Kilometer);
+        BasketItem item  = new BasketItem(basket, product, new BigDecimal(0.5, new MathContext(0)), LengthUnitOfMeasurement.Kilometer);
 
         basket.getItems().add(item);
         basketService.evaluatePrice(basket);
@@ -115,7 +115,7 @@ class BasketServiceTest {
     void evaluateBasket6gOfTomatoPriced3USDPerGram() throws IncompatibleUnitsException {
         Product   product = new Product("Tissue ", new BigDecimal(3), null, PricingType.PricePerUnitOfMeasurement, MassUnitOfMeasurement.Gram);
         Basket basket = new Basket();
-        BasketItem item  = new BasketItem(basket, product, new BigDecimal(6), PhysicalQuantity.Mass, MassUnitOfMeasurement.Gram);
+        BasketItem item  = new BasketItem(basket, product, new BigDecimal(6),  MassUnitOfMeasurement.Gram);
 
         basket.getItems().add(item);
         basketService.evaluatePrice(basket);
@@ -127,7 +127,7 @@ class BasketServiceTest {
     void evaluateBasket40mgOfTissuePriced3USDPerGram() throws IncompatibleUnitsException {
         Product   product = new Product("Tissue ", new BigDecimal(3), null, PricingType.PricePerUnitOfMeasurement, MassUnitOfMeasurement.Gram);
         Basket basket = new Basket();
-        BasketItem item  = new BasketItem(basket, product, new BigDecimal(40), PhysicalQuantity.Mass, MassUnitOfMeasurement.Milligram);
+        BasketItem item  = new BasketItem(basket, product, new BigDecimal(40),  MassUnitOfMeasurement.Milligram);
 
         basket.getItems().add(item);
         basketService.evaluatePrice(basket);
@@ -140,7 +140,7 @@ class BasketServiceTest {
     void evaluateBasketHalfkgOfTissuePriced3USDPerGram() throws IncompatibleUnitsException {
         Product   product = new Product("Tissue ", new BigDecimal(3), null, PricingType.PricePerUnitOfMeasurement, MassUnitOfMeasurement.Gram);
         Basket basket = new Basket();
-        BasketItem item  = new BasketItem(basket, product, new BigDecimal(0.5, new MathContext(0)), PhysicalQuantity.Mass, MassUnitOfMeasurement.Kilogram);
+        BasketItem item  = new BasketItem(basket, product, new BigDecimal(0.5, new MathContext(0)),  MassUnitOfMeasurement.Kilogram);
 
         basket.getItems().add(item);
         basketService.evaluatePrice(basket);
@@ -154,7 +154,7 @@ class BasketServiceTest {
     void evaluateBasket6msqOfTissuePriced3USDPerMetterSq() throws IncompatibleUnitsException {
         Product   product = new Product("Tissue ", new BigDecimal(3), null, PricingType.PricePerUnitOfMeasurement, AreaUnitOfMeasurement.MeterSquare);
         Basket basket = new Basket();
-        BasketItem item  = new BasketItem(basket, product, new BigDecimal(6), PhysicalQuantity.Mass, AreaUnitOfMeasurement.MeterSquare);
+        BasketItem item  = new BasketItem(basket, product, new BigDecimal(6),  AreaUnitOfMeasurement.MeterSquare);
 
         basket.getItems().add(item);
         basketService.evaluatePrice(basket);
@@ -166,7 +166,7 @@ class BasketServiceTest {
     void evaluateBasket40cmsqOfTissuePriced3USDPerMetterSq() throws IncompatibleUnitsException {
         Product   product = new Product("Tissue ", new BigDecimal(3), null, PricingType.PricePerUnitOfMeasurement, AreaUnitOfMeasurement.MeterSquare);
         Basket basket = new Basket();
-        BasketItem item  = new BasketItem(basket, product, new BigDecimal(40), PhysicalQuantity.Mass, AreaUnitOfMeasurement.CentimeterSquare);
+        BasketItem item  = new BasketItem(basket, product, new BigDecimal(40),  AreaUnitOfMeasurement.CentimeterSquare);
 
         basket.getItems().add(item);
         basketService.evaluatePrice(basket);
@@ -179,7 +179,7 @@ class BasketServiceTest {
     void evaluateBasketHalfkmsqOfTissuePriced3USDPerMettersq() throws IncompatibleUnitsException {
         Product   product = new Product("Tissue ", new BigDecimal(3), null, PricingType.PricePerUnitOfMeasurement, AreaUnitOfMeasurement.MeterSquare);
         Basket basket = new Basket();
-        BasketItem item  = new BasketItem(basket, product, new BigDecimal(0.5, new MathContext(0)), PhysicalQuantity.Mass, AreaUnitOfMeasurement.KilometerSquare);
+        BasketItem item  = new BasketItem(basket, product, new BigDecimal(0.5, new MathContext(0)),  AreaUnitOfMeasurement.KilometerSquare);
 
         basket.getItems().add(item);
         basketService.evaluatePrice(basket);
@@ -194,7 +194,7 @@ class BasketServiceTest {
     void evaluateBasket6lOfTomatoPriced3USDPerLitre() throws IncompatibleUnitsException {
         Product   product = new Product("Tissue ", new BigDecimal(3), null, PricingType.PricePerUnitOfMeasurement, VolumeUnitOfMeasurement.Litre);
         Basket basket = new Basket();
-        BasketItem item  = new BasketItem(basket, product, new BigDecimal(6), PhysicalQuantity.Volume, VolumeUnitOfMeasurement.Litre);
+        BasketItem item  = new BasketItem(basket, product, new BigDecimal(6),  VolumeUnitOfMeasurement.Litre);
 
         basket.getItems().add(item);
         basketService.evaluatePrice(basket);
@@ -206,7 +206,7 @@ class BasketServiceTest {
     void evaluateBasket40mlOfTissuePriced3USDPerLitre() throws IncompatibleUnitsException {
         Product   product = new Product("Tissue ", new BigDecimal(3), null, PricingType.PricePerUnitOfMeasurement, VolumeUnitOfMeasurement.Litre);
         Basket basket = new Basket();
-        BasketItem item  = new BasketItem(basket, product, new BigDecimal(40), PhysicalQuantity.Volume, VolumeUnitOfMeasurement.Millilitre);
+        BasketItem item  = new BasketItem(basket, product, new BigDecimal(40),  VolumeUnitOfMeasurement.Millilitre);
 
         basket.getItems().add(item);
         basketService.evaluatePrice(basket);
@@ -219,7 +219,7 @@ class BasketServiceTest {
     void evaluateBasketHalfklOfTissuePriced3USDPerLitre() throws IncompatibleUnitsException {
         Product   product = new Product("Tissue ", new BigDecimal(3), null, PricingType.PricePerUnitOfMeasurement, VolumeUnitOfMeasurement.Litre);
         Basket basket = new Basket();
-        BasketItem item  = new BasketItem(basket, product, new BigDecimal(0.5, new MathContext(0)), PhysicalQuantity.Volume, VolumeUnitOfMeasurement.Kilolitre);
+        BasketItem item  = new BasketItem(basket, product, new BigDecimal(0.5, new MathContext(0)),  VolumeUnitOfMeasurement.Kilolitre);
 
         basket.getItems().add(item);
         basketService.evaluatePrice(basket);

@@ -107,7 +107,7 @@ public class PromotionServiceTest {
         Promotion promotion = new Promotion(PromotionEvaluationType.PurchasedQuantity,  new BigDecimal(10), PromotionOfferType.Quantity, new BigDecimal(2));
         product.setPromotion(promotion);
         Basket basket = new Basket();
-        BasketItem item  = new BasketItem(basket, product, new BigDecimal(14), PhysicalQuantity.Length, LengthUnitOfMeasurement.Meter);
+        BasketItem item  = new BasketItem(basket, product, new BigDecimal(14),  LengthUnitOfMeasurement.Meter);
         productService.evaluatePrice(item);
         promotionService.evaluateProductPromotion(item);
         assertAll( () -> assertEquals(new BigDecimal(2), item.getOfferedQuantity(), "Two meters offered"),
@@ -123,7 +123,7 @@ public class PromotionServiceTest {
         Promotion promotion = new Promotion(PromotionEvaluationType.PurchasedQuantity,  new BigDecimal(10), PromotionOfferType.Quantity, new BigDecimal(2));
         product.setPromotion(promotion);
         Basket basket = new Basket();
-        BasketItem item  = new BasketItem(basket, product, new BigDecimal(1400), PhysicalQuantity.Length, LengthUnitOfMeasurement.Centimeter);
+        BasketItem item  = new BasketItem(basket, product, new BigDecimal(1400),  LengthUnitOfMeasurement.Centimeter);
         productService.evaluatePrice(item);
         promotionService.evaluateProductPromotion(item);
         assertAll( () -> assertEquals(new BigDecimal(200), item.getOfferedQuantity(), "Two meters offered"),
@@ -141,7 +141,7 @@ public class PromotionServiceTest {
         Promotion promotion = new Promotion(PromotionEvaluationType.PurchasedQuantity,  new BigDecimal(10), PromotionOfferType.PriceReduction, new BigDecimal(10), PriceReductionType.Percentage);
         product.setPromotion(promotion);
         Basket basket = new Basket();
-        BasketItem item  = new BasketItem(basket, product, new BigDecimal(1400), PhysicalQuantity.Length, LengthUnitOfMeasurement.Centimeter);
+        BasketItem item  = new BasketItem(basket, product, new BigDecimal(1400),  LengthUnitOfMeasurement.Centimeter);
         productService.evaluatePrice(item);
         promotionService.evaluateProductPromotion(item);
         assertAll( () -> assertEquals(new BigDecimal(0), item.getOfferedQuantity(), "0 centimeters offered"),
@@ -150,4 +150,20 @@ public class PromotionServiceTest {
                 () -> assertEquals(AmountUtil.scaleAmount(new BigDecimal(126)), item.getTotalPrice(), "Total price = 10% discount on 140"));
     }
 
+
+    @Test
+    @DisplayName("1400 centimeters bought 20USD discount")
+    void evaluate1400CentimetersBought20USDDiscount() throws IncompatibleUnitsException, InvalidProductPromotion {
+        Product product = new Product("Cable", new BigDecimal(10), null, PricingType.PricePerUnitOfMeasurement, LengthUnitOfMeasurement.Meter);
+        Promotion promotion = new Promotion(PromotionEvaluationType.PurchasedQuantity,  new BigDecimal(10), PromotionOfferType.PriceReduction, new BigDecimal(20), PriceReductionType.Flat);
+        product.setPromotion(promotion);
+        Basket basket = new Basket();
+        BasketItem item  = new BasketItem(basket, product, new BigDecimal(1400),  LengthUnitOfMeasurement.Centimeter);
+        productService.evaluatePrice(item);
+        promotionService.evaluateProductPromotion(item);
+        assertAll( () -> assertEquals(new BigDecimal(0), item.getOfferedQuantity(), "0 centimeters offered"),
+                () -> assertEquals(new BigDecimal(1400), item.getTotalQuantity(), "Total quantity unchanged"),
+                () -> assertEquals(AmountUtil.scaleAmount(new BigDecimal(140)), item.getPrice(), "Price is 140 (without promotion)"),
+                () -> assertEquals(AmountUtil.scaleAmount(new BigDecimal(120)), item.getTotalPrice(), "Total price = 10% discount on 140"));
+    }
 }

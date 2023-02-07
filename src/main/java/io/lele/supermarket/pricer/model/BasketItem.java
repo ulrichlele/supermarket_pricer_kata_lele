@@ -12,7 +12,6 @@ public class BasketItem implements Serializable {
 
     private Product product;
     private BigDecimal quantity =  BigDecimal.ZERO;
-    private PhysicalQuantity physicalQuantity;
     private UnitOfMeasurement unitOfMeasurement;
 
     private BigDecimal price =  BigDecimal.ZERO;
@@ -36,11 +35,10 @@ public class BasketItem implements Serializable {
         this.quantity = quantity;
     }
 
-    public BasketItem(Basket basket, Product product, BigDecimal quantity, PhysicalQuantity physicalQuantity, UnitOfMeasurement unitOfMeasurement) {
+    public BasketItem(Basket basket, Product product, BigDecimal quantity,  UnitOfMeasurement unitOfMeasurement) {
         this.basket = basket;
         this.product = product;
         this.quantity = quantity;
-        this.physicalQuantity = physicalQuantity;
         this.unitOfMeasurement = unitOfMeasurement;
     }
 
@@ -58,14 +56,6 @@ public class BasketItem implements Serializable {
 
     public void setQuantity(BigDecimal quantity) {
         this.quantity = quantity;
-    }
-
-    public PhysicalQuantity getPhysicalQuantity() {
-        return physicalQuantity;
-    }
-
-    public void setPhysicalQuantity(PhysicalQuantity physicalQuantity) {
-        this.physicalQuantity = physicalQuantity;
     }
 
     public UnitOfMeasurement getUnitOfMeasurement() {

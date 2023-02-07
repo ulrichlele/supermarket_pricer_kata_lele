@@ -46,7 +46,7 @@ public class PromotionService {
                             break;
                         case Flat:
                             BigDecimal reducedPrice = item.getPrice().subtract(promo.getOffer());
-                            reducedPrice = reducedPrice.compareTo(BigDecimal.ZERO) <= 0 ? reducedPrice : BigDecimal.ZERO;
+                            reducedPrice = reducedPrice.compareTo(BigDecimal.ZERO) >= 0 ? reducedPrice : BigDecimal.ZERO;
                             item.setTotalPrice(AmountUtil.scaleAmount(reducedPrice));
                             break;
                     }

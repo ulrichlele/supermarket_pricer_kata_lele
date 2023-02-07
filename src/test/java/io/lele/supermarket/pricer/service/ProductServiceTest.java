@@ -47,7 +47,6 @@ class ProductServiceTest {
         Basket basket = new Basket();
         BasketItem item  = new BasketItem(basket, product, new BigDecimal(3));
         item.setUnitOfMeasurement(AreaUnitOfMeasurement.MeterSquare);
-        item.setPhysicalQuantity(PhysicalQuantity.Area);
         assertThrows(IncompatibleUnitsException.class, () -> productService.evaluatePrice(item));
     }
 
