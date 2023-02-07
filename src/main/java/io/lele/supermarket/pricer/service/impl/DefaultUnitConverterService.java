@@ -14,9 +14,8 @@ public class DefaultUnitConverterService implements UnitConverter {
     @Override
     public <T extends UnitOfMeasurement> BigDecimal convert(BigDecimal initialValue, T initialUnit, T finalUnit) throws IncompatibleUnitsException{
 
-        if(!initialUnit.getClass().getCanonicalName().equals(finalUnit.getClass().getCanonicalName())){
-            String message = String.format("BasketItem unit : %s; Product unit: %s",initialUnit.getClass().getName(),  finalUnit.getClass().getName());
-            throw new IncompatibleUnitsException(message);
+        if(convertible(initialUnit, finalUnit)){
+            throwIncompatibleUnitsException(initialUnit, finalUnit);
         }
         BigDecimal converted;
         if (initialUnit.equals(finalUnit)) {
@@ -31,4 +30,15 @@ public class DefaultUnitConverterService implements UnitConverter {
         }
         return converted;
     }
+
+    public <T extends  UnitOfMeasurement> boolean convertible( T initialUnit, T finalUnit){
+        return  !initialUnit.getClass().getCanonicalName().equals(finalUnit.getClass().getCanonicalName());
+    }
+
+    private <T extends  UnitOfMeasurement> void throwIncompatibleUnitsException( T initialUnit, T finalUnit) throws IncompatibleUnitsException{
+        String message = String.format("Initial unit : %s; Final unit: %s",initialUnit.getClass().getName(),  finalUnit.getClass().getName());
+        throw new IncompatibleUnitsException(message);
+    }
+
+
 }

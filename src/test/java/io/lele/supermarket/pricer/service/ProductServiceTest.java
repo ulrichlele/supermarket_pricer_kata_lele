@@ -8,6 +8,7 @@ import io.lele.supermarket.pricer.model.enums.AreaUnitOfMeasurement;
 import io.lele.supermarket.pricer.model.enums.LengthUnitOfMeasurement;
 import io.lele.supermarket.pricer.model.enums.PhysicalQuantity;
 import io.lele.supermarket.pricer.model.enums.PricingType;
+import io.lele.supermarket.pricer.utils.AmountUtil;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -35,7 +36,7 @@ class ProductServiceTest {
         Basket basket = new Basket();
         BasketItem item  = new BasketItem(basket, product, new BigDecimal(3));
         productService.evaluatePrice(item);
-        assertEquals(new BigDecimal(45), item.getPrice());
+        assertEquals(AmountUtil.scaleAmount(new BigDecimal(45)), item.getPrice());
     }
 
     @Test

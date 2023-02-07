@@ -4,6 +4,7 @@ import io.lele.supermarket.pricer.exceptions.IncompatibleUnitsException;
 import io.lele.supermarket.pricer.exceptions.InvalidProductPromotion;
 import io.lele.supermarket.pricer.model.*;
 import io.lele.supermarket.pricer.model.enums.*;
+import io.lele.supermarket.pricer.utils.AmountUtil;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -36,8 +37,8 @@ public class PromotionServiceTest {
         promotionService.evaluateProductPromotion(item);
         assertAll( () -> assertEquals(new BigDecimal(1), item.getOfferedQuantity(), "One product offered"),
                 () -> assertEquals(new BigDecimal(4), item.getTotalQuantity(), "Total quantity increased by one"),
-                () -> assertEquals(new BigDecimal(45), item.getPrice(), "Price is 45 (without promotion)"),
-                () -> assertEquals(new BigDecimal(45), item.getTotalPrice(), "Total price unchanged after promotion"));
+                () -> assertEquals(AmountUtil.scaleAmount(new BigDecimal(45)), item.getPrice(), "Price is 45 (without promotion)"),
+                () -> assertEquals(AmountUtil.scaleAmount(new BigDecimal(45)), item.getTotalPrice(), "Total price unchanged after promotion"));
 
     }
 
@@ -53,8 +54,8 @@ public class PromotionServiceTest {
         promotionService.evaluateProductPromotion(item);
         assertAll( () -> assertEquals(new BigDecimal(0), item.getOfferedQuantity(), "Offered quantity unchanged"),
                 () -> assertEquals(new BigDecimal(3), item.getTotalQuantity(), "Total quantity unchanged"),
-                () -> assertEquals(new BigDecimal(45), item.getPrice(), "Price is 45 (without promotion)"),
-                () -> assertEquals(new BigDecimal(45), item.getTotalPrice(), "Total price unchanged"));
+                () -> assertEquals(AmountUtil.scaleAmount(new BigDecimal(45)), item.getPrice(), "Price is 45 (without promotion)"),
+                () -> assertEquals(AmountUtil.scaleAmount(new BigDecimal(45)), item.getTotalPrice(), "Total price unchanged"));
     }
 
     @Test
@@ -81,8 +82,8 @@ public class PromotionServiceTest {
         promotionService.evaluateProductPromotion(item);
         assertAll( () -> assertEquals(new BigDecimal(1), item.getOfferedQuantity(), "One product offered"),
                 () -> assertEquals(new BigDecimal(4), item.getTotalQuantity(), "Total quantity increased by one"),
-                () -> assertEquals(new BigDecimal(45), item.getPrice(), "Price is 45 (without promotion)"),
-                () -> assertEquals(new BigDecimal(45), item.getTotalPrice(), "Total price unchanged after promotion"));
+                () -> assertEquals(AmountUtil.scaleAmount(new BigDecimal(45)), item.getPrice(), "Price is 45 (without promotion)"),
+                () -> assertEquals(AmountUtil.scaleAmount(new BigDecimal(45)), item.getTotalPrice(), "Total price unchanged after promotion"));
     }
 
     @Test
@@ -111,8 +112,8 @@ public class PromotionServiceTest {
         promotionService.evaluateProductPromotion(item);
         assertAll( () -> assertEquals(new BigDecimal(2), item.getOfferedQuantity(), "Two meters offered"),
                 () -> assertEquals(new BigDecimal(16), item.getTotalQuantity(), "Total quantity increased by 2 meters"),
-                () -> assertEquals(new BigDecimal(140), item.getPrice(), "Price is 140 (without promotion)"),
-                () -> assertEquals(new BigDecimal(140), item.getTotalPrice(), "Total price unchanged after promotion"));
+                () -> assertEquals(AmountUtil.scaleAmount(new BigDecimal(140)), item.getPrice(), "Price is 140 (without promotion)"),
+                () -> assertEquals(AmountUtil.scaleAmount(new BigDecimal(140)), item.getTotalPrice(), "Total price unchanged after promotion"));
     }
 
     @Test
@@ -127,15 +128,15 @@ public class PromotionServiceTest {
         promotionService.evaluateProductPromotion(item);
         assertAll( () -> assertEquals(new BigDecimal(200), item.getOfferedQuantity(), "Two meters offered"),
                 () -> assertEquals(new BigDecimal(1600), item.getTotalQuantity(), "Total quantity increased by 200 centimeters"),
-                () -> assertEquals(new BigDecimal(140), item.getPrice(), "Price is 140 (without promotion)"),
-                () -> assertEquals(new BigDecimal(140), item.getTotalPrice(), "Total price unchanged after promotion"));
+                () -> assertEquals(AmountUtil.scaleAmount(new BigDecimal(140)), item.getPrice(), "Price is 140 (without promotion)"),
+                () -> assertEquals(AmountUtil.scaleAmount(new BigDecimal(140)), item.getTotalPrice(), "Total price unchanged after promotion"));
     }
 
 
 
     @Test
     @DisplayName("1400 centimeters bought 10% discount")
-    void evaluate1400CentimetersBought10MetersOffered() throws IncompatibleUnitsException, InvalidProductPromotion {
+    void evaluate1400CentimetersBought10PercentDiscount() throws IncompatibleUnitsException, InvalidProductPromotion {
         Product product = new Product("Cable", new BigDecimal(10), null, PricingType.PricePerUnitOfMeasurement, LengthUnitOfMeasurement.Meter);
         Promotion promotion = new Promotion(PromotionEvaluationType.PurchasedQuantity,  new BigDecimal(10), PromotionOfferType.PriceReduction, new BigDecimal(10), PriceReductionType.Percentage);
         product.setPromotion(promotion);
@@ -145,8 +146,8 @@ public class PromotionServiceTest {
         promotionService.evaluateProductPromotion(item);
         assertAll( () -> assertEquals(new BigDecimal(0), item.getOfferedQuantity(), "0 centimeters offered"),
                 () -> assertEquals(new BigDecimal(1400), item.getTotalQuantity(), "Total quantity unchanged"),
-                () -> assertEquals(new BigDecimal(140), item.getPrice(), "Price is 140 (without promotion)"),
-                () -> assertEquals(new BigDecimal(126), item.getTotalPrice(), "Total price = 10% discount on 140"));
+                () -> assertEquals(AmountUtil.scaleAmount(new BigDecimal(140)), item.getPrice(), "Price is 140 (without promotion)"),
+                () -> assertEquals(AmountUtil.scaleAmount(new BigDecimal(126)), item.getTotalPrice(), "Total price = 10% discount on 140"));
     }
 
 }

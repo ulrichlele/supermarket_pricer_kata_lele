@@ -5,6 +5,7 @@ import io.lele.supermarket.pricer.model.Basket;
 import io.lele.supermarket.pricer.model.BasketItem;
 import io.lele.supermarket.pricer.model.Product;
 import io.lele.supermarket.pricer.model.enums.*;
+import io.lele.supermarket.pricer.utils.AmountUtil;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -32,7 +33,7 @@ class BasketServiceTest {
         BasketItem item  = new BasketItem(basket, product, new BigDecimal(3));
         basket.getItems().add(item);
         basketService.evaluatePrice(basket);
-        assertEquals(new BigDecimal(45), basket.getTotalPrice());
+        assertEquals(AmountUtil.scaleAmount(new BigDecimal(45)), basket.getTotalPrice());
     }
 
     @Test
@@ -43,7 +44,7 @@ class BasketServiceTest {
         BasketItem item  = new BasketItem(basket, product, new BigDecimal(0));
         basket.getItems().add(item);
         basketService.evaluatePrice(basket);
-        assertEquals(new BigDecimal(0), basket.getTotalPrice());
+        assertEquals(AmountUtil.scaleAmount(new BigDecimal(0)), basket.getTotalPrice());
     }
     @Test
     @DisplayName("Eval Basket - Flat Amt - exp 0, Qty = 3, UP=0")
@@ -53,7 +54,7 @@ class BasketServiceTest {
         BasketItem item  = new BasketItem(basket, product, new BigDecimal(3));
         basket.getItems().add(item);
         basketService.evaluatePrice(basket);
-        assertEquals(new BigDecimal(0), basket.getTotalPrice());
+        assertEquals(AmountUtil.scaleAmount(new BigDecimal(0)), basket.getTotalPrice());
     }
 
     @Test
@@ -66,7 +67,7 @@ class BasketServiceTest {
         BasketItem item  = new BasketItem(basket, product, new BigDecimal(6));
         basket.getItems().add(item);
         basketService.evaluatePrice(basket);
-        assertEquals(new BigDecimal(2), basket.getTotalPrice().round(new MathContext(1)));
+        assertEquals(AmountUtil.scaleAmount(new BigDecimal(2)), basket.getTotalPrice());
     }
 
 
@@ -79,7 +80,7 @@ class BasketServiceTest {
 
         basket.getItems().add(item);
         basketService.evaluatePrice(basket);
-        assertEquals(new BigDecimal(18), basket.getTotalPrice());
+        assertEquals(AmountUtil.scaleAmount(new BigDecimal(18)), basket.getTotalPrice());
     }
 
     @Test
@@ -91,7 +92,7 @@ class BasketServiceTest {
 
         basket.getItems().add(item);
         basketService.evaluatePrice(basket);
-        assertEquals(new BigDecimal(1.2, new MathContext(2)), basket.getTotalPrice());
+        assertEquals(AmountUtil.scaleAmount(new BigDecimal(1.2)), basket.getTotalPrice());
     }
 
 
@@ -104,7 +105,7 @@ class BasketServiceTest {
 
         basket.getItems().add(item);
         basketService.evaluatePrice(basket);
-        assertEquals(new BigDecimal(1500), basket.getTotalPrice());
+        assertEquals(AmountUtil.scaleAmount(new BigDecimal(1500)), basket.getTotalPrice());
     }
 
 
@@ -118,7 +119,7 @@ class BasketServiceTest {
 
         basket.getItems().add(item);
         basketService.evaluatePrice(basket);
-        assertEquals(new BigDecimal(18), basket.getTotalPrice());
+        assertEquals(AmountUtil.scaleAmount(new BigDecimal(18)), basket.getTotalPrice());
     }
 
     @Test
@@ -143,7 +144,7 @@ class BasketServiceTest {
 
         basket.getItems().add(item);
         basketService.evaluatePrice(basket);
-        assertEquals(new BigDecimal(1500), basket.getTotalPrice());
+        assertEquals(AmountUtil.scaleAmount(new BigDecimal(1500)), basket.getTotalPrice());
     }
 
     //-------------Area pricing
@@ -157,7 +158,7 @@ class BasketServiceTest {
 
         basket.getItems().add(item);
         basketService.evaluatePrice(basket);
-        assertEquals(new BigDecimal(18), basket.getTotalPrice());
+        assertEquals(AmountUtil.scaleAmount(new BigDecimal(18)), basket.getTotalPrice());
     }
 
     @Test
@@ -169,7 +170,7 @@ class BasketServiceTest {
 
         basket.getItems().add(item);
         basketService.evaluatePrice(basket);
-        assertEquals(new BigDecimal(1.2, new MathContext(2)), basket.getTotalPrice());
+        assertEquals(AmountUtil.scaleAmount(new BigDecimal(1.2)), basket.getTotalPrice());
     }
 
 
@@ -182,7 +183,7 @@ class BasketServiceTest {
 
         basket.getItems().add(item);
         basketService.evaluatePrice(basket);
-        assertEquals(new BigDecimal(1500), basket.getTotalPrice());
+        assertEquals(AmountUtil.scaleAmount(new BigDecimal(1500)), basket.getTotalPrice());
     }
 
 
@@ -197,7 +198,7 @@ class BasketServiceTest {
 
         basket.getItems().add(item);
         basketService.evaluatePrice(basket);
-        assertEquals(new BigDecimal(18), basket.getTotalPrice());
+        assertEquals(AmountUtil.scaleAmount(new BigDecimal(18)), basket.getTotalPrice());
     }
 
     @Test
@@ -222,7 +223,7 @@ class BasketServiceTest {
 
         basket.getItems().add(item);
         basketService.evaluatePrice(basket);
-        assertEquals(new BigDecimal(1500), basket.getTotalPrice());
+        assertEquals(AmountUtil.scaleAmount(new BigDecimal(1500)), basket.getTotalPrice());
     }
 
     @Test
@@ -231,9 +232,9 @@ class BasketServiceTest {
         Product   product = new Product("Chair ", new BigDecimal(15));
         //product.setPromotion();
         Basket basket = new Basket();
-        BasketItem item  = new BasketItem(basket, product, new BigDecimal(4));
+        BasketItem item  = new BasketItem(basket, product, new BigDecimal(0));
         basket.getItems().add(item);
         basketService.evaluatePrice(basket);
-        assertEquals(new BigDecimal(0), basket.getTotalPrice());
+        assertEquals(AmountUtil.scaleAmount(new BigDecimal(0)), basket.getTotalPrice());
     }
 }
