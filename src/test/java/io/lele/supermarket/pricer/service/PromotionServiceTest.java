@@ -109,7 +109,7 @@ public class PromotionServiceTest {
         BasketItem item  = new BasketItem(basket, product, new BigDecimal(14), PhysicalQuantity.Length, LengthUnitOfMeasurement.Meter);
         productService.evaluatePrice(item);
         promotionService.evaluateProductPromotion(item);
-        assertAll( () -> assertEquals(new BigDecimal(2), item.getOfferedQuantity(), "One product offered"),
+        assertAll( () -> assertEquals(new BigDecimal(2), item.getOfferedQuantity(), "Two meters offered"),
                 () -> assertEquals(new BigDecimal(16), item.getTotalQuantity(), "Total quantity increased by one"),
                 () -> assertEquals(new BigDecimal(140), item.getPrice(), "Price is 140 (without promotion)"),
                 () -> assertEquals(new BigDecimal(140), item.getTotalPrice(), "Total price unchanged after promotion"));
