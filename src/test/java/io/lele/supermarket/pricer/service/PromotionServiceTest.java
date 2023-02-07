@@ -35,10 +35,26 @@ public class PromotionServiceTest {
         BasketItem item  = new BasketItem(basket, product, new BigDecimal(3));
         productService.evaluatePrice(item);
         promotionService.evaluateProductPromotion(item);
-        assertAll( () -> assertEquals(new BigDecimal(1), item.getOfferedQuantity(), "One product offerd"),
+        assertAll( () -> assertEquals(new BigDecimal(1), item.getOfferedQuantity(), "One product offered"),
                 () -> assertEquals(new BigDecimal(4), item.getTotalQuantity(), "Total quantity increased by one"),
                 () -> assertEquals(new BigDecimal(45), item.getPrice(), "Price is 45 (without promotion)"),
                 () -> assertEquals(new BigDecimal(45), item.getTotalPrice(), "Total price unchanged after promotion"));
+
+    }
+
+    @Test
+    @DisplayName("Eval BasketItem - Promotion - Flat Amt- exp 45, Qty = 3, UP=15")
+    void evaluateNullPromotionProductWithFixPrice45USD() throws IncompatibleUnitsException {
+        Product product = new Product("Table ", new BigDecimal(15));
+        Promotion promotion = new Promotion(PromotionEvaluationType.Quantity, null, new BigDecimal(3), PromotionBase.Quantity, new BigDecimal(1));
+        product.setPromotion(promotion);
+        Basket basket = new Basket();
+        BasketItem item  = new BasketItem(basket, product, new BigDecimal(3));
+        productService.evaluatePrice(item);
+        assertAll( () -> assertEquals(new BigDecimal(0), item.getOfferedQuantity(), "Offered quantity unchanged"),
+                () -> assertEquals(new BigDecimal(3), item.getTotalQuantity(), "Total quantity unchanged"),
+                () -> assertEquals(new BigDecimal(45), item.getPrice(), "Price is 45 (without promotion)"),
+                () -> assertEquals(new BigDecimal(45), item.getTotalPrice(), "Total price unchanged"));
 
     }
 
