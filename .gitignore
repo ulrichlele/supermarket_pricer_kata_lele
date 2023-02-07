@@ -31,3 +31,7 @@ hs_err_pid*
 *.launch
 .settings/
 *.sublime-workspace
+target/
+!.mvn/wrapper/maven-wrapper.jar
+!**/src/main/**/target/
+!**/src/test/**/target/

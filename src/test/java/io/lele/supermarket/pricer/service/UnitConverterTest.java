@@ -71,6 +71,5 @@ class UnitConverterTest {
         UnitOfMeasurement  initialUnit = LengthUnitOfMeasurement.Centimeter;
         UnitOfMeasurement finalUnit = LengthUnitOfMeasurement.Centimeter;
         assertEquals(new BigDecimal(10.0), converter.convert(initialValue,initialUnit, finalUnit));
-
     }
 }
