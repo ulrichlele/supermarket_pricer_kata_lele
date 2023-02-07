@@ -13,7 +13,6 @@ public class ProductService  {
 
     private static final MathContext PRICE_ROUNDING  = new MathContext(2);
 
-
     public void evaluatePrice(BasketItem item) throws IncompatibleUnitsException{
         if (item.getProduct() != null && item.getProduct().getPricingType() != null) {
             BigDecimal price = BigDecimal.ZERO;
@@ -43,5 +42,7 @@ public class ProductService  {
             item.setPrice(price);
         }
     }
+
+
 
 }

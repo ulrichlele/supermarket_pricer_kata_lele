@@ -1,6 +1,5 @@
 package io.lele.supermarket.pricer.service;
 
-import io.lele.supermarket.pricer.enums.*;
 import io.lele.supermarket.pricer.exceptions.IncompatibleUnitsException;
 import io.lele.supermarket.pricer.model.Basket;
 import io.lele.supermarket.pricer.model.BasketItem;

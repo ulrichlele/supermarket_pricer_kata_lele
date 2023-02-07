@@ -8,14 +8,19 @@ import java.util.Objects;
 
 public class BasketItem implements Serializable {
 
-    Basket basket;
+    private Basket basket;
 
-    Product product;
-    BigDecimal quantity =  BigDecimal.ZERO;
-    PhysicalQuantity physicalQuantity;
-    UnitOfMeasurement unitOfMeasurement;
+    private Product product;
+    private BigDecimal quantity =  BigDecimal.ZERO;
+    private PhysicalQuantity physicalQuantity;
+    private UnitOfMeasurement unitOfMeasurement;
 
-    BigDecimal price =  BigDecimal.ZERO;
+    private BigDecimal price =  BigDecimal.ZERO;
+
+    private BigDecimal offeredQuantity;
+    private BigDecimal totalQuantity;
+    private BigDecimal promotion;
+    private BigDecimal totalPrice;
 
     public BasketItem() {
     }
@@ -77,6 +82,46 @@ public class BasketItem implements Serializable {
 
     public void setPrice(BigDecimal price) {
         this.price = price;
+    }
+
+    public Basket getBasket() {
+        return basket;
+    }
+
+    public void setBasket(Basket basket) {
+        this.basket = basket;
+    }
+
+    public BigDecimal getOfferedQuantity() {
+        return offeredQuantity;
+    }
+
+    public void setOfferedQuantity(BigDecimal offeredQuantity) {
+        this.offeredQuantity = offeredQuantity;
+    }
+
+    public BigDecimal getTotalQuantity() {
+        return totalQuantity;
+    }
+
+    public void setTotalQuantity(BigDecimal totalQuantity) {
+        this.totalQuantity = totalQuantity;
+    }
+
+    public BigDecimal getPromotion() {
+        return promotion;
+    }
+
+    public void setPromotion(BigDecimal promotion) {
+        this.promotion = promotion;
+    }
+
+    public BigDecimal getTotalPrice() {
+        return totalPrice;
+    }
+
+    public void setTotalPrice(BigDecimal totalPrice) {
+        this.totalPrice = totalPrice;
     }
 
     @Override
