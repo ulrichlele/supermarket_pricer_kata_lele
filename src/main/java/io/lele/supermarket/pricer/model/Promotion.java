@@ -2,7 +2,7 @@ package io.lele.supermarket.pricer.model;
 
 import io.lele.supermarket.pricer.model.enums.PriceReductionType;
 import io.lele.supermarket.pricer.model.enums.PromotionOfferType;
-import io.lele.supermarket.pricer.model.enums.PromotionEvaluationType;
+import io.lele.supermarket.pricer.model.enums.DiscountCriteriaBase;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
@@ -12,7 +12,7 @@ import java.util.UUID;
 public class Promotion implements Serializable {
 
     private String reference = UUID.randomUUID().toString();
-    private PromotionEvaluationType evaluationType;
+    private DiscountCriteriaBase evaluationType;
     //To simplify usage, units of measurement is equal to product units
     //private UnitOfMeasurement unitOfMeasurement;
     private BigDecimal minimumPurchase;
@@ -25,14 +25,14 @@ public class Promotion implements Serializable {
     public Promotion() {
     }
 
-    public Promotion(PromotionEvaluationType evaluationType, BigDecimal minimumPurchase, PromotionOfferType promotionOfferType, BigDecimal offer) {
+    public Promotion(DiscountCriteriaBase evaluationType, BigDecimal minimumPurchase, PromotionOfferType promotionOfferType, BigDecimal offer) {
         this.evaluationType = evaluationType;
         this.minimumPurchase = minimumPurchase;
         this.promotionOfferType = promotionOfferType;
         this.offer = offer;
     }
 
-    public Promotion(PromotionEvaluationType evaluationType, BigDecimal minimumPurchase, PromotionOfferType promotionOfferType, BigDecimal offer, PriceReductionType priceReductionType) {
+    public Promotion(DiscountCriteriaBase evaluationType, BigDecimal minimumPurchase, PromotionOfferType promotionOfferType, BigDecimal offer, PriceReductionType priceReductionType) {
         this.evaluationType = evaluationType;
         this.minimumPurchase = minimumPurchase;
         this.promotionOfferType = promotionOfferType;
@@ -48,11 +48,11 @@ public class Promotion implements Serializable {
         this.reference = reference;
     }
 
-    public PromotionEvaluationType getEvaluationType() {
+    public DiscountCriteriaBase getEvaluationType() {
         return evaluationType;
     }
 
-    public void setEvaluationType(PromotionEvaluationType evaluationType) {
+    public void setEvaluationType(DiscountCriteriaBase evaluationType) {
         this.evaluationType = evaluationType;
     }
 

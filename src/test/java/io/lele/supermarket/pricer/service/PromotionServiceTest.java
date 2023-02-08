@@ -29,7 +29,7 @@ public class PromotionServiceTest {
     @DisplayName("Eval Item - Promotion - Flat Amt- exp 45, Qty = 3, UP=15")
     void evaluatePromotionProductWithFixPrice45USD() throws IncompatibleUnitsException, InvalidProductPromotion {
         Product product = new Product("Table ", new BigDecimal(15));
-        Promotion promotion = new Promotion(PromotionEvaluationType.PurchasedQuantity,  new BigDecimal(3), PromotionOfferType.Quantity, new BigDecimal(1));
+        Promotion promotion = new Promotion(DiscountCriteriaBase.PurchaseQuantity,  new BigDecimal(3), PromotionOfferType.Quantity, new BigDecimal(1));
         product.setPromotion(promotion);
         Basket basket = new Basket();
         BasketItem item  = new BasketItem(basket, product, new BigDecimal(3));
@@ -46,7 +46,7 @@ public class PromotionServiceTest {
     @DisplayName("Eval BasketItem - Null Promotion - Flat Amt- exp 45, Qty = 3, UP=15")
     void evaluateNullPromotionProductWithFixPrice45USD() throws IncompatibleUnitsException, InvalidProductPromotion {
         Product product = new Product("Table ", new BigDecimal(15));
-        Promotion promotion = new Promotion(PromotionEvaluationType.PurchasedQuantity,  new BigDecimal(3), PromotionOfferType.Quantity, new BigDecimal(1));
+        Promotion promotion = new Promotion(DiscountCriteriaBase.PurchaseQuantity,  new BigDecimal(3), PromotionOfferType.Quantity, new BigDecimal(1));
         product.setPromotion(null);
         Basket basket = new Basket();
         BasketItem item  = new BasketItem(basket, product, new BigDecimal(3));
@@ -74,7 +74,7 @@ public class PromotionServiceTest {
     @DisplayName("Eval Item - Null Promo Min Qty - exp 1 offered")
     void evaluateNullPromotionQtyProductWithFixPrice45USD() throws IncompatibleUnitsException, InvalidProductPromotion {
         Product product = new Product("Table ", new BigDecimal(15));
-        Promotion promotion = new Promotion(PromotionEvaluationType.PurchasedQuantity, null,  PromotionOfferType.Quantity, new BigDecimal(1));
+        Promotion promotion = new Promotion(DiscountCriteriaBase.PurchaseQuantity, null,  PromotionOfferType.Quantity, new BigDecimal(1));
         product.setPromotion(promotion);
         Basket basket = new Basket();
         BasketItem item  = new BasketItem(basket, product, new BigDecimal(3));
@@ -90,7 +90,7 @@ public class PromotionServiceTest {
     @DisplayName("Eval Item - Null Promo Offered Qty- Flat Amt- throws InvalidProductPromotion")
     void evaluateNullPromotionOfferedQtyProductWithFixPrice45USD() throws IncompatibleUnitsException, InvalidProductPromotion {
         Product product = new Product("Table ", new BigDecimal(15));
-        Promotion promotion = new Promotion(PromotionEvaluationType.PurchasedQuantity,  new BigDecimal(3), PromotionOfferType.Quantity, null);
+        Promotion promotion = new Promotion(DiscountCriteriaBase.PurchaseQuantity,  new BigDecimal(3), PromotionOfferType.Quantity, null);
         product.setPromotion(promotion);
         Basket basket = new Basket();
         BasketItem item  = new BasketItem(basket, product, new BigDecimal(3));
@@ -104,7 +104,7 @@ public class PromotionServiceTest {
     @DisplayName("Ten meters bought two meters offered")
     void evaluateTenMetersBoughtTwoMetersOffered() throws IncompatibleUnitsException, InvalidProductPromotion {
         Product product = new Product("Tissue", new BigDecimal(10), null, PricingType.PricePerUnitOfMeasurement, LengthUnitOfMeasurement.Meter);
-        Promotion promotion = new Promotion(PromotionEvaluationType.PurchasedQuantity,  new BigDecimal(10), PromotionOfferType.Quantity, new BigDecimal(2));
+        Promotion promotion = new Promotion(DiscountCriteriaBase.PurchaseQuantity,  new BigDecimal(10), PromotionOfferType.Quantity, new BigDecimal(2));
         product.setPromotion(promotion);
         Basket basket = new Basket();
         BasketItem item  = new BasketItem(basket, product, new BigDecimal(14),  LengthUnitOfMeasurement.Meter);
@@ -120,7 +120,7 @@ public class PromotionServiceTest {
     @DisplayName("1400 centimeters bought two meters offered")
     void evaluate1400CentimetersBoughtTwoMetersOffered() throws IncompatibleUnitsException, InvalidProductPromotion {
         Product product = new Product("Tissue", new BigDecimal(10), null, PricingType.PricePerUnitOfMeasurement, LengthUnitOfMeasurement.Meter);
-        Promotion promotion = new Promotion(PromotionEvaluationType.PurchasedQuantity,  new BigDecimal(10), PromotionOfferType.Quantity, new BigDecimal(2));
+        Promotion promotion = new Promotion(DiscountCriteriaBase.PurchaseQuantity,  new BigDecimal(10), PromotionOfferType.Quantity, new BigDecimal(2));
         product.setPromotion(promotion);
         Basket basket = new Basket();
         BasketItem item  = new BasketItem(basket, product, new BigDecimal(1400),  LengthUnitOfMeasurement.Centimeter);
@@ -138,7 +138,7 @@ public class PromotionServiceTest {
     @DisplayName("1400 centimeters bought 10% discount")
     void evaluate1400CentimetersBought10PercentDiscount() throws IncompatibleUnitsException, InvalidProductPromotion {
         Product product = new Product("Cable", new BigDecimal(10), null, PricingType.PricePerUnitOfMeasurement, LengthUnitOfMeasurement.Meter);
-        Promotion promotion = new Promotion(PromotionEvaluationType.PurchasedQuantity,  new BigDecimal(10), PromotionOfferType.PriceReduction, new BigDecimal(10), PriceReductionType.Percentage);
+        Promotion promotion = new Promotion(DiscountCriteriaBase.PurchaseQuantity,  new BigDecimal(10), PromotionOfferType.PriceReduction, new BigDecimal(10), PriceReductionType.Percentage);
         product.setPromotion(promotion);
         Basket basket = new Basket();
         BasketItem item  = new BasketItem(basket, product, new BigDecimal(1400),  LengthUnitOfMeasurement.Centimeter);
@@ -155,7 +155,7 @@ public class PromotionServiceTest {
     @DisplayName("1400 centimeters bought 20USD discount")
     void evaluate1400CentimetersBought20USDDiscount() throws IncompatibleUnitsException, InvalidProductPromotion {
         Product product = new Product("Cable", new BigDecimal(10), null, PricingType.PricePerUnitOfMeasurement, LengthUnitOfMeasurement.Meter);
-        Promotion promotion = new Promotion(PromotionEvaluationType.PurchasedQuantity,  new BigDecimal(10), PromotionOfferType.PriceReduction, new BigDecimal(20), PriceReductionType.Flat);
+        Promotion promotion = new Promotion(DiscountCriteriaBase.PurchaseQuantity,  new BigDecimal(10), PromotionOfferType.PriceReduction, new BigDecimal(20), PriceReductionType.Flat);
         product.setPromotion(promotion);
         Basket basket = new Basket();
         BasketItem item  = new BasketItem(basket, product, new BigDecimal(1400),  LengthUnitOfMeasurement.Centimeter);

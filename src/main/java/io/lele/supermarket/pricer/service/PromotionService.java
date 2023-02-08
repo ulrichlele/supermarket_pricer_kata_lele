@@ -83,13 +83,13 @@ public class PromotionService {
     boolean isBasketItemEligibleToPromotion(BasketItem item, Promotion promo) throws IncompatibleUnitsException {
         boolean isEligible = false;
         switch (promo.getEvaluationType()) {
-            case Any:
+            case None:
                 isEligible = true;
                 break;
-            case PurchasedPrice:
+            case PurchaseAmount:
                 isEligible = item.getPrice().compareTo(promo.getMinimumPurchase()) >= 0;
                 break;
-            case PurchasedQuantity:
+            case PurchaseQuantity:
                 switch (item.getProduct().getPricingType()) {
                     case PricePerItem:
                     case PriceOnQuantity:
