@@ -8,22 +8,19 @@ import io.lele.supermarket.pricer.utils.AmountUtil;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
 
 import java.math.BigDecimal;
 
 import static org.junit.jupiter.api.Assertions.*;
-
+@SpringBootTest
 public class PromotionServiceTest {
 
-    private static ProductService productService;
-
-    private static PromotionService promotionService;
-    @BeforeAll
-    @DisplayName("Initialize products and pricer")
-    static void init(){
-        productService = new ProductService();
-        promotionService = new PromotionService();
-    }
+    @Autowired
+    private  ProductService productService;
+    @Autowired
+    private  PromotionService promotionService;
 
     @Test
     @DisplayName("Eval Item - Promotion - Flat Amt- exp 45, Qty = 3, UP=15")

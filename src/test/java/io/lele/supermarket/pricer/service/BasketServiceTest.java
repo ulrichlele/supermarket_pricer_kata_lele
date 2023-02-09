@@ -9,21 +9,19 @@ import io.lele.supermarket.pricer.utils.AmountUtil;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
 
 import java.math.BigDecimal;
 import java.math.MathContext;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+@SpringBootTest
 class BasketServiceTest {
-
-    private static BasketService basketService;
-
-    @BeforeAll
-    @DisplayName("Initialize products and pricer")
-    static void init(){
-        basketService = new BasketService();
-    }
+    @Autowired
+    private  BasketService basketService;
+ 
 
     @Test
     @DisplayName("Eval Basket - Flat Amt - exp 45, Qty = 3, UP=15")

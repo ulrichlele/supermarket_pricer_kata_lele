@@ -11,21 +11,20 @@ import io.lele.supermarket.pricer.utils.AmountUtil;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
 
 import java.math.BigDecimal;
 
 import static org.junit.jupiter.api.Assertions.*;
-
+@SpringBootTest
 class ProductServiceTest {
 
-    private static ProductService productService;
+    @Autowired
+    private ProductService productService;
 
 
-    @BeforeAll
-    @DisplayName("Initialize products and pricer")
-    static void init(){
-        productService = new ProductService();
-    }
+
 
     @Test
     @DisplayName("Eval BasketItem - Flat Amt- exp 45, Qty = 3, UP=15")

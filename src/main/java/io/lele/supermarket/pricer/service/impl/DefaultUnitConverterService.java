@@ -3,10 +3,11 @@ package io.lele.supermarket.pricer.service.impl;
 import io.lele.supermarket.pricer.exceptions.IncompatibleUnitsException;
 import io.lele.supermarket.pricer.model.UnitOfMeasurement;
 import io.lele.supermarket.pricer.service.UnitConverter;
+import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.math.MathContext;
-
+@Service
 public class DefaultUnitConverterService implements UnitConverter {
 
     public static final MathContext DEFAULT_PRECISION = MathContext.DECIMAL64;

@@ -9,12 +9,18 @@ import io.lele.supermarket.pricer.model.enums.PriceReductionType;
 import io.lele.supermarket.pricer.model.enums.PromotionOfferType;
 import io.lele.supermarket.pricer.service.impl.DefaultUnitConverterService;
 import io.lele.supermarket.pricer.utils.AmountUtil;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
-
+@Service
 public class PromotionService {
 
-    private UnitConverter converter = new DefaultUnitConverterService();
+    private UnitConverter converter;
+
+    public PromotionService(UnitConverter unitConverter){
+        this.converter = unitConverter;
+    }
 
     void evaluateProductPromotion(BasketItem item) throws IncompatibleUnitsException, InvalidProductPromotion {
         if (item == null || item.getProduct() == null || item.getProduct().getPromotion() == null)

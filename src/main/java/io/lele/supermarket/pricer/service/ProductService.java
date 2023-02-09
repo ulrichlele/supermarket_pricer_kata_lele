@@ -5,14 +5,23 @@ import io.lele.supermarket.pricer.model.BasketItem;
 import io.lele.supermarket.pricer.model.Product;
 import io.lele.supermarket.pricer.service.impl.DefaultUnitConverterService;
 import io.lele.supermarket.pricer.utils.AmountUtil;
+import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.math.MathContext;
 
+@Service
 public class ProductService  {
 
-    private UnitConverter converter = new DefaultUnitConverterService();
+    private UnitConverter converter;
 
+    public UnitConverter getConverter() {
+        return converter;
+    }
+
+    public ProductService(UnitConverter unitConverter){
+        this.converter = unitConverter;
+    }
 
     public void evaluatePrice(BasketItem item) throws IncompatibleUnitsException {
         if (item.getProduct() != null && item.getProduct().getPricingType() != null) {

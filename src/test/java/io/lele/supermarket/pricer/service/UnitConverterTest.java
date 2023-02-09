@@ -7,21 +7,20 @@ import io.lele.supermarket.pricer.service.impl.DefaultUnitConverterService;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
 
 import java.math.BigDecimal;
 import java.math.MathContext;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+@SpringBootTest
 class UnitConverterTest {
 
-    private static UnitConverter converter;
+    @Autowired
+    private  UnitConverter converter;
 
-    @BeforeAll
-    @DisplayName("Initialize unit converter")
-    static void init(){
-        converter = new DefaultUnitConverterService();
-    }
 
     @Test
     @DisplayName("Should return true if Meter is Si UNit of length")
