@@ -1,5 +1,7 @@
 package io.lele.supermarket.pricer.domain;
 
+import io.lele.supermarket.pricer.application.exceptions.IncompatibleUnitsException;
+import io.lele.supermarket.pricer.application.exceptions.InvalidProductPromotion;
 import io.lele.supermarket.pricer.domain.enums.PriceReductionType;
 import io.lele.supermarket.pricer.domain.enums.PromotionOfferType;
 import io.lele.supermarket.pricer.domain.enums.DiscountCriteriaBase;
@@ -95,7 +97,6 @@ public class Promotion implements Serializable {
         Promotion promotion = (Promotion) o;
         return getReference().equals(promotion.getReference());
     }
-
     @Override
     public int hashCode() {
         return Objects.hash(getReference());

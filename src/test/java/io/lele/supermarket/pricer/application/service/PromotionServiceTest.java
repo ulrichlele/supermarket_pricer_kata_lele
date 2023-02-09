@@ -1,5 +1,6 @@
 package io.lele.supermarket.pricer.application.service;
 
+import io.lele.supermarket.pricer.application.services.BasketItemService;
 import io.lele.supermarket.pricer.application.services.ProductService;
 import io.lele.supermarket.pricer.application.services.PromotionService;
 import io.lele.supermarket.pricer.domain.Basket;
@@ -22,7 +23,7 @@ import static org.junit.jupiter.api.Assertions.*;
 public class PromotionServiceTest {
 
     @Autowired
-    private ProductService productService;
+    private BasketItemService basketItemService;
     @Autowired
     private PromotionService promotionService;
 
@@ -34,7 +35,7 @@ public class PromotionServiceTest {
         product.setPromotion(promotion);
         Basket basket = new Basket();
         BasketItem item  = new BasketItem(basket, product, new BigDecimal(3));
-        productService.evaluatePrice(item);
+        basketItemService.evaluatePrice(item);
         promotionService.evaluateProductPromotion(item);
         assertAll( () -> assertEquals(new BigDecimal(1), item.getOfferedQuantity(), "One product offered"),
                 () -> assertEquals(new BigDecimal(4), item.getTotalQuantity(), "Total quantity increased by one"),
@@ -51,7 +52,7 @@ public class PromotionServiceTest {
         product.setPromotion(null);
         Basket basket = new Basket();
         BasketItem item  = new BasketItem(basket, product, new BigDecimal(3));
-        productService.evaluatePrice(item);
+        basketItemService.evaluatePrice(item);
         promotionService.evaluateProductPromotion(item);
         assertAll( () -> assertEquals(new BigDecimal(0), item.getOfferedQuantity(), "Offered quantity unchanged"),
                 () -> assertEquals(new BigDecimal(3), item.getTotalQuantity(), "Total quantity unchanged"),
@@ -67,7 +68,7 @@ public class PromotionServiceTest {
         product.setPromotion(promotion);
         Basket basket = new Basket();
         BasketItem item  = new BasketItem(basket, product, new BigDecimal(3));
-        productService.evaluatePrice(item);
+        basketItemService.evaluatePrice(item);
         assertThrows(InvalidProductPromotion.class, () -> promotionService.evaluateProductPromotion(item));
     }
 
@@ -79,7 +80,7 @@ public class PromotionServiceTest {
         product.setPromotion(promotion);
         Basket basket = new Basket();
         BasketItem item  = new BasketItem(basket, product, new BigDecimal(3));
-        productService.evaluatePrice(item);
+        basketItemService.evaluatePrice(item);
         promotionService.evaluateProductPromotion(item);
         assertAll( () -> assertEquals(new BigDecimal(1), item.getOfferedQuantity(), "One product offered"),
                 () -> assertEquals(new BigDecimal(4), item.getTotalQuantity(), "Total quantity increased by one"),
@@ -95,7 +96,7 @@ public class PromotionServiceTest {
         product.setPromotion(promotion);
         Basket basket = new Basket();
         BasketItem item  = new BasketItem(basket, product, new BigDecimal(3));
-        productService.evaluatePrice(item);
+        basketItemService.evaluatePrice(item);
         assertThrows(InvalidProductPromotion.class, () -> promotionService.evaluateProductPromotion(item));
     }
 
@@ -109,7 +110,7 @@ public class PromotionServiceTest {
         product.setPromotion(promotion);
         Basket basket = new Basket();
         BasketItem item  = new BasketItem(basket, product, new BigDecimal(14),  LengthUnitOfMeasurement.Meter);
-        productService.evaluatePrice(item);
+        basketItemService.evaluatePrice(item);
         promotionService.evaluateProductPromotion(item);
         assertAll( () -> assertEquals(new BigDecimal(2), item.getOfferedQuantity(), "Two meters offered"),
                 () -> assertEquals(new BigDecimal(16), item.getTotalQuantity(), "Total quantity increased by 2 meters"),
@@ -125,7 +126,7 @@ public class PromotionServiceTest {
         product.setPromotion(promotion);
         Basket basket = new Basket();
         BasketItem item  = new BasketItem(basket, product, new BigDecimal(1400),  LengthUnitOfMeasurement.Centimeter);
-        productService.evaluatePrice(item);
+        basketItemService.evaluatePrice(item);
         promotionService.evaluateProductPromotion(item);
         assertAll( () -> assertEquals(new BigDecimal(200), item.getOfferedQuantity(), "Two meters offered"),
                 () -> assertEquals(new BigDecimal(1600), item.getTotalQuantity(), "Total quantity increased by 200 centimeters"),
@@ -143,7 +144,7 @@ public class PromotionServiceTest {
         product.setPromotion(promotion);
         Basket basket = new Basket();
         BasketItem item  = new BasketItem(basket, product, new BigDecimal(1400),  LengthUnitOfMeasurement.Centimeter);
-        productService.evaluatePrice(item);
+        basketItemService.evaluatePrice(item);
         promotionService.evaluateProductPromotion(item);
         assertAll( () -> assertEquals(new BigDecimal(0), item.getOfferedQuantity(), "0 centimeters offered"),
                 () -> assertEquals(new BigDecimal(1400), item.getTotalQuantity(), "Total quantity unchanged"),
@@ -160,7 +161,7 @@ public class PromotionServiceTest {
         product.setPromotion(promotion);
         Basket basket = new Basket();
         BasketItem item  = new BasketItem(basket, product, new BigDecimal(1400),  LengthUnitOfMeasurement.Centimeter);
-        productService.evaluatePrice(item);
+        basketItemService.evaluatePrice(item);
         promotionService.evaluateProductPromotion(item);
         assertAll( () -> assertEquals(new BigDecimal(0), item.getOfferedQuantity(), "0 centimeters offered"),
                 () -> assertEquals(new BigDecimal(1400), item.getTotalQuantity(), "Total quantity unchanged"),
