@@ -1,6 +1,6 @@
 package io.lele.supermarket.pricer.application.service;
 
-import io.lele.supermarket.pricer.application.services.ProductService;
+import io.lele.supermarket.pricer.application.services.BasketItemService;
 import io.lele.supermarket.pricer.application.exceptions.IncompatibleUnitsException;
 import io.lele.supermarket.pricer.domain.Basket;
 import io.lele.supermarket.pricer.domain.BasketItem;
@@ -18,12 +18,10 @@ import java.math.BigDecimal;
 
 import static org.junit.jupiter.api.Assertions.*;
 @SpringBootTest
-class ProductServiceTest {
+class BasketItemServiceTest {
 
     @Autowired
-    private ProductService productService;
-
-
+    private BasketItemService basketItemService;
 
 
     @Test
@@ -32,7 +30,7 @@ class ProductServiceTest {
         Product   product = new Product("Table ", new BigDecimal(15));
         Basket basket = new Basket();
         BasketItem item  = new BasketItem(basket, product, new BigDecimal(3));
-        productService.evaluatePrice(item);
+        basketItemService.evaluatePrice(item);
         assertEquals(AmountUtil.scaleAmount(new BigDecimal(45)), item.getPrice());
     }
 
@@ -44,7 +42,7 @@ class ProductServiceTest {
         Basket basket = new Basket();
         BasketItem item  = new BasketItem(basket, product, new BigDecimal(3));
         item.setUnitOfMeasurement(AreaUnitOfMeasurement.MeterSquare);
-        assertThrows(IncompatibleUnitsException.class, () -> productService.evaluatePrice(item));
+        assertThrows(IncompatibleUnitsException.class, () -> basketItemService.evaluatePrice(item));
     }
 
     @Test
@@ -53,7 +51,7 @@ class ProductServiceTest {
         Product   product = new Product("Table ", new BigDecimal(-15));
         Basket basket = new Basket();
         BasketItem item  = new BasketItem(basket, product, new BigDecimal(3));
-        assertThrows(RuntimeException.class,() -> productService.evaluatePrice(item) );
+        assertThrows(RuntimeException.class,() -> basketItemService.evaluatePrice(item) );
     }
 
 
