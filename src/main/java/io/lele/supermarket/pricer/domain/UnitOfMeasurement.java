@@ -8,5 +8,7 @@ public interface UnitOfMeasurement {
 
     BigDecimal getValue();
 
+    String name();
+
 
 }

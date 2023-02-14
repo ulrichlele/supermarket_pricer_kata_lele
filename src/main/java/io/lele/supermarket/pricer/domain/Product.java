@@ -1,13 +1,18 @@
 package io.lele.supermarket.pricer.domain;
 
+import io.lele.supermarket.pricer.domain.enums.PhysicalQuantity;
 import io.lele.supermarket.pricer.domain.enums.PricingType;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Objects;
 import java.util.UUID;
-
+@Data
+@NoArgsConstructor
 public class Product implements Serializable {
+
 
     private String name;
     private String reference = UUID.randomUUID().toString();
@@ -21,6 +26,8 @@ public class Product implements Serializable {
 
     private UnitOfMeasurement unitOfMeasurement;
 
+    private PhysicalQuantity physicalQuantity;
+
     private Promotion promotion;
 
     public Product(String name, BigDecimal unitPrice) {
@@ -28,80 +35,16 @@ public class Product implements Serializable {
         this.unitPrice = unitPrice;
     }
 
-    public Product(String name, BigDecimal unitPrice, BigDecimal pricedQuantity, PricingType pricingType, UnitOfMeasurement unitOfMeasurement) {
+    public Product(String name, BigDecimal unitPrice, BigDecimal pricedQuantity, PricingType pricingType, UnitOfMeasurement unitOfMeasurement, PhysicalQuantity physicalQuantity) {
         this.name = name;
         this.unitPrice = unitPrice;
         this.pricedQuantity = pricedQuantity;
         this.pricingType = pricingType;
         this.unitOfMeasurement = unitOfMeasurement;
+        this.physicalQuantity = physicalQuantity;
     }
 
-    public Product() {
-    }
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getReference() {
-        return reference;
-    }
-
-    public void setReference(String reference) {
-        this.reference = reference;
-    }
-
-    public BigDecimal getUnitPrice() {
-        return unitPrice;
-    }
-
-    public void setUnitPrice(BigDecimal unitPrice) {
-        this.unitPrice = unitPrice;
-    }
-
-    public String getCurrencyCode() {
-        return currencyCode;
-    }
-
-    public void setCurrencyCode(String currencyCode) {
-        this.currencyCode = currencyCode;
-    }
-
-    public BigDecimal getPricedQuantity() {
-        return pricedQuantity;
-    }
-
-    public void setPricedQuantity(BigDecimal pricedQuantity) {
-        this.pricedQuantity = pricedQuantity;
-    }
-
-    public PricingType getPricingType() {
-        return pricingType;
-    }
-
-    public void setPricingType(PricingType pricingType) {
-        this.pricingType = pricingType;
-    }
-
-    public UnitOfMeasurement getUnitOfMeasurement() {
-        return unitOfMeasurement;
-    }
-
-    public void setUnitOfMeasurement(UnitOfMeasurement unitOfMeasurement) {
-        this.unitOfMeasurement = unitOfMeasurement;
-    }
-
-    public Promotion getPromotion() {
-        return promotion;
-    }
-
-    public void setPromotion(Promotion promotion) {
-        this.promotion = promotion;
-    }
 
     @Override
     public boolean equals(Object o) {
@@ -120,7 +63,7 @@ public class Product implements Serializable {
     public String toString() {
         return "Product{" +
                 "name='" + name + '\'' +
-                ", refrence='" + reference + '\'' +
+                ", reference='" + reference + '\'' +
                 ", unitPrice=" + unitPrice +
                 ", currencyCode='" + currencyCode + '\'' +
                 '}';

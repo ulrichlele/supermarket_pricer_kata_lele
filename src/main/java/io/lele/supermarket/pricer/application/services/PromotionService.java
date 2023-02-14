@@ -31,7 +31,6 @@ public class PromotionService {
                 case Quantity:
                     switch (item.getProduct().getPricingType()) {
                         case PricePerItem:
-                        case PriceOnQuantity:
                             item.setOfferedQuantity(promo.getOffer());
                             item.setTotalQuantity(item.getQuantity().add(promo.getOffer()));
                             break;
@@ -96,7 +95,6 @@ public class PromotionService {
             case PurchaseQuantity:
                 switch (item.getProduct().getPricingType()) {
                     case PricePerItem:
-                    case PriceOnQuantity:
                         isEligible = promo.getMinimumPurchase() == null || promo.getMinimumPurchase().equals(BigDecimal.ZERO) || item.getQuantity().compareTo(promo.getMinimumPurchase()) >= 0;
                         break;
                     case PricePerUnitOfMeasurement:

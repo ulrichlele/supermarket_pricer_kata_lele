@@ -7,6 +7,7 @@ import io.lele.supermarket.pricer.domain.BasketItem;
 import io.lele.supermarket.pricer.domain.Product;
 import io.lele.supermarket.pricer.domain.enums.AreaUnitOfMeasurement;
 import io.lele.supermarket.pricer.domain.enums.LengthUnitOfMeasurement;
+import io.lele.supermarket.pricer.domain.enums.PhysicalQuantity;
 import io.lele.supermarket.pricer.domain.enums.PricingType;
 import io.lele.supermarket.pricer.application.utils.AmountUtil;
 import org.junit.jupiter.api.DisplayName;
@@ -37,7 +38,7 @@ class BasketItemServiceTest {
     @Test
     @DisplayName("Eval BasketItem - Throws EX - Length to Area")
     void evaluatePriceGeneratesIncompatibleUnitsException() throws IncompatibleUnitsException {
-        Product   product = new Product("Table ", new BigDecimal(15), new BigDecimal(1), PricingType.PricePerUnitOfMeasurement, LengthUnitOfMeasurement.Meter);
+        Product   product = new Product("Table ", new BigDecimal(15), new BigDecimal(1), PricingType.PricePerUnitOfMeasurement, LengthUnitOfMeasurement.Meter, PhysicalQuantity.Length);
         Product   products = new Product();
         Basket basket = new Basket();
         BasketItem item  = new BasketItem(basket, product, new BigDecimal(3));
