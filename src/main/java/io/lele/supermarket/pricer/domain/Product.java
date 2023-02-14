@@ -1,5 +1,6 @@
 package io.lele.supermarket.pricer.domain;
 
+import io.lele.supermarket.pricer.domain.enums.PhysicalQuantity;
 import io.lele.supermarket.pricer.domain.enums.PricingType;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -25,6 +26,8 @@ public class Product implements Serializable {
 
     private UnitOfMeasurement unitOfMeasurement;
 
+    private PhysicalQuantity physicalQuantity;
+
     private Promotion promotion;
 
     public Product(String name, BigDecimal unitPrice) {
@@ -32,13 +35,15 @@ public class Product implements Serializable {
         this.unitPrice = unitPrice;
     }
 
-    public Product(String name, BigDecimal unitPrice, BigDecimal pricedQuantity, PricingType pricingType, UnitOfMeasurement unitOfMeasurement) {
+    public Product(String name, BigDecimal unitPrice, BigDecimal pricedQuantity, PricingType pricingType, UnitOfMeasurement unitOfMeasurement, PhysicalQuantity physicalQuantity) {
         this.name = name;
         this.unitPrice = unitPrice;
         this.pricedQuantity = pricedQuantity;
         this.pricingType = pricingType;
         this.unitOfMeasurement = unitOfMeasurement;
+        this.physicalQuantity = physicalQuantity;
     }
+
 
 
     @Override
@@ -63,6 +68,4 @@ public class Product implements Serializable {
                 ", currencyCode='" + currencyCode + '\'' +
                 '}';
     }
-
-
 }

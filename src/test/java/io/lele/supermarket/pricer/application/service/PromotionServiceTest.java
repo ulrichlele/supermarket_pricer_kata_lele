@@ -105,7 +105,7 @@ public class PromotionServiceTest {
     @Test
     @DisplayName("Ten meters bought two meters offered")
     void evaluateTenMetersBoughtTwoMetersOffered() throws IncompatibleUnitsException, InvalidProductPromotion {
-        Product product = new Product("Tissue", new BigDecimal(10), null, PricingType.PricePerUnitOfMeasurement, LengthUnitOfMeasurement.Meter);
+        Product product = new Product("Tissue", new BigDecimal(10), null, PricingType.PricePerUnitOfMeasurement, LengthUnitOfMeasurement.Meter, PhysicalQuantity.Length);
         Promotion promotion = new Promotion(DiscountCriteriaBase.PurchaseQuantity,  new BigDecimal(10), PromotionOfferType.Quantity, new BigDecimal(2));
         product.setPromotion(promotion);
         Basket basket = new Basket();
@@ -121,7 +121,7 @@ public class PromotionServiceTest {
     @Test
     @DisplayName("1400 centimeters bought two meters offered")
     void evaluate1400CentimetersBoughtTwoMetersOffered() throws IncompatibleUnitsException, InvalidProductPromotion {
-        Product product = new Product("Tissue", new BigDecimal(10), null, PricingType.PricePerUnitOfMeasurement, LengthUnitOfMeasurement.Meter);
+        Product product = new Product("Tissue", new BigDecimal(10), null, PricingType.PricePerUnitOfMeasurement, LengthUnitOfMeasurement.Meter, PhysicalQuantity.Length);
         Promotion promotion = new Promotion(DiscountCriteriaBase.PurchaseQuantity,  new BigDecimal(10), PromotionOfferType.Quantity, new BigDecimal(2));
         product.setPromotion(promotion);
         Basket basket = new Basket();
@@ -139,7 +139,7 @@ public class PromotionServiceTest {
     @Test
     @DisplayName("1400 centimeters bought 10% discount")
     void evaluate1400CentimetersBought10PercentDiscount() throws IncompatibleUnitsException, InvalidProductPromotion {
-        Product product = new Product("Cable", new BigDecimal(10), null, PricingType.PricePerUnitOfMeasurement, LengthUnitOfMeasurement.Meter);
+        Product product = new Product("Cable", new BigDecimal(10), null, PricingType.PricePerUnitOfMeasurement, LengthUnitOfMeasurement.Meter, PhysicalQuantity.Length);
         Promotion promotion = new Promotion(DiscountCriteriaBase.PurchaseQuantity,  new BigDecimal(10), PromotionOfferType.PriceReduction, new BigDecimal(10), PriceReductionType.Percentage);
         product.setPromotion(promotion);
         Basket basket = new Basket();
@@ -156,7 +156,7 @@ public class PromotionServiceTest {
     @Test
     @DisplayName("1400 centimeters bought 20USD discount")
     void evaluate1400CentimetersBought20USDDiscount() throws IncompatibleUnitsException, InvalidProductPromotion {
-        Product product = new Product("Cable", new BigDecimal(10), null, PricingType.PricePerUnitOfMeasurement, LengthUnitOfMeasurement.Meter);
+        Product product = new Product("Cable", new BigDecimal(10), null, PricingType.PricePerUnitOfMeasurement, LengthUnitOfMeasurement.Meter, PhysicalQuantity.Length);
         Promotion promotion = new Promotion(DiscountCriteriaBase.PurchaseQuantity,  new BigDecimal(10), PromotionOfferType.PriceReduction, new BigDecimal(20), PriceReductionType.Flat);
         product.setPromotion(promotion);
         Basket basket = new Basket();
