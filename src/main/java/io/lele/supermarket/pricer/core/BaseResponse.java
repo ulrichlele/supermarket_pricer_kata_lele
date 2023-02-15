@@ -10,7 +10,7 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
-public class BaseResponse<T extends Serializable> implements Serializable {
+public class BaseResponse<T> implements Serializable {
 
     private boolean success = false;
 
