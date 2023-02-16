@@ -1,6 +1,6 @@
 package io.lele.supermarket.pricer.adapter.in.rest.api;
 
-import io.lele.supermarket.pricer.application.port.in.ProductServicePort;
+import io.lele.supermarket.pricer.application.port.in.ProductRequestPort;
 import io.lele.supermarket.pricer.application.port.in.dto.CreateProductDTO;
 import io.lele.supermarket.pricer.application.port.in.dto.UpdateProductDTO;
 import io.lele.supermarket.pricer.core.BaseResponse;
@@ -14,9 +14,9 @@ import java.util.Set;
 @RequestMapping("/api/product")
 public class ProductWS {
 
-    ProductServicePort productService;
+    ProductRequestPort productService;
 
-    public ProductWS(ProductServicePort productService){
+    public ProductWS(ProductRequestPort productService){
         this.productService = productService;
     }
 

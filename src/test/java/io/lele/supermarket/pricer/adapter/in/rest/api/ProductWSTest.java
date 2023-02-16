@@ -1,7 +1,7 @@
 package io.lele.supermarket.pricer.adapter.in.rest.api;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import io.lele.supermarket.pricer.application.port.in.ProductServicePort;
+import io.lele.supermarket.pricer.application.port.in.ProductRequestPort;
 import io.lele.supermarket.pricer.application.port.in.dto.CreateProductDTO;
 import io.lele.supermarket.pricer.application.port.in.dto.UpdateProductDTO;
 import io.lele.supermarket.pricer.core.BaseResponse;
@@ -32,7 +32,7 @@ class ProductWSTest {
 
 
     @Autowired
-    private ProductServicePort productServicePort;
+    private ProductRequestPort productServicePort;
 
 
 

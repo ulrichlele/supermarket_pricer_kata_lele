@@ -2,7 +2,7 @@ package io.lele.supermarket.pricer.application.services;
 
 import io.lele.supermarket.pricer.adapter.out.jpa.mapper.UnitOfMeasurementMapper;
 import io.lele.supermarket.pricer.application.port.in.dto.CreateProductDTO;
-import io.lele.supermarket.pricer.application.port.in.ProductServicePort;
+import io.lele.supermarket.pricer.application.port.in.ProductRequestPort;
 import io.lele.supermarket.pricer.application.port.in.dto.ProductDtoMapper;
 import io.lele.supermarket.pricer.application.port.in.dto.UpdateProductDTO;
 import io.lele.supermarket.pricer.application.port.out.ProductCrudPort;
@@ -19,7 +19,7 @@ import java.util.Optional;
 import java.util.Set;
 
 @Service
-public class ProductService implements ProductServicePort {
+public class ProductService implements ProductRequestPort {
     private static final String STD_VALIDATION_FAILED  = "Validation.Failed";
     private static final String STD_RECORD_NOT_FOUND  = "Record.Not.Found";
     Logger logger = LoggerFactory.getLogger(ProductService.class);

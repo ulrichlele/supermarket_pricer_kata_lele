@@ -8,7 +8,7 @@ import io.lele.supermarket.pricer.domain.Product;
 import java.util.Optional;
 import java.util.Set;
 
-public interface ProductServicePort {
+public interface ProductRequestPort {
 
     BaseResponse<Product> create(CreateProductDTO model);
 

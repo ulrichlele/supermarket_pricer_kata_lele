@@ -13,9 +13,9 @@ import org.modelmapper.Converter;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeMap;
 
-public class ProductMapper {
+public class ProductMapper implements  BaseJpaModelMapper<Product, ProductJpa>{
 
-    public static Product toDomain(ProductJpa jpa){
+    public  Product toDomain(ProductJpa jpa){
         ModelMapper mapper = new ModelMapper();
         TypeMap<ProductJpa, Product> propertyMapper = mapper.createTypeMap(ProductJpa.class, Product.class);
         propertyMapper.addMappings(s -> s.skip(Product::setUnitOfMeasurement));
@@ -24,7 +24,7 @@ public class ProductMapper {
         return domain;
     }
 
-    public  static ProductJpa toJpaEntity(Product domain){
+    public  ProductJpa toJpaEntity(Product domain){
         ModelMapper mapper = new ModelMapper();
         TypeMap<Product, ProductJpa> propertyMapper = mapper.createTypeMap(Product.class, ProductJpa.class);
         propertyMapper.addMappings(s -> s.skip(ProductJpa::setUnitOfMeasurement));

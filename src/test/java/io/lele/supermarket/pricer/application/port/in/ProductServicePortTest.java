@@ -19,7 +19,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class ProductServicePortTest {
 
     @Autowired
-    private ProductServicePort productServicePort;
+    private ProductRequestPort productServicePort;
 
 
     @Test
