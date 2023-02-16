@@ -4,9 +4,9 @@ import java.math.BigDecimal;
 
 public interface UnitOfMeasurement {
 
-    boolean isSIUnit();
+    UnitOfMeasurement getBaseUnit();
 
-    BigDecimal getValue();
+    double getBaseUnitConversion();
 
     String name();
 

@@ -2,24 +2,23 @@ package io.lele.supermarket.pricer.domain.enums;
 
 import io.lele.supermarket.pricer.domain.UnitOfMeasurement;
 
-import java.math.BigDecimal;
 
 public enum AreaUnitOfMeasurement implements UnitOfMeasurement {
-    MillimeterSquare(new BigDecimal(1000)), CentimeterSquare(new BigDecimal(100)), MeterSquare(new BigDecimal(1)), KilometerSquare(new BigDecimal(0.001));
+    MillimeterSquare(0.001), CentimeterSquare(0.01), MeterSquare(1), KilometerSquare(1000);
 
-    public final BigDecimal value;
-     AreaUnitOfMeasurement(BigDecimal value){
-        this.value = value;
+    public final double baseUnitConversion;
+     AreaUnitOfMeasurement(double baseUnitConversion){
+        this.baseUnitConversion = baseUnitConversion;
     }
 
     @Override
-    public boolean isSIUnit() {
-        return this.equals(MeterSquare) ? true : false;
+    public AreaUnitOfMeasurement getBaseUnit() {
+        return AreaUnitOfMeasurement.MeterSquare;
     }
 
     @Override
-    public BigDecimal getValue() {
-        return value;
+    public double getBaseUnitConversion() {
+        return baseUnitConversion;
     }
 
 

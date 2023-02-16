@@ -4,10 +4,10 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Objects;
 
+
 public class BasketItem implements Serializable {
 
     private Basket basket;
-
     private Product product;
     private BigDecimal quantity =  BigDecimal.ZERO;
     private UnitOfMeasurement unitOfMeasurement;

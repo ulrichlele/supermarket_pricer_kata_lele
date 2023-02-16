@@ -1,6 +1,8 @@
 package io.lele.supermarket.pricer.application.exceptions;
 
-public class IncompatibleUnitsException extends Exception{
+import io.lele.supermarket.pricer.core.BaseAppException;
+
+public class IncompatibleUnitsException extends BaseAppException {
     public IncompatibleUnitsException(String message){
         super(message);
     }

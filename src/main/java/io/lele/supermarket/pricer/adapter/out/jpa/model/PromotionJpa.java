@@ -1,6 +1,6 @@
 package io.lele.supermarket.pricer.adapter.out.jpa.model;
 
-import io.lele.supermarket.pricer.domain.enums.DiscountCriteriaBase;
+import io.lele.supermarket.pricer.domain.enums.PromotionEligibilityBase;
 import io.lele.supermarket.pricer.domain.enums.PriceReductionType;
 import io.lele.supermarket.pricer.domain.enums.PromotionOfferType;
 import jakarta.persistence.Column;
@@ -25,7 +25,7 @@ public class PromotionJpa  implements Serializable {
     private String reference;
 
     @Column(name = "PR_DISCNT_CRIT_BASE")
-    private DiscountCriteriaBase evaluationType;
+    private PromotionEligibilityBase evaluationType;
 
     @Column(name = "PR_MIN_PURCHASE")
     private BigDecimal minimumPurchase;

@@ -22,17 +22,17 @@ class UnitConverterTest {
 
 
     @Test
-    @DisplayName("Should return true if Meter is Si UNit of length")
-    void checkMeterIsSiUnitOfLength(){
+    @DisplayName("Should return true if Meter is base UNit of length")
+    void checkMeterIsBaseUnitOfLength(){
         UnitOfMeasurement unit = LengthUnitOfMeasurement.Meter;
-        assertTrue(unit.isSIUnit());
+        assertTrue(unit.equals(unit.getBaseUnit()));
     }
 
     @Test
-    @DisplayName("Should return a conversion of 1 as Meter is Si unit of length")
-    void OneIsConversionOfMeterAsSIUnitOfLength()  {
+    @DisplayName("Should return a conversion of 1 as Meter is base unit of length")
+    void OneIsConversionOfMeterAsBaseUnitOfLength()  {
         UnitOfMeasurement unit = LengthUnitOfMeasurement.Meter;
-        assertEquals(BigDecimal.ONE, unit.getValue());
+        assertEquals(BigDecimal.ONE.doubleValue(), unit.getBaseUnitConversion());
     }
 
     @Test
@@ -41,7 +41,7 @@ class UnitConverterTest {
         BigDecimal initialValue = new BigDecimal(10);
         UnitOfMeasurement  initialUnit = LengthUnitOfMeasurement.Centimeter;
         UnitOfMeasurement finalUnit = LengthUnitOfMeasurement.Meter;
-        assertEquals(new BigDecimal(0.1, new MathContext(1)), converter.convert(initialValue,initialUnit, finalUnit));
+        assertEquals(new BigDecimal(0.1, new MathContext(1)).doubleValue(), converter.convert(initialValue,initialUnit, finalUnit).doubleValue());
     }
 
     @Test
@@ -50,7 +50,7 @@ class UnitConverterTest {
         BigDecimal initialValue = new BigDecimal(15);
         UnitOfMeasurement  initialUnit = LengthUnitOfMeasurement.Meter;
         UnitOfMeasurement finalUnit = LengthUnitOfMeasurement.Millimeter;
-        assertEquals(new BigDecimal(15000), converter.convert(initialValue,initialUnit, finalUnit));
+        assertEquals(new BigDecimal(15000).doubleValue(), converter.convert(initialValue,initialUnit, finalUnit).doubleValue());
     }
 
     @Test

@@ -24,69 +24,49 @@ public class PromotionService {
         if (item == null || item.getProduct() == null || item.getProduct().getPromotion() == null)
             return;
         Promotion promo = item.getProduct().getPromotion();
-        validatePromotion(item.getProduct(), promo);
-        boolean itemIsEligible = isBasketItemEligibleToPromotion(item, promo);
-        if (itemIsEligible) {
-            switch (promo.getPromotionOfferType()) {
-                case Quantity:
-                    switch (item.getProduct().getPricingType()) {
-                        case PricePerItem:
-                            item.setOfferedQuantity(promo.getOffer());
-                            item.setTotalQuantity(item.getQuantity().add(promo.getOffer()));
-                            break;
-                        case PricePerUnitOfMeasurement:
-                            BigDecimal offeredQty = converter.convert(promo.getOffer(), item.getProduct().getUnitOfMeasurement(), item.getUnitOfMeasurement());
-                            item.setOfferedQuantity(offeredQty);
-                            item.setTotalQuantity(item.getQuantity().add(offeredQty));
-                            break;
-                    }
-                    break;
-                case PriceReduction:
-                    switch (promo.getPriceReductionType()) {
-                        case Percentage:
-                            BigDecimal percentagedPrice = (new BigDecimal(1).subtract(promo.getOffer().divide(new BigDecimal(100)))).multiply(item.getPrice());
-                            item.setTotalPrice(AmountUtil.scaleAmount(percentagedPrice));
-                            break;
-                        case Flat:
-                            BigDecimal reducedPrice = item.getPrice().subtract(promo.getOffer());
-                            reducedPrice = reducedPrice.compareTo(BigDecimal.ZERO) >= 0 ? reducedPrice : BigDecimal.ZERO;
-                            item.setTotalPrice(AmountUtil.scaleAmount(reducedPrice));
-                            break;
-                    }
-                    break;
-            }
-        }
-
-    }
-
-    private void validatePromotion(Product product, Promotion promo) throws IncompatibleUnitsException, InvalidProductPromotion {
-        if (promo.getEvaluationType() == null) {
-            throw new InvalidProductPromotion("Promotion evaluation type null");
-        }
-        if (promo.getOffer() == null) {
-            throw new InvalidProductPromotion("Offered value is null");
-        }
-        if (promo.getOffer().compareTo(new BigDecimal(0)) < 0) {
-            throw new InvalidProductPromotion("Offered value is negative");
-        }
-        if (promo.getPromotionOfferType() == null) {
-            throw new InvalidProductPromotion("Offer type is null");
-        } else if (promo.getPromotionOfferType().equals(PromotionOfferType.PriceReduction)) {
-            if (promo.getPriceReductionType() == null) {
-                throw new InvalidProductPromotion("Price reduction type is null");
-            } else if (promo.getPriceReductionType().equals(PriceReductionType.Percentage) && promo.getOffer().compareTo(new BigDecimal(100)) > 0) {
-                throw new InvalidProductPromotion("Price discount percentage greater than 100");
-            }
-        }
-        if (promo.getMinimumPurchase() != null && promo.getMinimumPurchase().compareTo(new BigDecimal(0)) < 0) {
-            throw new InvalidProductPromotion("Minimum purchase is negative");
+        if(promo == null)
+            return;
+        boolean isItemEligible = isBasketItemEligibleToPromotion(item, promo);
+        if (!isItemEligible) return;
+        switch (promo.getPromotionOfferType()) {
+            case Quantity: applyPromotionQuantity(item, promo.getOffer()); break;
+            case PriceReduction: applyPromotionPriceReduction(item, promo.getOffer(), promo.getPriceReductionType()); break;
         }
     }
+
+    private void applyPromotionPriceReduction(BasketItem item, BigDecimal offer, PriceReductionType type) {
+        switch (type) {
+            case Percentage:
+                BigDecimal percentagedPrice = (new BigDecimal(1).subtract(offer.divide(new BigDecimal(100)))).multiply(item.getPrice());
+                item.setTotalPrice(AmountUtil.scaleAmount(percentagedPrice));
+                break;
+            case Flat:
+                BigDecimal reducedPrice = item.getPrice().subtract(offer);
+                reducedPrice = reducedPrice.compareTo(BigDecimal.ZERO) >= 0 ? reducedPrice : BigDecimal.ZERO;
+                item.setTotalPrice(AmountUtil.scaleAmount(reducedPrice));
+                break;
+        }
+    }
+    private void applyPromotionQuantity(BasketItem item, BigDecimal offer) throws IncompatibleUnitsException {
+        switch (item.getProduct().getPricingType()) {
+            case PricePerItem:
+                item.setOfferedQuantity(offer);
+                item.setTotalQuantity(item.getQuantity().add(offer));
+                break;
+            case PricePerUnitOfMeasurement:
+                BigDecimal offeredQty = converter.convert(offer, item.getProduct().getUnitOfMeasurement(), item.getUnitOfMeasurement());
+                item.setOfferedQuantity(offeredQty);
+                item.setTotalQuantity(item.getQuantity().add(offeredQty));
+                break;
+        }
+    }
+
+
 
     boolean isBasketItemEligibleToPromotion(BasketItem item, Promotion promo) throws IncompatibleUnitsException {
         boolean isEligible = false;
         switch (promo.getEvaluationType()) {
-            case None:
+            case Always:
                 isEligible = true;
                 break;
             case PurchaseAmount:

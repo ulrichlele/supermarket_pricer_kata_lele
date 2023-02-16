@@ -2,24 +2,23 @@ package io.lele.supermarket.pricer.domain.enums;
 
 import io.lele.supermarket.pricer.domain.UnitOfMeasurement;
 
-import java.math.BigDecimal;
 
 public enum VolumeUnitOfMeasurement implements UnitOfMeasurement {
-    Millilitre(new BigDecimal(1000)), Litre(new BigDecimal(1)), Kilolitre( new BigDecimal(0.001 ));
+    Millilitre(0.001), Litre(1), Kilolitre(1000);
 
-    public final  BigDecimal value;
+    public final double baseUnitConversion;
 
-    VolumeUnitOfMeasurement(BigDecimal value){
-        this.value = value;
+    VolumeUnitOfMeasurement(double baseUnitConversion){
+        this.baseUnitConversion = baseUnitConversion;
     }
 
     @Override
-    public boolean isSIUnit() {
-        return this.equals(Litre) ? true : false;
+    public VolumeUnitOfMeasurement getBaseUnit() {
+        return VolumeUnitOfMeasurement.Litre;
     }
 
     @Override
-    public BigDecimal getValue() {
-        return value;
+    public double getBaseUnitConversion() {
+        return baseUnitConversion;
     }
 }

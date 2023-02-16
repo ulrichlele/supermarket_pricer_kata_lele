@@ -2,23 +2,23 @@ package io.lele.supermarket.pricer.domain.enums;
 
 import io.lele.supermarket.pricer.domain.UnitOfMeasurement;
 
-import java.math.BigDecimal;
 
 public enum MassUnitOfMeasurement implements UnitOfMeasurement {
-    Milligram(new BigDecimal(1000)), Gram(new BigDecimal(1)), Kilogram( new BigDecimal(0.001 ));
 
-    public final BigDecimal value;
+    Milligram(0.001),  Gram(1), Kilogram(1000);
 
-    MassUnitOfMeasurement(BigDecimal value){
-        this.value = value;
+    public final double baseUnitConversion;
+    MassUnitOfMeasurement(double baseUnitConversion){
+        this.baseUnitConversion = baseUnitConversion;
     }
 
     @Override
-    public boolean isSIUnit() {
-        return this.equals(Gram) ? true : false;
+    public MassUnitOfMeasurement getBaseUnit() {
+        return MassUnitOfMeasurement.Gram;
     }
+
     @Override
-    public BigDecimal getValue() {
-        return value;
+    public double getBaseUnitConversion() {
+        return baseUnitConversion;
     }
 }

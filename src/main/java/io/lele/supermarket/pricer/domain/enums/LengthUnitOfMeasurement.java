@@ -2,22 +2,25 @@ package io.lele.supermarket.pricer.domain.enums;
 
 import io.lele.supermarket.pricer.domain.UnitOfMeasurement;
 
-import java.math.BigDecimal;
 
 public enum LengthUnitOfMeasurement implements UnitOfMeasurement {
-    Millimeter(new BigDecimal(1000)), Centimeter(new BigDecimal(100)), Meter(new BigDecimal(1)), Kilometer(new BigDecimal(0.001 ));
+    Millimeter(0.001), Centimeter(0.01), Meter(1), Kilometer(1000);
 
-    public final BigDecimal value;
+    public final double baseUnitConversion;
+    LengthUnitOfMeasurement(double baseUnitConversion){
+        this.baseUnitConversion = baseUnitConversion;
+    }
 
-    LengthUnitOfMeasurement(BigDecimal value){
-        this.value = value;
-    }
     @Override
-    public boolean isSIUnit() {
-        return this.equals(Meter) ? true : false;
+    public LengthUnitOfMeasurement getBaseUnit() {
+        return LengthUnitOfMeasurement.Meter;
     }
+
     @Override
-    public BigDecimal getValue() {
-        return value;
+    public double getBaseUnitConversion() {
+        return baseUnitConversion;
     }
+
+
+
 }

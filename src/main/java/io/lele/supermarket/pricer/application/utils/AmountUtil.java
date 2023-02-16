@@ -8,12 +8,13 @@ import java.math.MathContext;
 public class AmountUtil {
 
     public static BigDecimal scaleAmount(BigDecimal amount){
+        if(amount == null)
+            return null;
         BigDecimal scaled = null;
-        if(amount != null){
-            if (amount.scale() > 2)
-                amount = amount.round(new MathContext(3));
-            scaled = amount.setScale(Contants.PRICE_SCALE);
+        if (amount.scale() > 2){
+            amount = amount.round(new MathContext(3));
         }
+        scaled = amount.setScale(Contants.PRICE_SCALE);
         return scaled;
     }
 }

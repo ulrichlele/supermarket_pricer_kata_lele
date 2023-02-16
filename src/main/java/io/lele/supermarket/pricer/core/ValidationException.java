@@ -15,4 +15,9 @@ public class ValidationException extends RuntimeException{
         this.validatorResults = validatorResults;
     }
 
+    public Set<ValidatorResult> getValidatorResults() {
+        return validatorResults;
+    }
+
+
 }

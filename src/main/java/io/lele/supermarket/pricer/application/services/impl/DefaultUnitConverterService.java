@@ -21,13 +21,13 @@ public class DefaultUnitConverterService implements UnitConverter {
         BigDecimal converted;
         if (initialUnit.equals(finalUnit)) {
             converted = initialValue;
-        } else if (initialUnit.isSIUnit()) {
-                converted = initialValue.multiply(finalUnit.getValue(), DEFAULT_PRECISION);
-        } else if (finalUnit.isSIUnit()) {
-            converted = initialValue.divide(initialUnit.getValue(), DEFAULT_PRECISION);
+        } else if (initialUnit.equals(initialUnit.getBaseUnit())) {
+                converted = initialValue.divide(BigDecimal.valueOf(finalUnit.getBaseUnitConversion()), DEFAULT_PRECISION);
+        } else if (finalUnit.equals(finalUnit.getBaseUnit())) {
+            converted = initialValue.multiply(BigDecimal.valueOf(initialUnit.getBaseUnitConversion()), DEFAULT_PRECISION);
         } else {
-                BigDecimal convertedToSIUnit = initialValue.divide(initialUnit.getValue(), DEFAULT_PRECISION);
-                converted = convertedToSIUnit.multiply(finalUnit.getValue(), DEFAULT_PRECISION);
+                BigDecimal convertedToSIUnit = initialValue.multiply(BigDecimal.valueOf(initialUnit.getBaseUnitConversion()), DEFAULT_PRECISION);
+                converted = convertedToSIUnit.divide(BigDecimal.valueOf(finalUnit.getBaseUnitConversion()), DEFAULT_PRECISION);
         }
         return converted;
     }
