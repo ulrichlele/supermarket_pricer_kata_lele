@@ -8,8 +8,6 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Named;
 import org.mapstruct.factory.Mappers;
-import org.modelmapper.ModelMapper;
-import org.modelmapper.TypeMap;
 
 import java.math.BigDecimal;
 
@@ -19,14 +17,14 @@ public interface ProductDtoMapper {
     ProductDtoMapper INSTANCE = Mappers.getMapper(ProductDtoMapper.class);
 
     @Mapping(source = "unitPrice", target = "unitPrice", qualifiedByName = "amountMapper" )
-    @Mapping(source = "unitOfMeasurement", target = "unitOfMeasurement", qualifiedByName = "productDtoUnitOfMeasurementMapper")
+    @Mapping(source = "unitOfMeasurement", target = "unitOfMeasurement", qualifiedByName = "unitOfMeasurementMapper")
     Product toUpdateDomain(UpdateProductDTO dto);
 
-    @Mapping(source = "unitPrice", target = "unitPrice", qualifiedByName = "amountMapper" )
-    @Mapping(source = "unitOfMeasurement", target = "unitOfMeasurement", qualifiedByName = "productDtoUnitOfMeasurementMapper")
+    @Mapping(source = "unitPrice", target = "unitPrice",  qualifiedByName = "amountMapper"  )
+    @Mapping(source = "unitOfMeasurement", target = "unitOfMeasurement", qualifiedByName = "unitOfMeasurementMapper")
     Product toCreateDomain(CreateProductDTO dto);
 
-    @Named("productDtoUnitOfMeasurementMapper")
+    @Named("unitOfMeasurementMapper")
     static UnitOfMeasurement unitOfMeasurementMapper(String stringUnitOfMeasurement) {
         return UnitOfMeasurementMapper.toUnitOfMeasurement(stringUnitOfMeasurement);
     }
