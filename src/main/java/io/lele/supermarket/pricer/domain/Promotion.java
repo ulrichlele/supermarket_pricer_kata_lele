@@ -14,10 +14,12 @@ public class Promotion {
 
     private String reference = UUID.randomUUID().toString();
     private PromotionEligibilityBase evaluationType;
-    //To simplify usage, units of measurement is equal to product units
-    //private UnitOfMeasurement unitOfMeasurement;
+    /**
+     * minimum purchase:
+     * minimum quantity or minimum amount
+     */
     private BigDecimal minimumPurchase;
-    private PromotionOfferType promotionOfferType;
+    private PromotionOfferType offerType;
     private BigDecimal offer;
     private PriceReductionType priceReductionType;
 
@@ -28,7 +30,7 @@ public class Promotion {
     public Promotion(PromotionEligibilityBase evaluationType, BigDecimal minimumPurchase, PromotionOfferType promotionOfferType, BigDecimal offer) {
         this.evaluationType = evaluationType;
         this.minimumPurchase = minimumPurchase;
-        this.promotionOfferType = promotionOfferType;
+        this.offerType = promotionOfferType;
         this.offer = offer;
         validatePromotion();
     }
@@ -36,7 +38,7 @@ public class Promotion {
     public Promotion(PromotionEligibilityBase evaluationType, BigDecimal minimumPurchase, PromotionOfferType promotionOfferType, BigDecimal offer, PriceReductionType priceReductionType) {
         this.evaluationType = evaluationType;
         this.minimumPurchase = minimumPurchase;
-        this.promotionOfferType = promotionOfferType;
+        this.offerType = promotionOfferType;
         this.offer = offer;
         this.priceReductionType = priceReductionType;
         validatePromotion();
@@ -66,12 +68,12 @@ public class Promotion {
         this.minimumPurchase = minimumPurchase;
     }
 
-    public PromotionOfferType getPromotionOfferType() {
-        return promotionOfferType;
+    public PromotionOfferType getOfferType() {
+        return offerType;
     }
 
-    public void setPromotionOfferType(PromotionOfferType promotionOfferType) {
-        this.promotionOfferType = promotionOfferType;
+    public void setOfferType(PromotionOfferType offerType) {
+        this.offerType = offerType;
     }
 
     public PriceReductionType getPriceReductionType() {
@@ -112,9 +114,9 @@ public class Promotion {
         if (this.getOffer().compareTo(new BigDecimal(0)) < 0) {
             throw new InvalidProductPromotion("Offered value is negative");
         }
-        if (this.getPromotionOfferType() == null) {
+        if (this.getOfferType() == null) {
             throw new InvalidProductPromotion("Offer type is null");
-        } else if (this.getPromotionOfferType().equals(PromotionOfferType.PriceReduction)) {
+        } else if (this.getOfferType().equals(PromotionOfferType.PriceReduction)) {
             if (this.getPriceReductionType() == null) {
                 throw new InvalidProductPromotion("Price reduction type is null");
             } else if (this.getPriceReductionType().equals(PriceReductionType.Percentage) && this.getOffer().compareTo(new BigDecimal(100)) > 0) {

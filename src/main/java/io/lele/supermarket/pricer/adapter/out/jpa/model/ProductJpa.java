@@ -1,17 +1,14 @@
 package io.lele.supermarket.pricer.adapter.out.jpa.model;
 
-import io.lele.supermarket.pricer.domain.Promotion;
-import io.lele.supermarket.pricer.domain.UnitOfMeasurement;
 import io.lele.supermarket.pricer.domain.enums.PhysicalQuantity;
 import io.lele.supermarket.pricer.domain.enums.PricingType;
-import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.persistence.*;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Objects;
-import java.util.UUID;
 
 @Data
 @NoArgsConstructor

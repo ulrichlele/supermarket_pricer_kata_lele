@@ -1,4 +1,4 @@
-package io.lele.supermarket.pricer.application.port.in.dto;
+package io.lele.supermarket.pricer.application.port.in.dto.product;
 
 import io.lele.supermarket.pricer.adapter.out.jpa.mapper.UnitOfMeasurementMapper;
 import io.lele.supermarket.pricer.application.utils.StringHelper;
@@ -7,20 +7,18 @@ import io.lele.supermarket.pricer.core.ValidatorResult;
 import io.lele.supermarket.pricer.domain.UnitOfMeasurement;
 import io.lele.supermarket.pricer.domain.enums.PhysicalQuantity;
 import io.lele.supermarket.pricer.domain.enums.PricingType;
-import jakarta.validation.constraints.Min;
-import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.NotNull;
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Set;
 
 @Data
 @NoArgsConstructor
-@AllArgsConstructor
 public class CreateProductDTO extends ModelValidate implements Serializable {
 
     @NotNull
@@ -39,6 +37,15 @@ public class CreateProductDTO extends ModelValidate implements Serializable {
 
     protected PhysicalQuantity physicalQuantity;
 
+    public CreateProductDTO(String name, BigDecimal unitPrice, BigDecimal pricedQuantity, PricingType pricingType, String unitOfMeasurement, PhysicalQuantity physicalQuantity) {
+        this.name = name;
+        this.unitPrice = unitPrice;
+        this.pricedQuantity = pricedQuantity;
+        this.pricingType = pricingType;
+        this.unitOfMeasurement = unitOfMeasurement;
+        this.physicalQuantity = physicalQuantity;
+    }
+
     @Override
     protected Set<ValidatorResult> doCustomValidation() {
         Set<ValidatorResult> violations = getEmptyValidator();
@@ -50,7 +57,7 @@ public class CreateProductDTO extends ModelValidate implements Serializable {
                 violations.add(new ValidatorResult("PhysicalQuantity.Null", this.getClass(), "physicalQuantity") );
             }else{
                 try{
-                    UnitOfMeasurement unit = UnitOfMeasurementMapper.toUnitOfMeasurement(unitOfMeasurement, physicalQuantity);
+                    UnitOfMeasurement unit = UnitOfMeasurementMapper.toUnitOfMeasurement(unitOfMeasurement);
                 }catch (IllegalArgumentException ex){
                     violations.add(new ValidatorResult("Invalid.UnitOfMeasurement", this.getClass(), "unitOfMeasurement") );
                 }

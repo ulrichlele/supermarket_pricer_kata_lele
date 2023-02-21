@@ -1,31 +1,30 @@
 package io.lele.supermarket.pricer.adapter.out.jpa.mapper;
 
 import io.lele.supermarket.pricer.domain.UnitOfMeasurement;
-import io.lele.supermarket.pricer.domain.enums.AreaUnitOfMeasurement;
-import io.lele.supermarket.pricer.domain.enums.LengthUnitOfMeasurement;
-import io.lele.supermarket.pricer.domain.enums.MassUnitOfMeasurement;
-import io.lele.supermarket.pricer.domain.enums.PhysicalQuantity;
+import io.lele.supermarket.pricer.domain.enums.*;
+
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class UnitOfMeasurementMapper {
 
-    public static UnitOfMeasurement toUnitOfMeasurement(String strUnit, PhysicalQuantity quantity){
-        UnitOfMeasurement unitOfMeasurement = null;
-        if(strUnit != null){
-            if(quantity == null){
-                throw new RuntimeException("PhysicalQuantity.null");
-            }
-            switch (quantity){
-                case Area:
-                    unitOfMeasurement = AreaUnitOfMeasurement.valueOf(strUnit);
-                    break;
-                case Length:
-                    unitOfMeasurement = LengthUnitOfMeasurement.valueOf(strUnit);
-                    break;
-                case Mass:
-                    unitOfMeasurement = MassUnitOfMeasurement.valueOf(strUnit);
-                    break;
-            }
-        }
-        return unitOfMeasurement;
+    private static final Map<String, UnitOfMeasurement> UNITS = new HashMap<>();
+    static {
+
+        List<Stream<UnitOfMeasurement>> quantities = Arrays.asList(Arrays.stream(AreaUnitOfMeasurement.values()),
+                Arrays.stream(LengthUnitOfMeasurement.values()),
+                Arrays.stream(VolumeUnitOfMeasurement.values()),
+                Arrays.stream(MassUnitOfMeasurement.values()));
+        quantities.forEach( unit -> {
+            UNITS.putAll(unit.collect(Collectors.toMap(UnitOfMeasurement::name, item -> item)));
+        });
+    }
+
+    public static UnitOfMeasurement toUnitOfMeasurement(String strUnit){
+        return UNITS.get(strUnit);
     }
 }

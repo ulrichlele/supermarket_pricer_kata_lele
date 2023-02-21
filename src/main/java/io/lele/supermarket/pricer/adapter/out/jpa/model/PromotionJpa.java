@@ -3,13 +3,13 @@ package io.lele.supermarket.pricer.adapter.out.jpa.model;
 import io.lele.supermarket.pricer.domain.enums.PromotionEligibilityBase;
 import io.lele.supermarket.pricer.domain.enums.PriceReductionType;
 import io.lele.supermarket.pricer.domain.enums.PromotionOfferType;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Objects;

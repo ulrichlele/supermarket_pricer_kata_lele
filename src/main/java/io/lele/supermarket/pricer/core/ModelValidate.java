@@ -1,20 +1,11 @@
 package io.lele.supermarket.pricer.core;
 
-import ch.qos.logback.core.model.Model;
-import jakarta.validation.*;
-import jakarta.validation.metadata.ConstraintDescriptor;
-import lombok.NoArgsConstructor;
 import lombok.ToString;
-import org.hibernate.validator.internal.engine.ConstraintViolationImpl;
-import org.hibernate.validator.internal.engine.constraintvalidation.ConstraintValidatorManager;
-import org.hibernate.validator.internal.engine.path.PathImpl;
-import org.hibernate.validator.internal.metadata.core.ConstraintHelper;
-import org.hibernate.validator.internal.metadata.descriptor.ConstraintDescriptorImpl;
 
-import java.lang.annotation.ElementType;
-import java.lang.reflect.Field;
+import javax.validation.Validation;
+import javax.validation.Validator;
+import javax.validation.ValidatorFactory;
 import java.util.HashSet;
-import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 @ToString
@@ -34,7 +25,7 @@ public abstract class ModelValidate {
      * instance.
      */
     public  Set<ValidatorResult> validate() {
-        Set<ValidatorResult> violations =  validator.validate( this).stream().map((violation) -> new ValidatorResult(violation.getMessage(), violation.getRootBeanClass().toString(), violation.getPropertyPath().toString(), violation.getExecutableParameters())).collect(Collectors.toSet());
+        Set<ValidatorResult> violations =  validator.validate( this).stream().map((violation) -> new ValidatorResult(violation.getMessage(), violation.getRootBeanClass(), violation.getPropertyPath().toString())).collect(Collectors.toSet());
         Set<ValidatorResult>  additionValidations = doCustomValidation();
         if(additionValidations != null && !additionValidations.isEmpty()){
             violations.addAll(additionValidations);
